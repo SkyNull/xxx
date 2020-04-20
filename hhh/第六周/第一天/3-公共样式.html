@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style rel="stylesheet/less" type="text/less">
+        /*混合*/
+        @w:200px;
+        @h:300px;
+        .public{
+            list-style: none;
+            width: @w * 2;
+            height: @h*2;
+            background: red;
+            li{
+                color:#fa9752;
+                font-size: 24px;
+            }
+        }
+        #pub{
+            width: 200px;
+            height: 200px;
+            background: #fa9752;
+            li{
+                color: #3059fa;
+            }
+        }
+
+
+
+        /*
+        .oul3{
+          .public;
+          background:orange ;
+        }*/
+
+        /*重点*/
+        //extend  只是获取 这个 类名下的自己的样式  ；儿子的不会拿
+        //extend  编译后的先后顺序 跟extend的样式表定义的先后顺序 一致
+        .oul3:extend(#pub){
+        }
+        .oul3:extend(.public){
+        } /*继承的执行顺序 和上面的#pub、.public定义的先后顺序有关系*/
+
+    </style>
+    <script src="js/less.js"></script>
+</head>
+<body>
+<div id="div1">
+    <ul class="oul">
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+    </ul>
+    <ul class="oul2">
+        <li>4</li>
+        <li>5</li>
+        <li>6</li>
+    </ul>
+    <ul class="oul3">
+        <li>7</li>
+        <li>8</li>
+        <li>9</li>
+    </ul>
+</div>
+</body>
+<script></script>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选项卡练习</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .ul_box{
+            width: 450px;
+            height: 50px;
+            display: flex;
+            margin: 50px auto 0;
+        }
+        .ul_box li{
+            flex: 1;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+        .ul_box li.current{
+            background: #24ccc8;
+            color: chocolate;
+        }
+        .box{
+            width: 450px;
+            height: 300px;
+            overflow: hidden;
+            border: 1px solid #ccc;
+            background: lightpink;
+            margin: 10px auto 0;
+        }
+        .box .content{
+            display: none;
+            width: 450px;
+            height: 300px;
+            line-height: 300px;
+            text-align: center;
+        }
+        .box div.current{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<ul class="ul_box">
+    <li class="current">HTML</li>
+    <li>CSS</li>
+    <li>JS</li>
+</ul>
+<div class="box">
+    <div class="content current">HTML</div>
+    <div class="content">CSS</div>
+    <div class="content">JS</div>
+</div>
+</body>
+<script src="./js/jquery-3.3.1.js"></script>
+<script>
+    var $lis = $('.ul_box>li');
+    var $contents = $('.content');
+    $lis.on('click',function () {
+        $(this).addClass('current').siblings().removeClass();
+        var n = $(this).index();
+        $contents.eq(n).show().siblings().hide();
+    })
+
+</script>
+</html>

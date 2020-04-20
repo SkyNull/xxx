@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /* 属性名： 一般是字母开头，但是属性名可以使纯数字（属性名引号可加可不加）
+       属性值：可以是任意数据类型。
+    * 普通对象{
+    *    属性名 ：属性值---->键值对
+    * }
+    * */
+    var obj = {
+        name:'珠峰培训',
+        'age':2,
+        "sex":'男',
+        1:'zhufeng',
+        2:'peixun',
+        3:'zfpx',
+    }
+    console.log(obj);
+    console.dir(obj);
+
+    //1.查看对象的某个属性
+      //打点的方式 []的方式
+      /* console.log(obj.age);
+    console.log(obj['name']);
+    console.log(obj[sex]);*///[]里面必须是一个值
+
+    //假如属性名是数字，那么我们只能用[]的方式老获取
+    //obj.1 语法不支持
+    console.log(obj[1]);
+    console.log(obj['1']);
+
+    //2.修改某个属性 或者 增加某个属性
+    obj['sex'] = '0';
+    var str = obj.sex == 1 ? '男':'女';
+    //赋值 是先把右边的表达式结果计算出来，把结果赋给左边。
+    console.log(str,obj);
+    //增加一个Hobby的属性
+    obj.hobby = 'play';
+    obj['hobby']='play2';
+
+    //如果对象里面有Name属性，则 obj.name=xxx--->修改
+    //如果对象里面没有Name属性，则 obj.name=xxx--->添加属性
+
+    //3.删除 真删  假删除
+    delete obj.name; // 真删除，整个键值对都被删除
+    obj.sex = null; // 假删除，知识吧对应的属性值 附成null
+    //查看 对象里面有没有 某个属性 属性名 In 对象---> true or false
+    console.log('name' in obj);//flase
+    console.log('sex' in obj);//true
+</script>
+</html>

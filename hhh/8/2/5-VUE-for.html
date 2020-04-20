@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+     <ul>
+           <!--要循环谁，就把v-for加到谁身上 val in ary; val代表数组中的每一项；当需要索引时，我们写俩参数用括号包起来；前边的参数是数组中的项，后边的是该项对应的索引-->
+         <!--  <li v-for="val in ary">
+               姓名：{{val.name}}
+           </li>-->
+           <li v-for="(val,i) of ary">
+               {{i+1}}姓名：{{val.name}}
+               <br/>
+              <span v-for="(v,i) in val.user"> 用户{{i+1}}：{{v}}<br/></span>
+           </li>
+       <!--    <li v-for="val of ary">
+               姓名：{{val.name}}
+           </li>-->
+       </ul>
+    <ul>
+        <!--k 代表属性名-->
+        <li v-for="(val,k,index) in obj">
+            {{k}}:{{val}} {{index}}
+        </li>
+    </ul>
+</div>
+</body>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            ary:[
+                {name:'xiaoming',user:['id1','id2']},
+                {name:'xiaohong',user:['id11','id12','id13']},
+                {name:'xiaohua',user:['id21','id22','id23']}
+                ],
+            obj:{name:'珠峰',age:9,sex:'男'}
+        }
+    })
+
+</script>
+</html>

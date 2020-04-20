@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>不重复的四位验证码</title>
+    <style>
+        #div1{
+            cursor: pointer;//出现小手的形状
+        }
+    </style>
+</head>
+<body>
+ <div id="div1">随机产生验证码</div>
+</body>
+</html>
+<script>
+    function myRandom() {
+         var ary = [];
+        /*
+        for(var i = 0;i<4;i++){
+            var n = Math.round(Math.random()*61);
+            if(ary.indexOf(n)==-1){
+                ary.push(n);
+            }else{
+                i--;
+            }
+        }
+        return ary;
+    }*/
+        while(ary.length<4){
+            var n = Math.round(Math.random()* 61);
+            if(ary.indexOf(n)== -1){
+                 ary.push(n);
+            }
+        }
+        return ary;
+     }
+
+    function getStr() {
+        var str = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789';
+        var str2 = '';
+        var ary = myRandom();
+        for(var i = 0;i<ary.length;i++){
+            str2+=str[ary[i]];
+        }
+        return str2;
+    }
+    var oDiv = document.getElementsByTagName('div')[0];
+    oDiv.onclick = function () {
+        this.innerHTML = getStr();
+    }
+</script>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>url的组成</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script>
+    /*
+    * 一个 URL ---> 的组成部分：
+    *
+    * URI 统一资源标识符
+    * URL 统一资源定位符
+    * URN 统一资源名称
+    *
+    * URL 和 URN 都是一个 URI
+    * 两者是URI的一个细分
+    *
+    * http://zhufengpeixun.com/videoCourse/lesson.html?name="zhufeng"#aaa
+    *
+    * 1. 协议部分：==========================================================
+    * http: 超文本传输协议
+    * https: 基于SSL（secure sockets Layer）安全套接层 的http; 比http安全，一般设计到钱的网站都是https协议的
+    * ftp: 上传本地文件用的 fileZilla(一个安装程序)
+    *
+    * 2.域名部分
+    * zhufengpeixun.com
+    * .com 顶级域名
+    * zhufengpeixun 二级域名
+    *
+    * 3. 端口号
+    * 前边是一个 英文冒号
+    * 0 - 63353
+    * http 默认端口是 80
+    * https 默认端口是 443
+    * ftp 默认 端口是 21
+    *
+    * 4. 请求文件的路径
+    * /videoCourse/lesson.html 路径  location.href
+    *
+    * 5. 问号传参(用来清缓存)  哈希值(路由说的是哈希值，由前端控制) 路径是由后台控制
+    * #以后部分的都是hash
+    * ?后面的都是search
+    * ===浏览器会把问号后边的部分理解成路径的内容； 把HASH值看作是同一个页面，不会将它当做新路径；
+    *   #aaa       ?name="zhufeng"
+    *   hash值改变时会有一个事件可以监听到 => window.onhashchange = function(){}
+    *   location.hash 可以直接拿到网址的hash值；
+    * */
+</script>
+</html>

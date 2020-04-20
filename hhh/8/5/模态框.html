@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .mask{
+            position: fixed;
+            width: 600px;
+            height: 600px;
+            left: 0;
+            right: 0;
+            margin: auto;
+            background: rgba(0,0,0,0.2);
+        }
+        .content{
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: lightblue;
+            top:0;
+            bottom: 0;
+            left: 0;
+            right:0;
+            margin: auto;
+        }
+        header{
+            text-align: center;
+            font-size: 30px;
+        }
+        main{
+            text-align: center;
+            font-size: 25px;
+        }
+        footer{
+            width: 100%;
+            position: absolute;
+            right: 20px;
+            text-align: right;
+            font-size: 20px;
+            bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button @click="flag = !flag">显示弹框</button>
+    <model v-show='flag' :data="dataModel" @my-show="fn"></model>
+</div>
+</body>
+<template id="mask">
+    <div class="mask">
+        <div class="content">
+            <header>{{data.title || '默认标题'}}</header>
+            <main>{{data.content || '默认内容'}}</main>
+            <footer><button @click="cancel">取消</button></footer>
+        </div>
+    </div>
+</template>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let model = {
+        template:'#mask',
+        data(){
+          return{
+
+          }
+        },
+        props:['data'],
+        methods:{
+            cancel(){
+                this.$emit('my-show',false);
+            }
+        }
+    };
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            flag:true,
+            dataModel:{
+                title:'父级标题',
+                content:'父级内容'
+            }
+        },
+        methods: {
+            fn(val){
+                this.flag = val;
+            }
+        },
+        components:{
+            model
+        }
+    })
+</script>
+</html>

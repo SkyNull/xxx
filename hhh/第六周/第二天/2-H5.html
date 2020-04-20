@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="Keywords"><!--关键词,提高页面被搜索的几率-->
+    <title>Title</title>
+    <style>
+        progress{
+            width: 180px;
+            height: 25px;
+            border-radius: 10px;
+            overflow: hidden;
+            color: #24ccc8;    /*color/background必须设置*/
+            background: #3059fa;
+        }
+        progress::-webkit-progress-bar{
+            background-color:#d7d7d7;
+        }
+        progress::-webkit-progress-value{
+            background-color:orange;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+<progress value="20" min="0" max="100"></progress>
+<input type="text" list="dataL">
+<datalist id="dataL">
+    <option value="1"></option>
+    <option value="2"></option>
+    <option value="3"></option>
+</datalist>
+<form action="">
+<!--    pattern 值是个正则 意思是这个输入框的内容需要满足这个正则
+    <input type="text" pattern="\d{5}">
+    <input type="text" pattern="\d{2}">
+    &lt;!&ndash;两个必须都满足才可以提交&ndash;&gt;
+    <button>提交</button>-->
+
+    <!--增加减少-->
+    <input type="number" placeholder="请输入数字">
+    <button>提交</button>
+
+    <!--密码效果   autofocus一进页面光标自动进入输入框-->
+    <input type="password" autofocus>
+    <button>提交</button>
+
+    <input type="text" pattern="\d{2}" id="inp">
+    <button id="btn">提交</button>
+</form>
+<video src=""></video>
+</body>
+<script>
+    /*  H5的块级标签
+    *  section 代表一个模块 一般是一个独立的整体
+    *  article  aside(广告位) 用来表示一篇文章块 文章下边可能有个广告，可以用aside表示
+    *  nav  一般用来导航栏的外边框 里边一般都是一些a标签
+    *  header 一般用来表示 一个页面的头部
+    *  main  表示一个页面的主体部分
+    *  footer 表示一个页面的叶尾
+    *  video 视频标签
+    *  audio 音频标签
+    * */
+    /*
+    * progress 表示进度条
+    * datalist 表示下拉框 和input搭配使用
+    * pattern
+    * */
+    var inp = document.getElementById('inp');
+    var btn = document.getElementById('btn');
+    btn.onclick = function () {
+        console.dir(inp);
+        //inp.checkValidity() 返回值若是true则表示验证通过；false表示验证不通过
+        inp.setCustomValidity('');
+        if (inp.checkValidity()){
+//            alert('yes');
+            inp.setCustomValidity('');
+        }else{
+//            alert('no');
+            //setCustomValidity 设置默认的提示
+            inp.setCustomValidity('请输入两位数字');
+        }
+    };
+    //inp.oninput 监听input框变化
+    //inp.onpropertychange 实时监听input框内的值的变化
+    /*
+    * 一个页面中只能有一个H1标签  为了提高页面被搜索的几率
+    * seo
+    * */
+
+    /*
+    *  localStorage(面试会设计到)优势：不占用带宽，容量大，不会发送给后台
+    * */
+    //获取cookie的方法
+    //window.localStorage;
+    //window.sessionStorage;
+    //document.cookie;
+    //设置cookie
+    //document.cookie = 'aaa';
+    //cookie  大小限制最多5kb 而且也占用带宽；因为会把cookie中的内容全部发给后台
+    //sessionStorage  再关闭页面就会清空
+
+    //删除cookie; 把这个cookie的过期时间设置成今天之前的就可以了
+
+</script>
+</html>

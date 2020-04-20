@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /*
+    * 闭包： 它是一种保护机制，保护里面的变量不受外界的影响；
+    *    函数执行：形成一个私有作用域，这个私有作用域就是闭包；
+    *    不销毁的私有作用域才是闭包；
+    * */
+    function f() {
+        return 10;
+    }
+    fn();//程序完成之后会被销毁
+    //栈内存：当这个作用域没有被占用时，就会被销毁；（跟外界已经没有任何关系）
+    //私有作用域：当函数执行完成之后，看这个作用域是否还有用处，没有就直接销毁
+    //全局作用域：只有当关闭页面的时候才会被销毁
+    //堆内存：（函数体、对象的键值对）当没有用的时候，在浏览器查看到这个堆内存没有用处时，就销毁。
+    var obj = {name:'lily',age:5};
+    obj = null;//销毁
+//    所有匿名函数都不会进行变量提升。
+//    自执行好书也不会进行变量提升
+//    return 后边的（函数） 也不会进行变量提升
+//    等号右边的不进行变量提升
+
+    /*
+    * 闭包的形式
+    * */
+    //作用域销毁： 一般情况下，一个函数执行形成的作用域都是及时销毁的；
+    //             但是，当一个作用域中有内容被外界占用，那么这个作用域就不会销毁；
+    // ***********规律：当函数执行，返回值是一个引用数据类型，并且这个引用数据类型被外界接收了，那么这个作用域就不会被销毁。
+    //            当一个作用域有内容被外界临时占用，那么当这个占用解除时，作用域再去销毁。
+    //形式1
+    var fn = (function () {
+        var a = 19;
+        return function () {
+            console.log(a);
+        }
+    })();
+
+    //形式2
+    var obj = (function (){
+        var fn = function () {
+            console.log(12);
+        };
+        return {
+            f:fn
+        }
+    });
+    //不可以销毁
+//
+    var fn = (function (){
+        var fn = function () {
+            console.log(12);
+        };
+        return {
+            f:fn
+        }
+    });
+    obj.f();//可以销毁
+    //obj存储的是返回的对象-->{f:xxxfff000},想让xxxfff000执行，我们就要先找到这个xxxfff000，然后加上小括号 让它执行：obj.f 就是咱们的xxxfff000
+    console.log(obj.f());//2
+    //形式3
+    var sum = function () {
+        var a = 12;
+        return function () {
+            console.log(a);
+        }
+    };
+    sum();//可以销毁
+    sum()();//不销毁
+    var qq =sum();// 不能销毁
+    qq();//销毁
+    var a = qq();//销毁
+//
+    var sum2 = function () {
+        var a = 12;
+        return function () {
+            var a = 13;
+            console.log(a);
+        }
+    };
+    var qq2 = sum2();//可以销毁；
+//思考题
+    function fn() {
+        var i = 5;
+        return function (n) {
+            console.log(n*(--i))
+        }
+    }
+    var f = fn();
+    f(10);//40  fn()不销毁，f()执行完成后销毁
+    fn()(10);// 40 不立即销毁，执行完成后两个都销毁
+    fn()(20);//80 不立即销毁，执行完成后两个都销毁
+    f(20);//60 fn()不销毁，f()执行完成后销毁
+
+    //思考题(考虑i的值一直在变化)
+    var i =2;
+    function fn() {
+        i+=2;
+        return function (n) {
+            console.log(n + (--i));
+        }
+    }
+    var f = fn();
+    f(2);//5
+    f(3);//5
+    fn()(2);//5
+    fn()(3);//7
+    f(4);//7
+
+
+
+</script>

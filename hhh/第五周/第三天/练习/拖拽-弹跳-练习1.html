@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background: sandybrown;
+            line-height: 100px;
+            text-align: center;
+            border-radius: 50%;
+            user-select: none;
+            cursor: move;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script>
+    var oDiv = document.getElementById('div1');
+    //首先搭结构
+    oDiv.onmousedown = dragStart;
+    function dragStart(e) {
+        //获取鼠标以及盒子的初始位置
+        this.startX = this.offsetLeft;
+        this.startY = this.offsetTop;
+        document.onmousemove = dragMove.bind(this);
+        //为什么通过dragMove.bind(this)就直接将dragMove中的this指向变成了oDiv呢？
+        //因为dragMove.bind(this)是在dragStart函数中执行的，而dragStar中的this是指向oDiv的，所以此this就是指向oDiv的；
+        document.onmouseup = dragEnd.bind(this);
+
+        this.mx = e.clientX;
+        this.my = e.clientY;
+    }
+    function dragMove(e) {
+        //通过鼠标移动的距离，计算盒子当前的位置
+        var x = e.clientX - this.mx,
+                y = e.clientY - this.my;
+        this.style.left = this.startX + x + 'px';
+        this.style.top = this.startY + y + 'px';
+        //求速度
+        // 用this.preV 来记录盒子每次触发Move事件移动的距离
+        if (!this.preV) {
+            this.preV = 0;
+        }
+        //通过鼠标移动的距离
+        this.speed = e.clientX - this.preV;
+        this.preV = e.clientX;
+
+    }
+
+    function dragEnd() {
+        document.onmousemove = null;
+        document.onmouseup = null;
+        if (!this.running) {
+            fly.call(this);//this指向问题？
+        }
+            drop.call(this);
+    }
+    //当拖拽实现后，我们开始实现fly的功能;考虑边界范围
+    function fly() {
+        this.running = true;
+        clearTimeout(this.flyTimer); //在这里清除定时器防止飞
+        var maxL = (document.documentElement.clientWidth || document.body.clientWidth) - this.offsetWidth;
+        this.speed *= 0.98;
+        var l = this.offsetLeft + this.speed;
+        if (l > maxL) {
+            l = maxL;
+            this.speed *= -1;
+        }
+        if (l < 0) {
+            l = 0;
+            this.speed *= -1;
+        }
+        this.style.left = l + 'px';
+        if (this.speed < 0.05) {
+            clearTimeout(this.playTimer);
+            this.running = false;
+        }
+        this.playTimer = setTimeout(fly.bind(this), 30);//这里fly.bind(this) 为什么this就是指向oDiv了，写oDiv可以吗？？
+    }
+    function drop() {
+        if(!this.flag){this.flag = 0}
+        var maxT =  (document.documentElement.clientHeight || document.body.clientHeight) - this.offsetHeight;
+        if (!this.dropSpeed){
+            //为什么还要判断dropSpeed是否存在？而上面的this.speed就直接赋值呢？
+            //因为fly()中的this.speed是直接调取move()函数中的this.speed的；
+            this.dropSpeed = 5;
+        }else {
+            this.dropSpeed += 5;
+        }
+        this.dropSpeed *= 0.98;
+        var t = this.offsetTop + this.dropSpeed;
+        if (t > maxT){
+            t = maxT;
+            this.dropSpeed *= -1;
+            this.flag++;
+        }else{
+            this.flag=0;
+        }
+        this.style.top = t + 'px';
+        if (this.flag>=2) {
+            clearTimeout(this.dropTimer);
+        }else {
+            this.dropTimer = setTimeout(drop.bind(this),30);
+        }
+
+    }
+</script>
+</html>

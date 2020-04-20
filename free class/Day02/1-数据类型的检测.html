@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //1\typeof
+    var a=12;
+    typeof a//-->'number'
+    typeof  'number'//-->'string'
+    typeof  true//--->'boolean'
+    typeof  'true'//-->'string'
+    typeof null//-->'object'
+    typeof  undefined//--->'undefined'
+    typeof  ({})//-->'object'
+    typeof ([])//-->'object'
+
+
+    //2\constructor
+    var str ='www'
+    //将其转换成字符串
+    console.log(str.constructor.toString())
+    console.log(({}).constructor.toString());//Object
+    console.log(([]).constructor.toString());//Array
+   // console.log(null.constructor);//报错
+
+    //3. instanceof  查看对象
+    var obj = {};
+    var ary= [];
+    console.log(obj instanceof Array);//false
+    console.log(ary instanceof Array);//true
+    console.log(obj instanceof Object);//true
+    console.log(ary instanceof Object);//true
+
+    //4.Object.prototype.toString.call(xxx); 调用对象上的原型上的toString 方法
+    console.log(Object.prototype.toString.call([]));//Array
+    console.log(Object.prototype.toString.call({}));//object
+    console.log(Object.prototype.toString.call(/\d/));//RegExp
+    console.log(Object.prototype.toString.call(12));//Number
+    console.log(Object.prototype.toString.call('www'));//String
+    console.log(Object.prototype.toString.call(true));//Boolean
+
+</script>
+</html>

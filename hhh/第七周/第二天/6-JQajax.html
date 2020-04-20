@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script src="./js/jquery-3.3.1.js"></script>
+<script>
+    var xhr = new XMLHttpRequest();
+    //get方式的缓存，我们通过url+随机数来解决
+    xhr.open('get','./1.xml?'+Math.random());//原生JS中清除页面缓存
+    xhr.onreadystatechange = function () {};
+    xhr.send();
+
+    $.ajax({
+        type:'get',
+        url:'./1.xml',
+        data:{q:12,w:13},
+        async:true,//异步
+        dataType:'json',//获取的数据要是一个json数据
+        cache:true,//支持使用缓存 true; 设置为false将不支持缓存页面；针对get有作用
+        success:function (data) {
+            console.log(data);
+        },
+        error:function (res) {
+            console.log(res);
+        }
+    });
+    //JQ中的get请求(是上面的简写形式)
+    // 1.接口 2.请求参数 3.回调函数
+    $.get('https://www.easy-mock.com/mock/5b8f8eeaf9900e4a46af7611/ajax/userInfo?q=12&w=13',{q:12,w:13},function (data) {
+        console.log(data);
+    });
+    //JQ中的post请求
+    $.post('./1.json',{name:'珠峰',age:8},function (data) {
+        console.log(data);
+    })
+</script>
+</html>

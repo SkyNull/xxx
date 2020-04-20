@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="div1">111</div>
+
+</body>
+<script>
+    var data = null;
+    var xhr = new XMLHttpRequest();
+    xhr.open('get','data.json');//第三个参数，不写默认就是true,也就是异步执行
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && /^[23]\d{2}$/.test(xhr.status)){
+            data = xhr.responseText;
+            cb(data);
+        }
+    };
+    xhr.send();
+    console.log(data);//null
+    function cb(data2) {
+        console.log(data2);
+    }
+    console.log(data);
+
+    window.onload = function () {
+        //等待页面所有的内容都加载完成，不包括ajax
+        console.log(data);
+    }
+</script>
+</html>

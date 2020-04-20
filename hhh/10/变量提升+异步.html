@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        var a = 'a';
+        let b = 'b';
+        const c = {
+            value: 1,
+            valueOf() {
+                return 2
+            },
+            toString() {
+                return 'c'
+            },
+        };
+
+        function test() {
+            const a = 'a1';
+            try {
+                a = 'a2'
+            }
+            try {
+                c.valueOf = () => this.value;
+            } catch (e) {}
+            setTimeout(() => {
+                console.log(a);
+
+            }, 0);
+            new Promise(res => {
+                //Promise函数体内是同步；  .then后面是异步；
+                console.log(b);
+                res();
+            }).then(() => {
+                console.log(c * 1);
+            });
+            try {
+                console.log(d);
+            } catch (e) {}
+            try {
+                console.log(e);
+            } catch (e) {}
+        };
+        test();
+        var d = 'd';
+        const e = 'e';
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+<!--    <zfpx></zfpx>-->
+    <my-name></my-name>
+</div>
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+    * 组件：复用性高 可维护性强；
+    * 组件--> 按照功能划分：页面级块(整个页面) ，可复用的模块(每个tab)
+    *
+    * VUE 中的组件 --> 全局组件 和 局部组件;
+    *
+    * */
+
+    /*
+    * 全局组件的声明  Vue.component('组件名'，{
+    *                    template:`<span></span>` ---> DOM模板是个字符串，里面是个正常的DOM标签
+    *               })
+    * 组件名是小写，上面大小写都可以
+    * 若声明组件时用驼峰式命名法的话，则上面用类似 my-name 的形式；
+    * */
+/*    Vue.component('zfpx',{
+        //zfpx 组件名称  template组件模板，且里面只能包含一个DOM根元素；但是你可以在根元素里面写儿子元素
+        template:`<h1>珠峰培训2018<h2>珠峰培训2019</h2></h1>`
+    });*/
+    Vue.component('my-name',{
+        template:`<h1>珠峰培训2018<h2>LY</h2></h1>`,
+        data(){/*一个组件的data选项必须是一个函数,return一个东西*/
+            return{
+                name:'珠峰'
+            }
+        }
+    });
+ /*   Vue.component('MyName',{
+        template:`<h1>珠峰培训2018<h2>LY</h2></h1>`
+    });*/
+    let vm = new Vue({
+        el: '#app',
+        data: {},
+        //template会将上面app内容覆盖掉；但是在这里调用的声明组件名可以用大写
+ /*       template:`<div id="www"><MyName></MyName></div>`,*/
+        methods: {}
+    })
+</script>
+</html>

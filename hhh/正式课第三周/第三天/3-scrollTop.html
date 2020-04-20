@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #div1{
+            width: 200px;
+            height: 200px;
+            border: 8px solid yellow;
+            margin: 0 auto;
+            overflow: scroll;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">
+    同学，祝贺你喜提彩蛋~
+    或许你们还在犹豫是否加入，我会坦诚的告诉你我们超酷；
+    在这里大家都用无人车代步，AI音箱不仅播放还可以交互；
+    人工智能是发展的核心技术，做自己让未来不只领先几步；
+    在这里做自己，欢迎来到百度！同学，祝贺你喜提彩蛋~
+    或许你们还在犹豫是否加入，我会坦诚的告诉你我们超酷；
+    在这里大家都用无人车代步，AI音箱不仅播放还可以交互；
+    人工智能是发展的核心技术，做自己让未来不只领先几步；
+    在这里做自己，欢迎来到百度！
+</div>
+</body>
+<script>
+    var oDiv = document.getElementById('div1');
+    //scrollHeight 内容+上下padding--->整个内容的高度
+    //clientHeight 盒子的高度（不包含边框）+上下padding--->盒子的可视部分的高度
+    //最大卷去的高度是 oDiv.scrollHeight - oDiv.clientHeight
+    /*
+    * 思路：就是让内容一直向上滚动；当滚动到顶部的时候，让元素的scrollTop = 0;
+    * 用定时器实现一点点的向上滚动
+    * */
+    var maxH = oDiv.scrollHeight - oDiv.clientHeight;
+    //scrollHeight、scrollWidth 直接取整
+    //client系列 和 offset系列是 四舍五入
+//    var timer = window.setInterval(()=>{
+//        if(oDiv.scrollTop>=maxH){
+//            //若已经到头就让他重新开始走
+//            oDiv.scrollTop = 0;
+//        }else{
+//            oDiv.scrollTop++;
+//        }
+//    },20);
+    //方法2
+    //利用scrollTop有最大值；超过最大值时；
+    //scrollTop
+    //1.使用无限次循环的定时器
+    var timer = window.setInterval(()=>{
+     var h = oDiv.scrollTop++;
+        //oDiv.scrollTop++ 这个是让元素内容向上滚动
+        //h是oDiv.scrollTop的值，然后让oDiv.scrollTop+1
+        if(h == oDiv.scrollTop){
+            oDiv.scrollTop = 0;
+        }
+    },20);
+
+/*2.使用一次性定时器实现*/
+    var timer2 = null;
+    var fn = function () {
+        clearTimeout(timer2);
+        var h = oDiv.scrollTop++;
+        if(h == oDiv.scrollTop){
+            oDiv.scrollTop = 0;
+        }
+        timer2 = window.setTimeout(function () {
+            fn()
+        },20);
+    };
+    fn();
+//    var timer2 = window.setTimeout(()=>{
+//
+//    },20)
+</script>
+</html>

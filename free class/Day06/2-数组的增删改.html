@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    *
+    * */
+    var  ary = ['qq',12,true,function () {
+        console.log(111);
+    }];
+    //增加
+      //ary[ary.length] = 'aaa'; 也可以用length实现
+     //push();  在数组的末尾增加数组项；
+    //          参数可以有，也可以没有，也可以是多项；
+    //          参数的数据类型不限；
+    //          会改变原有数组
+    //          返回值：改变后的数组的长度
+     ary.push('liying');
+    console.log(ary);
+
+    //unshift(); 向数组的首部添加
+    //           参数可以有，也可以没有，也可以是多项
+    //           参数的数据类型不限
+    //           会改变原有数组
+    //           返回值：改变后的数组的长度
+    ary.unshift(null,undefined,12,function () {
+        console.log(1111);
+    });
+    console.log(ary);
+
+    //删除
+    //shift(); 删除数组的第一项；
+    //         参数：无
+    //         返回值：删除的那一项
+    //         原有数组改变了
+    ary.shift();
+    console.log(ary);
+
+    //pop(); 删除数组的最后一项
+    //       参数：无
+    //       返回值：删除的那一项
+    //       原有数组改变了
+    ary.pop();
+    console.log(ary);
+    //ary.length -= 1; 删除也可以用length来实现
+
+    //封装函数
+/*    function myPush(ary,n) {
+        ary[ary.length] = n;
+        return ary.length;
+    }
+    var ary2 = [112,23];
+    myPush(ary2,0);
+    console.log(ary2);*/
+
+    function myPush() {
+       var arg = arguments;//实参集合（不定项求和时用到过arguments）
+        var arr = arg[0];
+        for (var i = 1; i < arg.length; i++) {
+            arr[arr.length] = arg[i];
+        }
+        return arr.length;
+    }
+    var ary2 = [112,23];
+    myPush(ary2,4,5,6,8);
+    console.log(ary2);
+
+    // splice(n,m,x,y...); 从索引N开始（包含n），删除m个项，用x,y...来代替被删除的项；
+    //                    返回值：被删除的m项以新数组的形式返回
+    //                    原有数组发生改变了;
+    ary.splice(); //代表没有对其进行任何操作，则返回值是一个 空数组；原有数组没有发生变化;
+    ary.splice(0);//代表 删除所有项（清空数组）， 返回值是 由原数组组成新数组；原有数组变成了空数组；
+
+    function myPush(ary,n) {
+        ary[ary.length] = n;
+        return ary.length;
+    }
+    var ary2 = [1,2,3];
+    myPush(ary2,4);
+    console.log(ary);
+
+
+</script>
+</html>

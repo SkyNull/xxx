@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+   <!-- <div id="zf" ref="zf">珠峰培训</div>-->
+    <div ref="zf">珠峰培训</div>
+</div>
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+    * ref 用来获取DOM元素的；
+    * */
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            zf:'zfpx'
+        },
+        created(){
+            console.log(document.getElementById('zf'));//null
+        },
+        mounted(){//DOM渲染完成之后
+            //使用 $refs;在结构中写死的 我们只能获取最后一个 元素
+            //但是通过v-for循环出来的，可以去全部获取到，得到的结果是一个数组
+            console.log(this.$refs.zf);//zf的div结构
+            console.log(this.$refs);//结果是一个大对象 属性名是ref的值 属性值是DOM结构元素
+            console.log(document.getElementById('zf'));//可以拿到
+
+            //console.log(vm);//报错  找不到vm
+            this.$nextTick(()=>{
+                console.log(vm);
+            })
+        },
+        methods: {}
+    })
+</script>
+</html>

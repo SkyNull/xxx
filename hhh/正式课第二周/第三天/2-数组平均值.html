@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    var ary = [12,23,545,7878,34];
+    /*
+    * 需求：去除一个最大值，一个最小值。然后求平均值
+    * */
+//    ary.sort((a,b)=>{return a- b;});
+//    ary.pop();
+//    ary.shift();
+//    var avg = eval(ary.join('+'))/ary.length;
+    // console.log(avg.toFixed(2));
+    //第一种思路 应用es6的扩展运算符
+//    function f(...arg) {
+//        arg.sort((a,b)=>{return a- b;});
+//        arg.pop();
+//        arg.shift();
+//        return eval(arg.join('+'))/arg.length;
+//    }
+//    var avg = f2(1,2,3);
+//    console.log(avg);
+    //toFixed() Number.prototype上的方法--->返回的结果是字符串
+    //第二种思路 做一个空数组，把arguments中的数据放到数组里
+//    function f1() {
+//        var ary = [];
+//        for (let i = 0; i < arguments.length; i++) {
+//            ary.push(arguments[i]);
+//        }
+//        ary.sort((a,b)=>{return a- b;});
+//        ary.pop();
+//        ary.shift();
+//        return eval(ary.join('+'))/ary.length;
+//    }
+//    var avg = f2(1,2,3);
+//    console.log(avg);
+
+    //第三种思路 把arguments的__proto__指向数组的原型
+//    function f2() {
+//        arguments.__proto__ = Array.prototype;
+//        arguments.sort((a,b)=>{return a-b}).shift();
+//        arguments.pop();
+//        return eval(arguments.join('+'))/arguments.length;
+//    }
+//    var avg = f2(1,2,3);
+//    console.log(avg);
+
+    //第四种思路  让类数组利用数组的方法，通过call\apply改变this
+    function f3() {
+        var ary = [].slice.call(arguments);
+        //var ary = [].concat.call(arguments);不能使用，仍然实现不了
+        ary.sort((a,b)=>{return a- b;});
+        ary.pop();
+        ary.shift();
+        return eval(ary.join('+'))/ary.length;
+    }
+        var avg = f3(1,2,3);
+        console.log(avg);
+    /*
+    * 类数组调用数组到的方法
+    * 先去通过数组找到对应的方法，然后用call先改变方法里面的this指向。
+    * 然后再去让这个方法执行
+    * 有些方法可以用，但是有些方法不能用
+    * 会改变原有数组的方法；也会改变arguments
+    * */
+/*
+    非数组怎么调用数组的方法
+    先找到这个方法
+            [].slice()//slice  中的this 是前边的空数组
+            [].slice.call(obj) 通过call 把slice 中的this换成obj；
+
+            arguments.slice
+            [].slice-->复制的slice中的this
+            [].slice.call(arguments)-->先把slice中的this指向arguments，然后再去复制this
+            */
+
+
+</script>

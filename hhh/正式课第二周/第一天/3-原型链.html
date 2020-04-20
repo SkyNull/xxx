@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /*
+    * 作用域链  针对变量的一种查找机制；先查看是不是自己私有的。不是的话再去父级作用域查找
+    *
+    * 原型链： 针对属性或者方法的一种查找机制；先在自己的私有属性上查找，没有的话通过__proto__向上级共有属性查找
+    * */
+    function Person() {
+        this.name = 'zhufeng';
+    };
+    Person.prototype.getName = function () {
+        console.log(this.name);
+    };
+    Person.prototype.age = 5000;
+    var per1 = new Person();
+    per1.age = 9;
+    console.log(per1.age);//9   age 属于per1这个实例的私有属性
+
+    var per2 = new Person();
+    console.log(per2.age);//5000 去原型对象查找
+
+    var ary = [1,2,3];
+    ary.qq();//报错 因为整个原型链上都没有qq这个方法
+    [].__proto__.qq = function () {
+        console.log(10);
+    };//手动添加一个qq的方法，后边所有的数组都可以使用这个方法
+    [1,2,3].qq();
+
+    /*
+    * 私有属性： 当前实例自己身上的 属于它的私有属性。
+    *
+    * 公有属性： 在实例所属类的原型链上（排除实例自身的属性）的属性。
+    * */
+
+
+
+
+</script>

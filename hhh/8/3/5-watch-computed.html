@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--<input type="text" v-model="firstName">-->
+    <input type="text" v-model="centerName">
+    <!--<input type="text" v-model="lastName">-->
+    <h1>{{name}}</h1>
+    <h2>{{name2}}</h2>
+</div>
+</body>
+<script src="./node_modules/axios/dist/axios.js"></script>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            firstName:'Mrs.',
+            lastName:'Ming',
+            centerName:'',
+            name2:''
+        },
+        methods: {},
+        computed:{
+            name(){
+                return this.firstName + this.centerName + this.lastName;
+            }
+        },
+        watch:{
+            centerName(cur,prev){
+             this.name2 = this.firstName + cur + this.lastName;
+            }
+        }
+    })
+</script>
+</html>

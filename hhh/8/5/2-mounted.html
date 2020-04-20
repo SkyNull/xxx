@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    <h3 v-for="val in ary" ref="h3">{{val}}</h3>
+    {{test}}
+</div>
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+    * ref 用来获取DOM元素的；
+    * */
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            ary:[1,2,3]
+        },
+        methods: {},
+        mounted(){
+            console.log(this.$refs.h3);//[h3, h3, h3]
+            this.ary = [4,5,6,7];//vue的DOM渲染是异步执行的
+            console.log(this.$refs.h3.length);//3
+            this.$nextTick(()=>{
+                //将回调延迟到下次 DOM 更新循环之后执行。在修改数据之后立即使用它，然后等待 DOM 更新。
+                console.log(this.$refs.h3.length);//4
+                console.log(this);//this是指向vue实例的
+            })
+        },
+        computed:{
+            test(){
+                if (this.$refs.h3){
+                    console.log(this.$refs.h3.length);//3 还是拿到未改变之前的值；异步
+                }
+                console.log(this.ary);
+                return 123;
+            }
+        },
+        updated(){
+            //当页面视图发生改变时，会触发updated函数的执行
+            console.log(this.$refs.h3.length);//4
+        }
+    })
+</script>
+</html>

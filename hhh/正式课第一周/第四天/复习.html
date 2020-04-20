@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /*
+    *  不同数据类型的比较
+    *
+    * */
+    [] == ![]; //--> true
+ /*   [] == false;
+    [].toString();//--> ''
+    '' == false;
+    0 == 0;*/
+
+    // 1. 对象和对象的比较： 比较的是对象地址
+    var a ={};
+    var b ={};
+    a == b; //false
+    // 2. 对象和字符串的比较 ：先把对象转换成字符串（调用自身的toString方法），然后再去比较。
+    var c =[];
+    var str = '[object,object]';
+    var str2 = '';
+    c == str2;//--> true  c.toString = '';
+    a == str;//-->true a.toString = '[object,object]'
+    //3. null 和 undefined
+    null == undefined;//-->true
+    // 4. 其他情况是把两边转换成数字再去比较；其中引用数据类型是先转换成字符串，再转换成数字；
+    [] == true;//false 0 == 1
+
+    //隐式数据类型转化
+    //  ‘+’：只要碰到字符串，就变成了字符串的拼接
+    //   '!': 先把后边的内容转成布尔类型，然后再去取反
+    //   '-':  1-'a':先把两边用number转化，然后再去运算（- * / %）；
+    //  'isNaN(xxx)': 先把参数转换成number，然后再去判断
+    // if(条件)： 把条件转成布尔，再去判断；
+    // 不同数据类型比较
+
+</script>

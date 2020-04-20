@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script>
+    /*
+    * race 比赛；谁先执行，一个执行完毕另一个也就不执行；
+    *
+    * */
+    var p = new Promise(function (resolve,reject) {
+        setTimeout(function () {
+            resolve(2);
+        },2000)
+    });
+    var p2 = new Promise(function (resolve,reject) {
+        setTimeout(function () {
+            resolve(3);
+        },1000);
+        Promise.race([p,p2]).then((res)=>{
+            //传一个数组 数组中的每一项 也是一个Promise实例；
+            //数组中只要有一个实例执行，其他的实例就不再执行了；
+            console.log(res);//undefined
+        }).catch((res)=>{
+            console.log(res);
+        })
+    })
+</script>
+</html>

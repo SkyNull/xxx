@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1{
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            background: lightskyblue;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script src="utils.js"></script>
+<script>
+    var oDiv = document.getElementById('div1');
+    let l = utils.css(oDiv,'left');
+    let t = utils.css(oDiv,'top');
+    document.onkeydown = function (e) {
+        //左37 上38 右39 下40
+        e = e || window.event;
+        switch (e.keyCode){
+//            case  37:
+//                oDiv.style.left = utils.css(oDiv,'left') - 10 + 'px';
+//                break;
+//            case  38:
+//                oDiv.style.top = utils.css(oDiv,'top') - 10 + 'px';
+//                break;
+//            case 39:
+//                oDiv.style.left = utils.css(oDiv,'left') + 10 + 'px';
+//                break;
+//            case  40:
+//                oDiv.style.top = utils.css(oDiv,'top') + 10 + 'px';
+//                break;
+            case 37:
+                utils.css(oDiv,{left: l -10});
+                break;
+            case 38:
+                utils.css(oDiv,{top: t - 10});
+                break;
+            case 39:
+                utils.css(oDiv,{left: l + 10});
+                break;
+            case 40:
+                utils.css(oDiv,{top: t +10})
+        }
+    }
+</script>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+    <style>
+        body{
+            background: salmon;
+        }
+        #div1{
+            height: 2000px;
+            background: #cccccc;
+        }
+        img{
+            width: 200px;
+            height: 200px;
+        }
+        .bot{
+            height: 400px;
+            background: #333333;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1">珠峰培训</div>
+    <img src="imgs/img/default.gif" realSrc = 'imgs/img/2.jpg' alt="">
+    <div class="bot"></div>
+</body>
+</html>
+<script src="js/utils.js"></script>
+<script>
+    /*
+    * 懒加载原理： 不在可视区域的图片不加载；只有出现在可视区域中时，才去加载;
+    * 什么时候才算是出现在可视区域；
+    * 出现到可视区域之后，怎么让他加载真正的图片???(独自思考被卡住)
+    * */
+    var oImg = document.getElementsByTagName('img')[0];
+
+/*    /!*
+    * 出现在可视区域  图片的顶部刚刚出现在页面下方
+    * *!/
+    // oImg.onclick = function(){
+    //     console.log("这是一个点击事件")
+    // };
+    var flag = false; //默认false时，代表没有加载图片；true表示加载过图片了
+    window.onscroll = function () {
+        // 监听 页面的滚动 事件
+        // console.log("页面滚动了")
+        //我们要用 页面滚动的距离 跟 图片距离body的 距离  做个比较
+        //要把一屏的高度也算上
+        if (flag){return;}
+        var sT = utils.scrollT();// 页面滚动的距离
+        var cT = utils.clientH();// 一屏的高度
+        var tarT = utils.offset(oImg).t;// 图片到body的距离
+        if(sT + cT > tarT){// 说明图片出来了
+            var realSrc = oImg.getAttribute('realSrc');
+            //先用一个自定义属性把真正的路径保存起来
+            //然后等条件符合的时候再把这个真实路径赋值给图片的src属性
+            oImg.src = realSrc;
+            flag = true;
+        }
+        console.log(12);
+    };*/
+    //写一个load函数，去做一个图片的懒加载
+    /*第一步 优化性能，通过loaed来节省性能*/
+    function loadImg(ele) {
+        if(ele.loaded)return;//函数执行时，首先判断图片是否已经加载过了，若是加载过，则下面的函数就已经不再执行了
+        var scrollT = utils.scrollT();
+        var clientH = utils.clientH();
+        var tarT = utils.offset(ele).t;//ele到body的top值
+        if(scrollT+clientH>tarT){
+            var realSrc = ele.getAttribute('realSrc');
+            //ele.src = realSrc;
+           // ele.setAttribute('loaded',true);//相当于给行内增加一个样式；而 这种我们只能通过get.Attribute()方式获取
+            /*
+            * ele.setAttribute()设置属性和手动的设置是一样的，都是给页面增加行内样式；两者都必须通过getAttribute()来获取
+            * */
+            
+            //先去用一张不显示的图片去加载真正的图片；等这张大图加载完成之后，再去吧真实img标签的src换成这张大图
+            var temp = document.createElement('img');
+            temp.src = realSrc;
+            temp.onload = function () {//图片加载完成的一个事件
+                ele.src = realSrc;//直接从缓冲区拿图片
+                ele.loaded = true;//通过这种方式加上的属性，我们只能通过打点或者中括号的方式获取
+                fadeIn(ele);
+            };
+            temp = null;
+        }
+    }
+    window.onscroll = function () {
+        loadImg(oImg);
+    }
+    window.onload = function () {
+        
+    };
+    function fadeIn(ele) {
+        ele.style.opacity = 0;//先把元素的透明度设置为0；然后用定时器累加个数，把个数赋给元素的opacity;当这个opacity
+        // 大于1时，清除定时器
+        var opa = 0.1;
+        var timer = setInterval(function () {
+            opa +=0.1;
+            ele.style.opacity = opa;
+            if (opa>=1){
+                ele.style.opacity = 1;
+                clearInterval(timer);
+            }
+        },20)
+    }
+</script>  

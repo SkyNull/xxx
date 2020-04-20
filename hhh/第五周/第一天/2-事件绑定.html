@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1{
+            width: 300px;
+            height: 300px;
+            margin: auto;
+            background: lightsalmon;
+            cursor: pointer;
+        }
+        #inp{
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script>
+    var oDiv = document.getElementById('div1');
+    oDiv.onclick = function (ev) {
+        //我们把ev称为 事件对象；
+        ev = ev || window.event;//IE低版本中 我们用wondow.event获取事件对象
+        //  console.log(ev);
+        // e.target 是指点击的 元素（事件源）IE低版本中我们用ev.srcElement获取
+        var tar = ev.target || ev.srcElement;
+        console.log(tar);
+        //ev.clientX/ev.clientY : 当前鼠标触发点距离浏览器当前窗口左上角的X/Y轴坐标
+        //ev.pageX/ev.PageY ： 是指鼠标点击的位置到body左上角的距离
+        ev.pageY = ev.clientY + Math.floor(document.documentElement.scrollTop + document.body.scrollTop);
+    }
+</script>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app"></div>
+</body>
+<script src="./node_modules/axios/dist/axios.js"></script>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    /*安装常用的命令*/
+/*
+    使用webpack   gulp grunt  都是打包代码用的工具
+    1、 npm init -y  产生 package.json 文件
+    yarn -v  查看 是否装上可 yarn
+    vue -V   查看 vue-cli 是否装上
+    npm i yarn -g 全局安装 yarn
+    npm install -g cnpm --registry=https://registry.npm.taobao.org  全局安装cnpm
+
+    yarn 也是一个 安装  包  的工具 类似于 npm
+    使用 yarn 去安装包的时候会用
+    yarn add xxx --dev ===  npm i xxx --save-dev
+    2、在package.json 的 script 里边 添加脚本
+    "qqq":"webpack" 前边这个qqq是自己起的名字 一般使用
+    "build":"webpack"
+
+    3、使用webpack 必须默认配置一个 webpack.config.js  的文件 ；
+    这里边放置的都是一些 配置项*/
+// =========================================================
+    //webpack 原理过程
+    //npm  init -y  初始化package.json
+    //安装webpack npm i webpack --save  -dev  生成两个文件node-module package-lock.josn
+    //npm i webpack-cli --save -dev  生成packages
+    //创建src
+    //创建webpack.config.js文件 以上同级
+    //骚扰c 创建index.js
+    //创建html
+    //package scripts   build :webpack
+    //提示没有安装babel-loader 需要安装一下这个
+    //npm i babel-core babel-loader babel-preset-es2015 --save-dev
+    //npm run build   注意一下安装的babel-loader的版本号
+    //
+</script>
+</html>

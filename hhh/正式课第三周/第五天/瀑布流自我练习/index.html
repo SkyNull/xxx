@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>瀑布流自我练习</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        .box{
+            width: 880px;
+            margin: auto;
+            overflow: hidden;
+        }
+        .box ul{
+            width: 200px;
+            float: left;
+            margin: 10px;
+        }
+        .box ul li{
+            position: relative;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        .box ul li img{
+            width: 100%;
+        }
+        .box ul li p{
+            width: 100%;
+            position: absolute;
+            bottom: 5px;
+            text-align: center;
+            background: rgba(0,0,0,0.5);
+            color: white;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <ul>
+    <!--    <li>
+            <img src="img/1.jpg" alt="">
+            <p>给你一个小心心</p>
+        </li>-->
+    </ul>
+    <ul></ul>
+    <ul></ul>
+    <ul></ul>
+</div>
+</body>
+<script src="js/utils.js"></script>
+<script src="js/index.js"></script>
+</html>

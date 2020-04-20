@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+/*    * 单例模式
+    * var obj ={};
+    * obj 在单例模式中被称为“命名空间”；多个命名空间直接相互独立
+    *
+    * 高级单例模式:具有一定的隐私空间，外界只能访问到你自执行函数的内容。
+    * var obj = (function(){
+    *   var name = 'zfpx';
+    *   return {
+    *
+    *   }
+    * })();
+    * */
+
+    // 可以通过单例模式可以实现 简单的模块开发
+//    var up = (function(){
+//      var setDate = function(){
+//
+//      };
+//      var bannner = function(){
+//
+//      };
+//      return {
+//        init : function(){
+//           setDate();
+//            banner();
+//        }
+//      }
+//    })();
+//    up.init();
+
+    //工厂模式：利用函数进行批量生产 命名空间; 本身就是一个函数
+//    function factory(name,age) {
+//        var obj = {
+//           name: name,
+//            age: age,
+//        }
+//        return obj;
+//    }
+//    var obj = factory('xioahong',12);
+//
+//    //构造函数模式
+//    function person(name,age) {
+//        this.name = name;
+//        this.age = age;
+//    };
+//    var obj1 = new person('xiaohong',12);
+//    var obj2 = new person('xiaohong',12);
+//    console.log(obj1==obj2);//false;
+
+
+   function Person() {
+       this.name = 'zfpx';
+       this.age = 9;
+   }
+console.log(Person.prototype.constructor===Person);//true;
+
+
+</script>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * Promise
+    *  es6 新增的类；
+    *  回调地狱
+    * */
+
+/*    var p = new Promise(function (resolve,reject) {
+        //resolve:处理 异步请求成功时，执行的函数
+        //reject: 处理 异步请求失败时，执行的函数
+        var data = null;
+        var xhr = new XMLHttpRequest();
+        xhr.open('get','data.json');//第三个参数，不写默认就是true,也就是异步执行
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && /^[23]\d{2}$/.test(xhr.status)){
+                data = xhr.responseText;
+                resolve(data);
+                if( !/^[23]\d{2}$/.test(xhr.status) ){
+                    reject();
+                }
+            }
+        };
+        xhr.send();
+    }).then(function (data) {
+        console.log('yes');
+    },function (data2) {
+        console.log('no');
+    })*/
+var p = new Promise((resolve,reject)=>{
+    reject();
+    resolve();// 谁在前面就执行谁，那么另一个就不执行了
+});
+    p.then(success,fail);
+    function success() {
+        console.log('yes');
+    }
+    function fail() {
+        console.log('no');
+    }
+    /*
+    * then是promise里边执行完成后，相应的要执行的函数；需要传入两个实参，第一个参数就是Promise里边代码执行成功后执行的函数；第二个参数 是Promise里边代码执行失败后 执行的函数
+    * */
+</script>
+</html>

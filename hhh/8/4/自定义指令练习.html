@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    <button @click="fn">按钮</button>
+    <input type="text" v-focus="flag">
+    <!--自定义改变字体颜色-->
+    <div v-color="col">咿呀一</div>
+</div>
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            flag:true,
+            col:'red'
+        },
+        methods: {
+            fn(){
+                this.flag = !this.flag;
+            }
+        },
+        directives:{
+            focus(el,obj){
+                /*arguments 是vue默认传的实参集合，是一个大对象 其中value值是我们给其传的值*/
+                //console.log(arguments);
+                if(obj.value){
+                    setTimeout(()=>{
+                        el.focus();
+                    },20)
+                }
+            },
+            color(el,obj){
+                console.log(arguments);
+                el.style.color = obj.value;
+            }
+        }
+    })
+</script>
+</html>

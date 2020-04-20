@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    // for(var 变量 in 对象）{
+    //   循环执行的代码
+    //  这里的变量，在每一系循环时，存的都是每一项的属性名；
+    // }
+    var obj = {
+        name: 'zfpx',
+        age:9,
+        sex:1,
+        hobby:'play js'
+
+    }
+    var str = '我的';
+    for(var k in obj){
+       // console.log(k);
+        // k 每一项的属性名
+        //obj[k] 每一项的属性值
+        //obj.k===obj['k']
+       console.log(obj[k],obj.k,obj['k'])
+
+        if (k == 'sex'){
+            str += k+"是"+(obj[k] == 1 ?  'man' : 'woman') + ',';
+        }else{
+            str+=k+'是'+obj[k]+',';
+        }
+
+    }
+    console.log(str);
+
+   // str = '我的name是zfpx,age是9，sex是男，hobby是play JS,'
+
+    //2.for 循环
+      // for( var 变量 = 0；条件；变量++){
+    //
+    // }
+    // continue : 跳出本次循环
+    // break:跳出整个循环
+      for(var i = 0;i<10;i++){
+         //i = 0;i<10;执行循环体
+          // i++; -->
+      }
+      /*
+      * 3.while (条件){
+      *      条件成立执行的代码；一直执行，直到条件不成立，跳出循环。
+      *   使用while循环 要注意边界问题： 如果没有边界就会陷入死循环
+      * }
+      * 一般用在不知道要循环多少次的情况下
+      * 0||'0'-->'0'    1||'0'-->1
+      * */
+      var n = 10%6;
+      while (n > 0){
+          console.log(n);
+          n--;
+      }
+
+//例题
+      var obj2 = {
+          name :'xiaoming',
+          age:'12',
+          sex:1,
+          height:'120cm',
+          weight:'30kg',
+          weight:'s30kg',
+      }
+      var obj2_2 = {};
+      //把obj2中的属性值中只有数字的键值对复制一份到obgj2_2中
+
+     for (var k in obj2){
+       var val = obj2[k];
+         if(!isNaN(val)){
+           obj2_2[k] = val;
+        }
+      }
+      console.log(obj2_2);
+
+    //把obj2中的属性值中含有数字的键值对复制一份到obgj2_2中
+ /*   for(var k in obj2){
+        var val = obj2[k];
+        if(typeof val =='number'){
+             obj2_2[k] = val;
+        }else{
+            for(var i = 0;i<val.length;i++){
+                if(!isNaN(val[i])){
+                    //说明val里面是含有数字的
+                    obj2_2[k] = val ;
+                    break;
+                }
+            }
+        }
+    }
+    console.log(obj2_2);*/
+</script>

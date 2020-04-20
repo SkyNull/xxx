@@ -1,0 +1,262 @@
+@import "font.less";
+*{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.fl{
+  float: left;
+}
+.fr{
+  float: right;
+}
+.hidden{
+  display: none;
+}
+@r:75rem;
+header{
+  background: linear-gradient(40deg, #838dfb, #8191f8 10%, #4fa2f1 50%, #1eabf6);
+  .title{
+    overflow: hidden;//清除浮动
+    padding: 20/@r 20/@r 0 20/@r;
+    >div{
+      font-size: 36/@r;
+      color: #fff;
+      position: relative;
+      &:nth-child(1){
+       .fl;
+        font-size: 132/@r;
+        top:-20/@r;
+      }
+      &:nth-child(2){
+        .fr;
+        top:23/@r;
+
+      }
+      &:nth-child(3){
+        .fr;
+        top:23/@r;
+        right: 30/@r;
+      }
+    }
+  }
+  nav{
+    width: 100%;
+    overflow: hidden;
+    margin-top: -45/@r;
+    padding-bottom: 10/@r;
+    a{
+      .fl;
+      display: block;//行内元素设置成块级元素后才可以为其设置宽高
+      width: 14.28%;
+      text-align: center;
+      font-size:32/@r;
+      color: #fff;
+      text-decoration: none;
+      margin-bottom: 20/@r;
+    }
+    }
+   }
+.tab_box {
+  width: 100%;
+  ul {
+    list-style: none;
+    display: flex; //弹性布局
+    padding: 0 20/@r;
+    border-bottom: 1px solid #ececec;
+    li {
+      flex: 1;
+      height: 80/@r;
+      line-height: 80/@r;
+      font-size: 34/@r;
+      color: #1a1a1a;
+      text-align: center; //字体居中
+      position: relative;
+      /*     &.current{
+             font-weight: 900;
+             color: #008af5;
+             &::after{
+               content: '';
+               !*   display: block;//变成块级元素*!
+               width: 50/@r;
+               height: 4/@r;
+               position: absolute;
+               background: #008af5;
+               bottom: -2/@r;
+               left: 50%;
+               margin-left: -25/@r;//为了居中
+             }
+           }*/
+      &:nth-child(1) {
+        text-align: left;
+        //&.current::after{
+        //  left: 45/@r;
+        //  margin-left: 0;
+        //}
+      }
+      &:nth-child(3) {
+        text-align: right;
+      }
+
+    }
+    li:nth-child(1).current{//li:nth-child(1)-->第一个li     li.current
+      font-weight: 900;
+      color: #008af5;
+      &::after{ //伪类
+        content: '';
+        display: block;
+        width: 50/@r;
+        height: 4/@r;
+        position: absolute;
+        background: #008af5;
+        bottom: -2/@r;
+        left: 45/@r;
+      }
+    }
+    // 第一个第二个第三个 唯一的区别就是 蓝线的位置
+    li:nth-child(2).current{//li:nth-child(1)-->第一个li     li.current
+      font-weight: 900;
+      color: #008af5;
+      &::after{
+        content: '';
+        display: block;
+        width: 50/@r;
+        height: 4/@r;
+        position: absolute;
+        background: #008af5;
+        bottom: -2/@r;
+        //left: 80/@r;
+        left:50%;
+        margin-left: -25/@r;
+      }
+    }
+    li:nth-child(3).current{//li:nth-child(1)-->第一个li     li.current
+      font-weight: 900;
+      color: #008af5;
+      &::after{
+        content: '';
+        display: block;
+        width: 50/@r;
+        height: 4/@r;
+        position: absolute;
+        background: #008af5;
+        bottom: -2/@r;
+        //left: 80/@r;
+        right: 45/@r;
+      }
+    }
+  }
+}
+.bake{
+  display: none;
+  background: linear-gradient(40deg, #838dfb, #8191f8 10%, #4fa2f1 50%, #1eabf6);
+  position: fixed;
+  top:0;
+  z-index: 666;
+}
+.news_box{
+  padding: 20/@r 20/@r 0;
+  .swiper-container{
+    height: 340/@r;
+    overflow: hidden;
+    .swiper-wrapper{
+      .swiper-slide{
+        max-height: 340/@r;//???作用是？？
+        img{
+          width: 100%;
+        }
+        div{
+          position: absolute;
+          bottom: 0;
+          width: 100%;
+          color: #fff;
+          font-size: 32/@r;
+          padding: 94/@r 16/@r 16/@r;
+          box-sizing: border-box;//???作用是？？？
+          background: linear-gradient(top,transparent,rgba(0,0,0,0.4));
+        }
+      }
+    }
+    .pageBox{
+      text-align: right;
+      padding-right: 20/@r;
+      box-sizing: border-box;//???为什么加这个
+      color: #fff;
+      font-size: 30/@r;
+      .currentPage{
+        font-size: 40/@r;
+      }
+    }
+  }
+  .listBox{
+    a{
+      display: flex;
+      border-bottom: 1px solid #888;
+      text-decoration: none;
+      color: #1a1a1a;
+      padding: 22/@r 0;
+      div.text_box{
+        width: 100%;
+        flex: 1;
+        position: relative;
+        min-height: 100/@r;//????
+        p{
+          font-size: 34/@r;
+          line-height: 48/@r;
+          margin-bottom: 10/@r;
+        }
+        .comment_box{
+          position: absolute;
+          bottom: 13/@r;
+          color: #888;
+          width: 100%;
+          text-align: right;
+          font-size: 20/@r;
+          em{
+            font-style: normal;
+          }
+
+        }
+
+      }
+      .img_box{
+        width: 200/@r;
+        height: 134/@r;
+        margin-right: 25/@r;
+        img{
+          width: 100%;
+        }
+      }
+    }
+    a.three_box{
+      display: block;//????作用是？
+      p{
+        font-size: 34/@r;
+        line-height: 48/@r;
+        margin-bottom: 10/@r;
+      }
+      .three_pic{
+        display: flex;
+        div{
+          flex: 1;
+          &:nth-child(2){
+            margin: 0 10/@r;
+          }
+          img{
+            width: 100%;
+          }
+        }
+      }
+      .comment_box{
+        text-align: right;
+        width: 100%;
+        margin-top: 10/@r;
+        em{
+          font-style: normal;
+          font-size: 20/@r;
+        }
+      }
+    }
+  }
+}
+

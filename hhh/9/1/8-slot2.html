@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .mask{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            top:0;
+        }
+        .content{
+            position: relative;
+            width: 600px;
+            height: 400px;
+            top:50%;
+            margin: -200px auto 0;
+            background: lavender;
+        }
+        header{
+            text-align: center;
+            font-size: 30px;
+        }
+        main{
+            text-align: center;
+            font-size: 25px;
+        }
+        footer{
+            width: 100%;
+            text-align: right;
+            right: 50px;
+            font-size: 20px;
+            position: absolute;
+            bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+<!--请教老师，是不是只调用一个组件就可以完成多个模态框的显示；那直接是写多个model吗》登录注册是用的两个组件吧？？？-->
+<div id="app">
+    <!--在这里面的东西都是父级的，除啦自定义绑定的事件-->
+    <button @click="flag = !flag">显示弹框</button>
+    <!-- custom-class让用户自己添加类名方便设置样式-->
+    <model v-show="flag" :data="modelData" @cancelBtn="fn" @sureBtn="fn2" custom-class="qqq" title="传进来的标题">
+        <div class="tell">这是个通知</div>
+      <!--  <div class="footer" slot="footer">
+            <button @click="parentFn">我知道了</button>
+        </div>-->
+    </model>
+</div>
+</body>
+<template id="mask">
+    <div class="mask">
+        <div class="content" :class="customClass">
+            <header>{{title}}</header>
+            <main><slot></slot></main>
+            <footer>
+            <slot name="footer">
+                <!--如果你app上面写内容就用你的 若是你不写就用我的作为默认-->
+                    <button @click="cancel">取消</button>
+                    <button @click="sure">确认</button>
+            </slot>
+            </footer>
+        </div>
+    </div>
+</template>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+     * 父传子 通过属性传递；子组件通过props接收
+     * 子传父 通过自定义事件 @自定义事件名称='fn' --> 通过this.$emit('自定义事件名称',,,,)
+     * */
+    let model = {
+        template:'#mask',
+        data(){
+            return {
+
+            }
+        },
+      /*  props:['data','custom-class'],*/
+        props:{
+            data:{},
+            "custom-class":{
+                type:String,
+                default:''
+            },
+            title:{
+                default:'这是默认的标题'
+            }
+        },
+        methods:{
+            cancel(){
+                //点击弹框取消按钮时  执行的函数
+                this.$emit('cancelbtn',false);
+            },
+            sure(){
+                this.$emit('surebtn');
+            }
+        }
+    };
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            flag:false,
+            modelData:{
+                title:'这个是父组件传递进来的title',
+                content:'<h1>自定义的结构</h1>'
+
+            }
+        },
+        methods: {
+            fn(val){
+                //val是子组件传进来的;
+                this.flag = val;
+            },
+            fn2(val){
+              alert('确定');
+            },
+            parentFn(){
+                //console.log(this); this指的是父组件
+                this.flag = false;
+                setTimeout(()=>{
+                    console.log('已发送给后台');
+                },300)
+            }
+        },
+        components:{
+            model
+        }
+    })
+</script>
+</html>

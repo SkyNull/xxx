@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style rel="stylesheet/less" type="text/less">
+        ul:nth-child(1){ //没空格，表示第一个ul
+        }
+        ul :nth-child(1){ //有空格，表示ul下的第一个元素
+        }
+        ul{
+            li:nth-child(1){
+            }
+            li:nth-of-type(1){
+            }
+            & :nth-child(1){ //ul下的第一个元素
+                //表示给div设置样式
+            }
+            & :nth-of-type(1){//ul下的同标签的第一个元素
+                //表示给第一个div,li设置样式
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+<ul>
+    <div></div>
+    <div></div>
+    <li></li>
+    <li></li>
+    <li></li>
+</ul>
+</body>
+<script></script>
+</html>

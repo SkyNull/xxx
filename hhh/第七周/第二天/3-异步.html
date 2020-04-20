@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script>
+    //2接收响应头
+    var xhr =new XMLHttpRequest();//0
+    xhr.onreadystatechange=function () {
+        console.log(xhr.readyState);//1->2->3->4  是http改变的状态
+        xhr.getResponseHeader('date');
+        /*
+        * 最初readystate是0；
+        * open时，把readyState从0变成1 触发一次这个函数
+        * 然后等send发出去之后；由于是异步请求，主队列接着执行；等主队列执行完成之后；
+        * http 触发的readystate的变化才会体现出来；
+        * 先把readystate从1变成2触发这个函数
+        * 再把readystate 从2变成3（等着上次的函数执行完毕）
+        * 最后再把readystate从3变成4；
+        * http请求结束；
+        * */
+    };
+    xhr.open('get','./1.xml?name="珠峰"',true);//异步
+    xhr.setRequestHeader('name','zhufeng');//设置请求头 位置必须在xhr.send()前面执行；
+    xhr.setRequestHeader('name','str');
+    xhr.setRequestHeader('content-type','application/x-www-form -urLencoded');
+    //xhr.abort();//不起作用
+    xhr.send("name=12");//send虽然执行了，但是需要等着主队列中的代码执行完毕，才会把请求发送出去；
+    xhr.abort();//起作用
+
+
+    /*
+    * 0 － （未初始化）还没有调用send()方法
+
+     1 － （载入）已调用send()方法，正在发送请求
+
+     2 － （载入完成）send()方法执行完成，已经接收到全部响应内容
+
+     3 － （交互）正在解析响应内容
+
+     4 － （完成）响应内容解析完成，可以在客户端调用了
+    * */
+</script>
+</html>

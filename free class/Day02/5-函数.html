@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * function 函数名 (){
+    *     函数体（业务逻辑部分）
+    * }
+    * 函数的调用： 调用次数不限
+    *   函数名（）
+    * */
+
+    /*
+    *  函数的存储过程:
+    *     1.开辟一个堆内存
+    *     2.把函数体里面的代码，以字符串的形式存储到堆内存中
+    *     3.把堆内存的地址赋值给 函数名
+    * */
+
+    //return 的作用：后边写什么，那么外面函数执行的结果就是什么；
+    //               有跳出函数得到作用，只要遇到return则后面的代码就不执行了。
+    //               return  后面不写内容时，默认返回的是undefined;
+    //               当不写 return 时，默认返回的也是 undefined
+    //                return 的位置不固定，根据自己的业务逻辑来确定
+
+    /*形参和实参的问题
+    *     形参：形式上的参数；它是在函数定义阶段定义的
+    *     实参：实际的参数；
+    * */
+/*    function sum(a,b,c) {
+        //a,b,c是形参,123是实参
+       console.log(a,b,c);
+    }
+    sum(1,2,3)*/
+
+    //实参个数 大于 形参个数的时候，多余的部分形参是拿不到的，按照正常拿到的形参计算。
+    //实参个数 小于 形参个数，多余的形参部分给的默认值是undfined;
+    //1+undefined+undefined=> NaN
+
+    //不定项求和 利用的是 函数里的内置属性 arguments(实参集合)
+/*    function sum2() {
+        console.log(arguments);
+        var total = 0;
+        for(var i= arguments.length-1;i>=0;i--){
+            total+=arguments[i];
+        }
+        return total;
+    }
+    sum2(12,22,33,44)*/
+
+    //类数组:元素集合和arguments
+
+    //任意数求和：只加能整除2或3的数字
+    function sum3() {
+       // console.log(arguments);
+        var total = 0;
+        for(var i= arguments.length-1;i>=0;i--){
+            var temp = arguments[i];
+            if (!isNaN(temp) && typeof temp =='number' ){
+                if(temp%2==0 || temp%3==0){
+                    total+=temp;
+                }
+              /*  if(!(temp%2) || !(temp%3){
+                    total+=temp;
+                }*/
+            }
+
+        }
+        return total;
+    }
+    console.log(sum3(12, 22, 33, 44));
+
+    //this:调用主体--->谁函数执行； 简单的规律就是看点，点前面是谁，this就是谁
+    function fn() {
+        console.log(this);
+    }
+    //fn();  //this-->window
+
+    var obj = {
+        f:fn,
+        w:12
+    }
+    obj.f();//this-->obj
+</script>
+</html>

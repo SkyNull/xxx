@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #div1,#div0,#div2,#div3{
+            width: 100px;
+            height: 100px;
+            background: sandybrown;
+            line-height: 100px;
+            text-align: center;
+            border-radius: 50%;
+            user-select: none;
+            cursor: move;
+            position: absolute;
+        }
+        #div0{
+            background: lightpink;
+        }
+        #div2{
+            background: lawngreen;
+        }
+        #div3{
+            background: lightcoral;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">拽我y</div>
+<div id="div0">拽我y</div>
+<div id="div2">拽我y</div>
+<div id="div3">拽我y</div>
+</body>
+<script src="js/jquery-3.3.1.js"></script>
+<script>
+    var oDiv = document.getElementById('div1');
+    var oDiv0 = document.getElementById('div0');
+    class  Drag{
+        constructor(ele){ //ele就是通过new传进来的参数
+            //存放私有属性
+            //绑定onmousedown 是在这里执行的
+            //把dragStart 中的this 指向这个类的实例
+            $(ele).on('mousedown',this.dragStart.bind(this));
+            console.log(ele);
+            this.ele = ele;
+            this.$start = $.Callbacks();
+            this.$move = $.Callbacks();
+            this.$end = $.Callbacks();
+
+
+        }
+        dragStart(e){
+            //this是指实例,this.ele是元素
+            console.log(this.ele);
+            this.startX = $(this.ele).offset().left;
+            this.startY = $(this.ele).offset().top;
+            this.mx = e.pageX;
+            this.my = e.pageY;
+            $(document).on('mousemove',this.dragMove.bind(this));
+            $(document).on('mouseup',this.dragEnd.bind(this));
+            this.$start.fire();
+        }
+        dragMove(e){
+            var x = e.pageX - this.mx + this.startX,
+                    y = e.pageY - this.my + this.startY;
+            $(this.ele).css({
+                left : x,
+                top : y
+            });
+            this.$move.fire();
+
+        }
+        dragEnd(){
+            $(document).off('mousemove');
+            $(document).off('mouseup');
+            this.$end.fire();
+        }
+    }
+    //目标---> 通过new能直接实现oDiv的拖拽
+  /*  var d0 = new Drag(oDiv);
+    var d1 = new Drag(oDiv0);*/
+    var n = 1;
+    //解决z-index大小问题
+    function addIndex() {
+        this.ele.style.zIndex = n++;
+    }
+    var oDivs = document.getElementsByTagName('div');
+    [...oDivs].forEach((item,index)=>{
+        var d = new Drag(item);
+        d.$start.add(addIndex.bind(d));
+    });
+</script>
+</html>

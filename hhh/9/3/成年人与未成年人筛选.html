@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    name: <input type="text" v-model="name" placeholder="请输入姓名：">
+    age: <input type="text" v-model="age" placeholder="请输入年龄：">
+    <button @click="add">添加</button>
+    <list1></list1>
+    <list2></list2>
+</div>
+</body>
+<script src="./node_modules/axios/dist/axios.js"></script>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/vuex/dist/vuex.js"></script>
+<script>
+    const list1 = {
+        template:'<h2>成年<ul><li v-for="val in arr1">name:{{val.name}}===age:{{val.age}}</li></ul></h2>',
+        methods:{
+
+        },
+        computed:{
+            arr1:{
+                get(){
+                    return this.$store.state.ary.filter((item)=>{
+                        return item.age >= 18;
+                    })
+                }
+            }
+
+        }
+    };
+    const list2 = {
+        template:'<h2>未成年<ul><li v-for="val in arr2">{{val.name}}==={{val.age}}</li></ul></h2>',
+        methods:{
+
+        },
+        computed:{
+            arr2:{
+                get(){
+                    return this.$store.state.ary.filter((item)=>{
+                        return item.age < 18;
+                    })
+                }
+            }
+
+        }
+    };
+    const store = new Vuex.Store({
+        state:{
+            ary:[
+                {
+                    name:'tom',
+                    age:30
+                },
+                {
+                    name:'rose',
+                    age:18
+                },
+                {
+                    name:'jerry',
+                    age:10
+                }
+            ]
+
+        },
+        mutations:{
+            //用来更新state里面的数据；通过commit来提交
+            changeAry(state,obj){
+                obj = obj || [];
+                state.ary.push(obj);
+            }
+
+        }
+    });
+    const vm = new Vue({
+        el: '#app',
+        data: {
+            name:'',
+            age:''
+        },
+        store,
+        methods: {
+            add(){
+                let obj = {};
+                obj.name = this.name;
+                obj.age = this.age;
+                this.$store.commit('changeAry',obj);
+                this.name= '';
+                this.age = '';
+            }
+        },
+        components:{
+            list1,
+            list2
+        }
+    })
+</script>
+</html>

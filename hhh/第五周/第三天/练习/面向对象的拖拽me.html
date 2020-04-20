@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #div1{
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            background: lightseagreen;
+            position: absolute;
+            cursor: move;
+            user-select: none;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script>
+    class Drag{
+        constructor(ele){
+            ele.onmousedown = this.dragStart.bind(this);
+            this.ele = ele;
+        }
+        dragStart(e){
+            e = e || window.event;
+            let tar = e.target || e.srcElement;
+            this.startX = this.ele.offsetLeft;
+            this.startY = this.ele.offsetTop;
+            this.mx = e.pageX;
+            this.my = e.pageY;
+            document.onmousemove = this.dragMove.bind(this);
+            document.onmouseup = this.dragEnd.bind(this);
+        }
+        dragMove(e){
+            let x = e.pageX - this.mx + this.startX,
+                y = e.pageY - this.my + this.startY;
+            this.ele.style.left = x + 'px';
+            this.ele.style.top = y + 'px';
+        }
+        dragEnd(){
+            document.onmousemove = null;
+            document.onmouseup = null;
+        }
+    }
+    var oDiv1 = document.getElementById('div1');
+    var  a = new Drag(oDiv1);
+    /*
+    * 出现的问题：
+    * 1. onmousemove 是全部小写（没有代码提示，写成了大写导致不生效）
+    * 2. 用构造函数时，其中的this是指向实例的，并不是元素；
+    * */
+</script>
+</html>

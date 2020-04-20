@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #div1,#div2,#div3{
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            position: absolute;
+            background: lightskyblue;
+            border-radius: 50%;
+            cursor: move;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">I love you</div>
+<div id="div2">I love you</div>
+<div id="div3">I love you</div>
+</body>
+<script>
+    class Drag {
+        constructor(ele) {
+            ele.onmousedown = this.dragStart.bind(this);//this是指这个类的实例,因为在构造函数中this都是指向实例的；不能用call，因为call是立即执行的，而此操作是只有按下才触发事件执行;
+            this.cur = ele;//把这个元素放到这个实例的一个属性上，是为了下边的函数能调用到这个元素
+        }
+
+        dragStart(e) {
+            e = e || window.event;
+            e.preventDefault();
+            var tar = e.target || e.srcElement;
+            this.mx = e.pageX;
+            this.my = e.pageY;
+            this.startX = this.cur.offsetLeft;
+            this.startY = this.cur.offsetTop;
+            document.onmousemove = this.dragMove.bind(this);
+            document.onmouseup = this.dragEnd.bind(this);
+        }
+
+        dragMove(e) {
+            e = e || window.event;
+            let x = e.pageX - this.mx + this.startX,
+                    y = e.pageY - this.my + this.startY;
+            this.cur.style.left = x + 'px';
+            this.cur.style.top = y + 'px';
+        }
+
+        dragEnd() {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        }
+    }
+    var oDiv = document.getElementById('div1');
+    var oDiv2 = document.getElementById('div2');
+    var oDiv3 = document.getElementById('div3');
+     var drag1 = new Drag(oDiv);//通过new传入的实参，我们可以在类的constructor中接收到
+    var drag2 = new Drag(oDiv2);
+    var drag3 = new Drag(oDiv3);
+</script>
+</html>

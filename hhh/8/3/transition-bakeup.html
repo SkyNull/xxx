@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        .box{
+            width: 200px;
+            height: 200px;
+            background: lightsalmon;
+            position: relative;
+            left: 0;
+        }
+        .move-enter{
+            opacity: 0;
+            left: 50px;
+        }
+        .move-enter-active,.move-leave-active{
+            transition: all 1s ease;
+        }
+        .move-leave-to{
+            opacity: 0;
+            left: 100px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button @click="flag = !flag">按钮</button>
+    <transition name="move" >
+        <div class="box" v-show="flag"></div>
+    </transition>
+</div>
+</body>
+<script src="./node_modules/axios/dist/axios.js"></script>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            flag:'true'
+        },
+        methods: {}
+    })
+</script>
+</html>

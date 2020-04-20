@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    {{mycount}}
+    <button @click="addBtn">增加</button>
+</div>
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vuex/dist/vuex.js"></script>
+<script>
+    const state = {
+        count:0,
+    };
+    const mutations = {
+        add(state,obj){
+            state.count += obj;
+        }
+
+    };
+    const actions = {
+        //普通写法
+    /*    addFn(context,obj){
+          context.commit('add',obj);
+        },*/
+        //利用对象的结构赋值
+        addFn({commit},obj){
+            commit('add',obj);//add对应的mutations里面的函数名
+        }
+    };
+    const store = new Vuex.Store({
+        state,
+        mutations,
+        actions
+    });
+    const vm = new Vue({
+        el: '#app',
+        store,
+        data: {},
+        methods: {
+            addBtn(){
+                //如果用actions方法就用 this.$store.dispatch('actions函数名'，参数)
+                this.$store.dispatch('addFn',Math.round(Math.random()*10));
+            }
+        },
+        //写好methods,我们需要在computed继续写依赖关系方法
+        computed:{
+            mycount(){
+                const n = this.$store.state.count;
+                return n%2 == 0?n:'奇数';
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script>
+    /*
+    * ajax async javascript and xml
+    * xml 是一种数据传输的格式
+    * */
+    var oDiv = document.getElementById('div1');
+    //1.创建一个ajax实例
+    var xhr = new XMLHttpRequest();
+    xhr.open('get','./1.xml',false);//同步
+/*    xhr.onreadystatechange = function () {
+        console.dir(xhr);
+    };*/
+    xhr.send();
+    console.dir(xhr);
+    //父节点.appendChild(newEle)
+    var ele = xhr.responseXML.children[0];
+    oDiv.appendChild(ele);
+    /*
+    * 返回的结果
+    * response : 是一个字符串
+    * responseText：也是一个字符串
+    * responseXml：有的话就是一个对象  没有的话就是一个空字符串
+    * */
+
+    /*
+    * ajax事件
+    * xhr.open();---> 打开链接
+    * xhr.abort();---> 中断请求
+    * xhr.setRequestHeader(key,value); ---> 设置请求头  key是属性名 value是属性值
+    * xhr.getResponseHeader(key); ---> 获取响应头中对应key的value值
+    * xhr.getAllResponseHeaders(); ---> 获取所有的响应头
+    *
+    * */
+</script>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script>
+    var oDiv = document.getElementById('div1');
+    function on(ele,f) {//一个ele代表一个报社
+        ele.ary = ele.ary || [];//把之前定义在外面的名单放到元素的私有属性上
+        if (ele.ary.indexOf(f) == -1){//名单中没有这个人
+            ele.ary.push(f);
+        }
+    }
+    function fire(ele) {
+        ele.ary = ele.ary || [];//容错判断，防止直接fire,进去循环会报错
+        ele.ary.forEach((item)=>{
+            item && item();
+        })
+    }
+    function off(ele,f) {
+        ele.ary = ele.ary || [];
+        var n = ele.ary.indexOf(f);
+        if ( n !== -1){
+            ele.ary.splice(n,1);
+        }
+    }
+    on(oDiv,function () {
+        console.log(1);
+    })
+</script>
+</html>

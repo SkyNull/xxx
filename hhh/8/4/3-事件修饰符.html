@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            padding: 30px;
+            border: 1px solid lightsalmon;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!--<div class="outer" @click.capture="alert('outer')">outer-->
+        <div class="outer" @click="alert('outer')">outer
+            <!--当把.stop去掉，在冒泡阶段不会再触发outer了，因为没有给它绑定冒泡阶段触发的事件-->
+            <!--<div class="center" @click.stop="alert('center')">center-->
+
+            <!--只有在点击它的时候才会触发它-->
+            <div class="center" @click.self="alert('center')">center
+                <div class="inner" @click="alert('inner')">inner
+                </div>
+            </div>
+        </div>
+        <input type="text" @keyup.q="alert('q')">
+    </div>
+<!--
+   事件修饰符
+   @click.stop -- 阻止冒泡;
+   @click.prevent -- 阻止默认事件;
+   @click.capture -- 相当于div.addEventListener('click',fn,true); 它是在捕获阶段触发；
+                          div.addEventListener('click',fn,false); 它是在冒泡阶段触发；
+   @click.self -- 只有点击这个元素才会触发后边的函数
+   @click.once -- 只触发一次；第二次点击就不再起作用了
+-->
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    Vue.config.keyCodes.q = 81;
+    let vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {
+            alert(val){
+                alert(val);
+            }
+        }
+    })
+</script>
+</html>

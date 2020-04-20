@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+    <style>
+        /*属性选择器：所有行间有v-cloak的元素的样式起作用*/
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="app" v-cloak>
+    <table class="table table-bordered text-center">
+        <thead>
+        <tr>
+            <!--@click 正好状态相反-->
+            <th><input type="checkbox" v-model="checkAll" @change="checkAllFn">全选</th>
+            <th>商品</th>
+            <th></th>
+            <th></th>
+            <th>单价</th>
+            <th>数量</th>
+            <th>小计</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr v-for="item in list">
+            <td><input type="checkbox" v-model="item.isSelect" @change="checkOneFn"></td>
+              <td>
+                  <!--行内属性 VUE中用 v-bind:src='' 去绑定 简写是用 :src=''即可-->
+                  <img :src="item.pic" alt="">
+              </td>
+              <td><p>{{item.title}}</p></td>
+              <td><p>{{item.desc}}</p></td>
+              <td>{{item.price | toFixed(3)}}</td>
+              <!-- v-model.trim 修饰符 去除首尾空格 -->
+              <!-- v-model.number 修饰符  item.count变成数字-->
+              <td><input type="text" v-model.trim="item.count" min="1" @input="change(item)"></td>
+              <!--<td>{{(item.count*item.price/100).toFixed(2)}}</td>-->
+              <td>{{item.count*item.price | toFixed()}}</td>
+              <td><button class="btn btn-info" @click="remove(item)">删除</button></td>
+          </tr>
+        <tr>
+            <!--colspan='数列' 合并-->
+            <td colspan="8" class="text-right">
+                <h2>总价:{{sum() | toFixed()}}</h2>
+            </td>
+          </tr>
+          <tr>
+              <!--colspan='数列' 合并-->
+              <td colspan="8" class="text-right">
+                  <button class="btn btn-danger" @click="clearCart">清空购物车</button>
+              </td>
+          </tr>
+        </tbody>
+    </table>
+
+</div>
+</body>
+<script src="../node_modules/axios/dist/axios.js"></script>
+<script src="../node_modules/vue/dist/vue.js"></script>
+
+<script>
+    let vm = new Vue({
+        el:'#app',
+        created(){
+          //一进来就直接执行; //生命周期中的this也是指向这个vm实例的；
+           this.getData();
+        },
+        data:{
+            list:[],
+            checkAll:true
+        },
+        methods:{
+       /*     getData:function () {}*/
+            getData(){
+                axios.post('./data.json').then((data)=>{
+                    console.log(data);
+                    //获取到数据之后给谁   this也是指向这个vm实例的；
+                    this.list = data.data;
+                    this.checkOneFn();
+                }).catch((res)=>{
+                    console.log(res);
+                })
+            },
+            change(item){
+                console.log(item);
+                let n = item.count;
+                n = n.replace(/\D/g,'');
+                n = n < 0 ? 1:n;
+                item.count = n;
+            },
+            remove(item2){
+                this.list = this.list.filter((item,index)=>{
+                    return  item2!==item;
+                })
+            },
+            sum(){
+                //计算总价，只加isSelect为true的项；
+               let tol = this.list.reduce((prev,next)=>{
+                   if (!next.isSelect)return prev;
+                    return prev + next.count*next.price;
+                },0);
+                return tol;
+            },
+            checkAllFn(){
+                //对应操作每一个isSelect的值
+                console.log(this.checkAll);
+                //forEach 可以改变引用数据类型，但不改变基本数据类型的原数据
+                this.list.forEach((item)=>{
+                    item.isSelect = this.checkAll;
+                })
+            },
+            checkOneFn(){
+                // 操作下边的复选框时，让上边的全选跟着变化
+                this.checkAll = this.list.every((item)=>{
+                    return item.isSelect;
+                })
+            },
+            clearCart(){
+                this.list = [];
+                this.checkAll = false;
+            }
+        },
+        filters:{
+            toFixed(val,n=2){
+            /*    n = n || 2;*/
+                return '￥' + (val/100).toFixed(n);
+            }
+        }
+    })
+</script>
+</html>

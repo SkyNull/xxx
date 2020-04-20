@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //需求：求数组中的最大值和最小值
+    var ary = [1,2,7,6,9,0];
+    //1.排序法
+    //2.假设法
+       //先假设第一个是最大的；然后循环数组，依次比较
+//    var max = ary[0];
+//    for (let i = 1; i < ary.length; i++) {
+//        max<ary[i]?max=ary[i]:null;
+//    }
+//    console.log(max);
+
+    //3.利用Math方法==================================================
+//    var str = ary.toString();
+//    console.log(`Math.max(${str})`);
+//    var max = eval(`Math.max(${str})`);
+//    console.log(max);
+
+
+    var str=ary.join(',')
+    eval(`Math.min(${str})`);//eval(" Math.min(1,2,3,4)" )
+    eval(`Math.min(${ary.toString()})`);
+    eval('Math.min('+ary.toString()+')');
+
+
+    //4.利用apply方法===============================================
+//    var max= Math.max.apply(Math,ary);//把Math.max中的this指向Math，apply是将数组一项一项的传进Math.max中
+//    //Math.max(1,2,7,6,9,0);
+//    console.log(max);
+
+    //5.==========================================================
+    var max = Math.max(...ary);
+    console.log(max);
+    /*
+    * '...'是扩展运算符
+    * */
+//    function f(...a) {
+//        console.log(a);
+//    }
+//    f(1,2,3,4,5);
+
+    function f(b,c,...a) {
+        //a是一个数组
+        console.log(a,b,c);
+        return eval(a.join('+'));
+    }
+    f(1,2,3,4,5);
+    //===============================================================
+    /*
+    * 箭头函数  和作用域有关系
+    * */
+    ()=>{};
+//    ary.sort(function (a,b) {
+//        return a - b;
+//    });
+//    ary.sort((a,b)=>{
+//        return a - b;
+//    })
+//    var fn1 = function (a,b) {
+//        console.log(12);
+//    }
+//    var fn2 = function (a,b)=> {
+//        console.log(12);
+//    };
+    /*
+    * 区别：
+    * 箭头函数没有this;往上级作用域查找this； call,apply,bind这三种方法均不能用；也不能做new运算
+    * 箭头函数不能当做构造函数用
+    * */
+
+//    var f3 = ()=> {
+//        console.log(this);//window
+//    };
+//    var obj = {f:f3};
+//
+//    obj.f();
+
+    function f4() {
+        console.log(this);
+        var f3 = ()=> {
+            console.log(this);
+        };
+        var obj = {f:f3};
+
+        obj.f();
+    }
+
+
+</script>
+</html>

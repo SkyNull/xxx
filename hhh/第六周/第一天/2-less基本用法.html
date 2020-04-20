@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>less基本语法</title>
+    <style rel="stylesheet/less" type="text/less">
+        @w: 200px;
+        @h: 200px;
+        @color: yellow;
+        @img: './imgs/';
+        /* 变量 @qqq: 值；   用变量作运算时，要注意用空格隔开； */
+        #div1 {
+            width: @w;
+            height: @h;;
+            background: @color;
+        }
+        ul {
+            background: url("@{img}girl.jpg") no-repeat;
+            width: @w;
+            height: @h;
+        }
+    </style>
+    <script src="js/less.js"></script>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+</ul>
+</body>
+<script></script>
+</html>

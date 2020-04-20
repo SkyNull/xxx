@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+
+    /*
+    * 单例设计模式
+    * 本身就是一个普通的对象
+    * */
+    var obj = {
+        name:'abc',
+        set:function () {
+
+        },
+        get:function () {
+
+        }
+    };
+
+    var obj2 = {
+        name:'peixun',
+        set:function () {
+
+        },
+        get:function () {
+
+        }
+    }
+
+    //单例模式
+    // 就是一个对象，调用自己的属性时的方法
+    //  对象名.属性名     this调用（需要注意this的指向问题）
+    // 调用其他人的属性，我们只能通过 对象名.属性名
+
+    //命名空间---> 就是咱们定义的这些对象名，每一个命名空间之间是相互独立的，互不影响
+    //不同命名空间之间 属性的相互调用 通过 命名空间.属性名
+    //同一个命名空间中，可以通过this调用自己属性；也可以通过 命名空间.属性名
+
+    //单例-->单独的实例（就是利用普通的对象作为命名空间）-->所有的普通对象都属于object基类的一个实例
+
+    //高级单例模式
+    //由于普通的单例模式，没有什么隐私，谁都能看能改；有时我们需要保护自己的一些隐私，这时就需要我们的这些高级单例模式
+    //先去执行一个自执行函数；让自执行函数 返回一个命名空间
+    //想让外界用什么属性就直接返回什么属性，不想暴露给外界，就直接不返回就可以；
+    var zfpx = {
+        name:'abc',
+        set:function () {
+
+
+        },
+        get:function () {
+
+        }
+    }
+    //return function 父作用域查看不到子作用域的东西
+    var fn = (function () {
+        return function () {
+
+        }
+    })();
+    //===============================================
+    var person = (function () {
+        var name = 'zpx';
+        var fn = function () {
+            console.log(12);
+        }
+        var fn2 = function () {
+            console.log(name);
+        };
+        return {
+            f : fn
+        }
+    })();
+    //高级单例模式的缺点----->会形成一个不销毁的作用域；占用浏览器的内存
+    //单例模式每次都要重新var一个对象； 属于手工模式
+</script>

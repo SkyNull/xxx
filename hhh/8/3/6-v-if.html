@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--template 假标签-->
+  <!--  <template v-if="!flag">
+        <div>珠峰</div>
+        <div>2018</div>
+        <div>2018</div>
+        <div>培训</div>
+    </template>
+    <div v-else-if="false">培训+1</div>
+    <div v-else>培训+2</div>-->
+    <!--<button @click="change">按钮</button>-->
+    <button @click="flag = !flag">按钮</button>
+    <template v-if="flag">
+        <!--点击登录，输入框获取焦点-->
+        <label for="inp">登录</label>
+        <input type="text" id="inp">
+     <!--   //不加key,vue会将两个输入框认为一个；-->
+        <label>登录</label>
+        <input type="text" key="one">
+    </template>
+    <template v-else>
+        <label>注册</label>
+        <input type="text" key="two">
+    </template>
+
+</div>
+</body>
+<script src="./node_modules/axios/dist/axios.js"></script>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            flag:'true'
+        },
+        methods: {
+         /*   change(){
+                this.flag = !this.flag;
+            }*/
+        }
+    })
+</script>
+</html>

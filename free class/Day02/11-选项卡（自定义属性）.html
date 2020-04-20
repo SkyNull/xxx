@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        html, body, div, ul, li {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        #tab {
+            width: 500px;
+            margin: 10px auto 0;
+        }
+
+        #tab ul {
+            position: relative;
+            z-index: 100;
+            top: -5px;
+
+        }
+
+        #tab ul li {
+            width: 100px;
+            height: 30px;
+            line-height: 30px;
+            text-align: center;
+            border: 1px solid #ddd;
+            float: left;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        #tab ul li.select {
+            background-color: aquamarine;
+        }
+
+        #tab div {
+            clear: both;
+            display: none;
+            width: 320px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            border: 1px solid #dddddd;
+        }
+
+        #tab div.select {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div id="tab">
+    <ul>
+        <li class="select">视频</li>
+        <li>综艺</li>
+        <li>秒拍</li>
+    </ul>
+    <div class="select">视频内容</div>
+    <div>综艺内容</div>
+    <div>秒拍内容</div>
+</div>
+</body>
+</html>
+<script>
+    var oTab = document.getElementById('tab');
+    var oLis = document.getElementsByTagName('li');
+    var oDivs = oTab.getElementsByTagName('div');
+
+    function change(index) {
+        for (var i = 0; i < oLis.length; i++) {
+            oLis[i].className = '';
+            oDivs[i].className = '';
+        }
+        oLis[index].className = oDivs[index].className = 'select';
+    }
+    for (var i = 0; i < oLis.length; i++) {
+        oLis[i].myIndex = i;
+        oLis[i].onclick = function () {
+            change(this.myIndex);
+        }
+
+    }
+</script>

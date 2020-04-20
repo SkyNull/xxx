@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script>
+    //订阅
+    function on(ele,type,f) {
+        ele[type] = ele[type] || [];
+        var n = ele[type].indexOf(f);
+        if (n == -1){
+            ele[type].push(f);
+        }
+    }
+    function fire(ele,type) {
+        ele[type] = ele[type] || [];
+        ele[type].forEach((item,index)=>{
+            item && item();
+        })
+    }
+    function off(ele,type,f) {
+        ele[type] = ele[type] || [];
+        var n = ele[type].indexOf(f);
+        if (n !== -1){
+            ele[type].splice(n,1);
+        }
+    }
+
+</script>
+</html>

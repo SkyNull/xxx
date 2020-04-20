@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+            width: 400px;
+            border: 1px solid #ccc;
+            margin: 0 auto;
+        }
+        ul li{
+            border-bottom: 1px solid #ccc;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+        ul li:nth-child(2n){
+            background-color: antiquewhite;
+        }
+        ul li:nth-child(2n-1){
+            background-color: gainsboro;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+<ul>
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+</ul>
+</body>
+<script>
+    var oLis = document.getElementsByTagName('li');
+
+    //方法1 自定义属性-----------------------------------
+//    for (var i = 0; i < oLis.length; i++) {
+//        oLis[i].myIndex = i;
+//        oLis[i].onclick = function () {
+//          alert(`我是第${this.myIndex+1}个i`);
+//        }
+//
+//    }
+
+    //方法2 闭包---------------------------------
+//    for (var i = 0; i < oLis.length; i++) {
+//    (function (n) {
+//        oLis[n].onclick = function () {
+//            alert(n+1);
+//        }
+//    })(i);
+//    }
+    //方法3------------------------------------------
+//    for (var i = 0; i < oLis.length; i++) {
+//        ~function (n) {
+//            oLis[n].onclick = function () {
+//                alert(n+1);
+//            }
+//        }(i);
+//    }
+    //方法4(利用块级作用域)------------------------------------------------
+//    for (let i = 0; i < oLis.length; i++) {
+//        oLis[i].onclick = function () {
+//          alert(i+1);
+//        }
+//
+//    }
+    //方法3-----------------------------------------------------
+//    for (var i = 0; i < oLis.length; i++) {
+//        oLis[i].onclick = (function (n) {
+//            return function () {
+//                alert(n+1);
+//            }
+//        })(i);
+//    }
+    //方法5---------------------------------------------------
+    function f(n) {
+        return function () {
+            alert(n+1);
+        }
+    }
+    for (var i = 0; i < oLis.length; i++) {
+        oLis[i].onclick = f(i);
+    }
+</script>
+</html>

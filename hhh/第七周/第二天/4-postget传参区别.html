@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script>
+    /*
+    * get 系列 把参数方url后边
+    * get
+    * head 只获取请求头
+    * delete 删除对应的内容
+    *
+    * post 系列 把参数放到请求体中(send(参数))
+    *  post
+    *  put 给后台添加数据
+    *
+    * */
+    var xhr = new XMLHttpRequest();//ActiveObject
+    xhr.open('get','./1.xml?c=12');
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4){
+            console.log(xhr.response); //是个字符串 获取的后台给的数据
+            console.log(xhr.responseText);//是个字符串
+            console.log(xhr.responseXML);//是个后台给的结构;若后台给的是JSON数据，那么这个属性值就是个 null；
+        }
+    };
+    /*将后台要的参数传过去*/
+    xhr.setRequestHeader('name','zhu');
+    xhr.setRequestHeader('content-type','application/x-www-form -urlencoded');//设置key value关键字;设置这个是把send里的参数转成form-data的形式。
+
+    //如果请求方式是post，则在send()中传参；
+    xhr.send('name=1&age=22');//不能传对象形式，因为会在network中显示[object Object]
+    xhr.send();
+
+    //post get 的区别(面试题)
+    /*
+    * 1.两者的传参的方式；get是将参数拼接到url路径后边、post是在请求体中传参
+    * 2.参数的大小限制也不一样；
+     * 由于URL的大小有限制；所以get传参大小有限制；Post是把参数放到了请求体当中，所以大小没有明确的限制；
+     * get 谷歌10kb IE2kb;大小限制是因为浏览器对URL大小的限制造成的。
+    * 3.post比get传参相对安全点;
+    * 4.get方式请求的数据有缓存;post是没有缓存这一说的；
+    *
+    *
+    * */
+</script>
+</html>

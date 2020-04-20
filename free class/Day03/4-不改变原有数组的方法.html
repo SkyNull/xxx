@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*不改变原有数组
+    * 1. toString(); 不接受参数，返回值是 每一项逗号连接的字符串
+    *
+    * */
+    var ary = [1,2,3,4,5];
+    var res = ary.toString();
+    console.log(res,typeof res,ary);
+
+    /*
+    * 2. join :接受参数，可以不传参，把数组以指定字符，连接成字符串。
+    * */
+    var res2 = ary.join();//不传参数时，默认用逗号隔开
+    var res3 = ary.join(',');//等价于ary.toString();
+    var res4 = ary.join('+');
+    var res5 = ary.join(' ');
+    var res6 = ary.join('');
+
+    //eval();//把字符串 转化成表达式；
+    var str = '1+2+3';
+    console.log(eval(str));
+
+    var str2 = ary.join('+');
+    console.log(eval(str2));
+    //注意：arguments 是不能采用数组的方法的，因为它是类数组不是数组
+
+    /*
+    * 3.concat（）：数组拼接。参数可以不传，也可以传多个，参数的数据类型不限；
+    *
+    * */
+    var res1 = ary.concat();//相当于把数组复制一份，返回给 res1
+    res1[0] = 9;
+    console.log(res1, ary);
+    //当参数是数组时，它会把数组拆开，一项一项的放到新数组中
+    //当参数是其他数据类型时，他是把整个的拼接到新数组中
+    var res2 = ary.concat(12,13,[22,23],{w:1},function (){},'',null);//
+    console.log(res2);
+
+    /*
+    * 4.slice(n,m) 从索引n(包含n)开始获取到 索引m（不包含m）;
+    *      返回值： 把找到的部分以一个新数组返回
+    *
+    * */
+    ary = [1,2,3,4,5,1,3];
+    var res3 = ary.slice(1,2);
+   console.log(res3);
+    var res4 = ary.slice(0);//数组克隆
+    var res5 = ary.slice();//数组克隆
+    console.log(res4);
+
+    var res5 = ary.splice();
+    console.log(res5, ary);//空数组，[1,2,3,4,5]
+    var res6 = ary.splice(0);
+    console.log(res6, ary);//[1,2,3,4,5],空数组
+
+    /*验证数组中是否包含某一项（没有对应的项时 返回值是 -1）
+    *  6. indexOf/lastIndexOf:获取当前项在数组中第一次或者最后一次出现位置的索引
+    *     ary.indexOf(xxx,n)//从索引 n 开始查找，是否包含xxx项，包含就返回其对应的索引，否则返回-1，默认n=0；
+    *    indexOf(n,m); 从索引m开始 查看 n在数组里面的索引；
+     *  */
+    var obj = {w:12};
+    var ary3 = [{w:1},1,obj];
+    console.log(ary3.indexOf({w: 1}));//引用数据类型操作的是地址
+    console.log(ary3.indexOf(obj));//这是得到引用数据类型的索引
+//forEach 和map  方法记得扩展
+</script>
+</html>

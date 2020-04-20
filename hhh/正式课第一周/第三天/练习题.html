@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>珠峰培训</title>
+</head>
+<body>
+
+<div id="div1">珠峰培训</div>
+</body>
+</html>
+<script>
+    //变量提升
+    // var i = 5;
+    // --i;// i - 1 ;然后再去做其他运算
+    // i--;//先做其他运算，再 i-1;
+
+    function fn() {
+        var i = 5;
+        return function (n) {
+            console.log(n*(--i))
+        }
+    }
+    var f = fn();
+    f(10);//40  fn()不销毁，f()执行完成后销毁
+    fn()(10);// 40 不立即销毁，执行完成后两个都销毁
+    fn()(20);//80 不立即销毁，执行完成后两个都销毁
+    f(20);//60 fn()不销毁，f()执行完成后销毁
+
+    //1、
+    var i = 2;
+    function fn() {
+        i += 2;
+        return function (n) {
+            console.log(n + (--i));
+        }
+    }
+    var f=fn();
+    f(2);//5      fn()不销毁，f()执行完成后销毁
+    f(3);//5      fn()不销毁，f()执行完成后销毁
+    fn()(2);//5   不立即销毁，执行完成后两个都销毁
+    fn()(3);//7   不立即销毁，执行完成后两个都销毁
+    f(4);//7      fn()不销毁，f()执行完成后销毁
+
+//    //2、
+//    var n = 10;
+//    function fn() {
+//        var n = 20;
+//        function f() {
+//            n++;
+//            console.log(n);
+//        }
+//        f();//21
+//        return f;
+//    }
+//    var x = fn();
+//    x();//22   fn()不销毁，f()执行完成后销毁
+//    x();//23    fn()不销毁，f()执行完成后销毁
+//    console.log(n);//10
+
+//    //3、函数每一次执行将改变全局变量i的值
+//    let i = 1;
+//    let fn = function (n) {
+//        i *= 2;
+//        return function (m) {
+//            i += n + m;
+//            console.log(i);
+//        }
+//    };
+//    let f = fn(2);
+//    f(3);//7
+//    fn(2)(3);//19
+//    f(4);//25
+//    f(5);//32
+//
+//
+    //this
+    //1、
+    var num =1;
+    var obj = {
+        num : 10,
+        fn : (function () {
+            this.num *=3;
+            return function () {
+                num +=2;//全局变量num
+                this.num ++;
+            }
+        })()
+    };
+    var f = obj.fn;//给其一个return 后的函数 地址，但是并未执行函数
+    f();//执行函数
+    obj.fn();//当函数前面有点的话，this前面就是指向点前的数；
+    console.log(num, obj.num);//8,11
+
+//    //2
+//    var name = '珠峰';
+//    var age = 9;
+//    age = (function (name,age) {
+//        name = '珠峰1';//只要传参，那么形参就和外界变量没有关系了
+//        age = age || this.age;
+//        this.age = arguments[0];
+//        console.log(name,age);//珠峰1，9
+//        return this.age;//如果没有这个的话，age输出就是undefined;
+//    })(name,age);
+//    console.log(name,age);//珠峰，珠峰1
+
+//    //3
+//    var obj = {name:'珠峰',age:9};
+//    (function (obj) {
+//        obj.name = '中国';
+//        obj = {};
+//        obj.age = 5000;
+//        console.log(obj.age);//5000
+//    })(obj);
+//    console.log(obj.name);//中国
+
+    //4
+    var num = 1;
+    var obj = {num:2};
+    obj.fn = (function (num) {
+        this.num = num*2;//num是传参进来的（obj.num）
+        num++;//是形参+1
+        return function (n) {
+            this.num += n;
+            num++;
+            console.log(num)
+        }
+    })(obj.num);
+    var fn = obj.fn;
+    fn(10);
+    obj.fn(20);
+    console.log(num, obj.num);//14,22
+</script>  

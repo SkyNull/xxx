@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style rel="stylesheet/less" type="text/less">
+        #div1{
+            width: 1000px;
+            height: 600px;
+            background: #fa9752;
+        }
+        /*专业名词 媒体查询*/
+        @media all and (max-width: 600px){
+            /*当屏幕小于等于600px时 要设置的样式*/
+            #div1{
+                width: 300px;
+                height: 100px;
+                background: lightseagreen;
+            }
+        }
+    </style>
+    <script src="./js/less.js"></script>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script></script>
+</html>

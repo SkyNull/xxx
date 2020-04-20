@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    {{ary}}
+    <son q="12" :ary="ary"></son>
+</div>
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            ary:[1,2,3,4]
+        },
+        methods: {},
+        components:{
+            son:{
+                template:'<div><h1>this is a word</h1>{{arr2}}<button @click="fn">按钮</button></div>',
+                props:['q','ary'],
+                data(){
+                    return{
+                      arr:[]
+                    }
+                },
+                mounted(){
+                    console.log(this);//this指的是vue组件son
+                    console.log(this.q);
+                    /*this.arr = this.ary.slice();*/
+                },
+                computed:{
+                  arr2(){
+                      return this.ary.slice();
+                  }
+                },
+                methods:{
+                    fn(){
+                        this.ary.pop();
+
+                    }
+                }
+            }
+        }
+    })
+</script>
+</html>

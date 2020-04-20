@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+
+</head>
+<body>
+<div id="app">
+<!-- path query name params 是vue-router规定好的 -->
+    <!--若用query传参，path name 都可以使用-->
+    <router-link :to="{path:'/home',query:{name:12,age:13}}">首页</router-link>
+    <!--若用params传参，只能用name-->
+    <router-link :to="{name:'myPath2',params:{sex:12,age:13}}">列表页2</router-link>
+    <router-link :to="{name:'myPath',params:{sex:12,age:13}}">列表页</router-link>
+    <router-view></router-view>
+</div>
+</body>
+<script src="./node_modules/axios/dist/axios.js"></script>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="./node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    const home = {
+        template:'<h2>首页de信息{{$route.query}}</h2>',
+        created(){
+            //通过query获取
+            console.log(this);
+            console.log(this.$route.query);
+            axios.get('https://m.huli.com/wap/1.6/bid/hulilist',{params:{name:12,age:20}}).then((data)=>{
+                console.log(data);
+                this.msg = data.data.errorMessage;
+            })
+        }
+    };
+    const list = {
+        template:'<h2>列表页{{$route.params}}</h2>',
+        created(){
+            //通过params获取
+            console.log(this);
+            console.log(this.$route.params);
+        }
+    };
+    const routes = [
+        {
+            path:'/home',
+            component:home
+        },
+        {
+            path:'/list/:sex/:age',
+            name:'myPath',
+            component:list
+        },
+        {
+            path:'/list',
+            name:'myPath2',
+            component:list
+        }
+    ];
+
+    const  router = new VueRouter({
+        routes
+    });
+    let vm = new Vue({
+        el: '#app',
+        data: {},
+        router,
+        methods: {}
+    })
+</script>
+</html>

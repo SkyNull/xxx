@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>拖拽多个小球球</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #div1{
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            background: lightcoral;
+            border-radius: 50%;
+            position: absolute;
+            cursor: move;
+            user-select: none;
+        }
+        #div2{
+            background: lightskyblue;
+        }
+        #div3{
+            background: lightgray;
+        }
+        #div4{
+            background: lightsalmon;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">拽我y</div>
+</body>
+<script>
+    let oDiv =document.getElementById('div1');
+    //实现拖拽，主要三部曲
+    oDiv.onmousedown = dragStart;
+    function dragStart(e) {
+        e = e || window.event;
+        /*为什么不可以声明变量存储值？？？*/
+        //因为你在函数中var 变量，此变量是该函数的私有变量，外界的函数是无法使用其他函数的私有变量的，而用this是相当于把oDiv当做对象，给他增加了一个公有属性，其他函数也可以用到。
+//        let startX = this.offsetLeft,
+//            startY = this.offsetTop,
+//            mx = e.clientX,
+//            my = e.clientY;
+        this.startX = this.offsetLeft;
+        this.startY = this.offsetTop;
+        this.mx = e.clientX;
+        this.my = e.clientY;
+        document.onmousemove = dragMove.bind(this);
+        document.onmouseup = dragEnd.bind(this);
+    }
+    function dragMove(e) {
+        let x = e.clientX - this.mx;
+            y = e.clientY - this.my;
+        this.style.left = this.startX + x + 'px';
+        this.style.top = this.startY + y + 'px';
+    }
+    function dragEnd() {
+        document.onmousemove = null;
+        document.onmouseup = null;
+    }
+</script>
+</html>

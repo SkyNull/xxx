@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+ <div id="div1">珠峰培训</div>
+</body>
+</html>
+<script>
+    /*
+     变量：可以变化的量
+     var a = xxx; a 就是一个变量
+     var 1 = xxx; 这种事错误的
+     变量名： 不可以是数字，也不可以是数字开头的；
+             区分大小写；
+             它可以是字母、_、$这种开头；
+             不能用关键字和保留字命名；
+             驼峰命名规范（第二个单词的首字母需要大写）
+    */
+    //变量的作用：存储值用的
+    var oDiv = document.getElementById('div1');
+    oDiv.onclick = function(){
+        //alert(1234);
+        oDiv=12;
+        oDiv=undefined;//会报错
+        oDiv=[];
+        oDiv={};
+        oDiv='www';
+        oDiv.style.color = '#ccc';
+    }
+</script>

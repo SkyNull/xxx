@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    <list></list>
+</div>
+</body>
+<script src="./node_modules/axios/dist/axios.js"></script>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/vuex/dist/vuex.js"></script>
+<script>
+    /*在组件中调用 store 中的状态简单到仅需要在计算属性中返回即可。改变store 中的状态的唯一途径就是显式地提交 (commit) mutations*/
+    //vue方法是 直接用data返回====1
+    //vuex方法是 利用computed计算属性来实现====2
+    const list = {
+        template:'<ul><li v-for="val in ary">name:{{val.name}}===age:{{val.age}}</li><li v-for="val in arr">name:{{val.name}}====age:{{val.age}}</li></ul>',
+        //===1
+        data(){
+            return{
+                ary:this.$store.state.ary.filter((item)=>{
+                    return item.age>=18;
+                })
+
+            }
+        },
+        //===2
+        computed:{
+            arr:{
+                get(){
+                    return this.$store.state.ary.filter((item)=>{
+                        return item.age >= 18;
+                    })
+                }
+            }
+        }
+    };
+    const store = new Vuex.Store({
+       state:{
+           ary:[{name:'Tom',age:30},{name:'Jerry',age:18},{name:'Rose',age:10}]
+       }
+    });
+    const vm = new Vue({
+        el: '#app',
+        data: {},
+        store,
+        methods: {},
+        components:{
+            list
+        }
+    })
+</script>
+</html>

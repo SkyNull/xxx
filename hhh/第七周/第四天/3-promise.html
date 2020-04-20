@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script src="ajax.js"></script>
+<script>
+    var p = new Promise(function (resolve,reject) {
+        ajax({
+            type :'get',
+            url:'1.json',
+            success:function (data) {
+                resolve(data);
+            },
+            error:reject
+        })
+    });
+    var p2 = p.then((data)=>{
+        console.log(data);//输出1.json数据内容
+        return new Promise(function (resolve,reject) {
+            //注意：如果return出一个实例，则不按照之前的那套走了，按照第一个对应第一个。第二个对应第二个
+          setTimeout(function () {//异步执行
+              resolve('success');//这里面就算报错也和promise没有关系
+          },1000);
+            reject('error');//先执行reject
+      })
+    },()=>{});
+    //上面的resolve对应p2.then的第一个参数；reject对应pa.then的第二个参数
+    p2.then(data=>{
+        console.log(data);
+    },res=>{
+    /*    console.log(res);//执行这里*///输出结果error
+        //或者
+        setTimeout(function () {
+            console.log(res);//error
+        },2000);
+    }).then((data)=>{
+        console.log(data);//结果是undefined;因为定时器没有return；定时器成功执行，所以走第一个参数
+    },()=>{});
+    //==========================================
+</script>
+</html>

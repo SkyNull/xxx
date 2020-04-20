@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1{
+            width: 100px;
+            height: 100px;
+            background: lightpink;
+            position: relative;
+            left: 100px;
+        }
+    </style>
+</head>
+<body>
+<div id="div1" class="box">珠峰培训</div>
+</body>
+<script src="js/utils.js"></script>
+<script>
+    var oDiv = utils.getByClass('box')[0];
+/*
+* move 需要知道动谁，动哪个元素，以及它的方向，多长时间动完，且动到哪里停止
+* */
+/*    function move(ele,duration,attr,tar) {
+        var duration = 2000;//总的运动时长
+        //var changL = 400;//总的运动距离 = 目标值-初始值
+        var beginL = utils.css(oDiv,'left');
+        var tarL = 800;
+        var changL = tarL - beginL;
+        var times = 0;
+        var speed = changL/duration;
+        var timer = setInterval(function () {
+            times += 20;
+            if (times >= duration){
+                clearInterval(timer);
+                times = duration;
+            }
+            //times*speed是运动距离
+            //当前位置 = 运动距离 + 初始值
+            //var curPos = times*speed + beginL;
+            var curPos = linear(times,changL,duration,beginL) ;
+            oDiv.style.left = curPos + 'px';
+        },20);
+    }
+    move();*/
+//化简程序
+    function move(ele,duration,attr,tar) {
+        var beginL = utils.css(ele,attr);
+        var changL = tar - beginL;
+        var times = 0;
+//        var speed = changL/duration;
+        var timer = setInterval(function () {
+            times += 20;
+            if (times >= duration){
+                clearInterval(timer);
+                times = duration;
+            }
+            //times*speed是运动距离
+            //当前位置 = 运动距离 + 初始值
+            //var curPos = times*speed + beginL;
+            var curPos = linear(times,changL,duration,beginL) ;
+            //ele.style[attr] = curPos + 'px';
+            utils.setCss(ele,attr,curPos);
+        },20);
+    }
+    move(oDiv,3000,'left',800);
+    move(oDiv,3000,'top',300);
+//获取当前位置
+    function linear(time,changL,duration,beginL) {
+        return changL/duration*time + beginL;
+
+    }
+</script>
+</html>

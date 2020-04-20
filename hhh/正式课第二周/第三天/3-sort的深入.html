@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    var ary = [
+        {name:'张三',age:18,hobby:'play'},
+        {name:'李四',age:14,hobby:'sleep'},
+        {name:'啸五',age:1,hobby:'eat'}
+    ];
+    //需求：根据age images
+    var arr = ary.sort((a,b)=>{
+        return a.age - b.age;
+    });
+    console.log(arr);
+    //需求：根据hobby排序
+    var arr2 = ary.sort((a,b)=>{
+        return a.hobby.localeCompare(b.hobby);
+    })
+    console.log(arr2);
+
+    var arr3 = ary.sort((a,b)=>{
+        return a.name.localeCompare(b.name,'zh');
+        //'zh' 按照汉语拼音排序
+    })
+    console.log(arr3);
+</script>

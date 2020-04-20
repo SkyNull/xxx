@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    {{$store.state.a}}
+    <home></home>
+</div>
+</body>
+<script src="./node_modules/axios/dist/axios.js"></script>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/vuex/dist/vuex.js"></script>
+<script>
+    /*
+    *Vuex 是一个专为 Vue.js 应用程序开发的状态管理模式。它采用集中式存储管理应用的所有组件的状态，并以相应的规则保证状态以一种可预测的方式发生变化。
+    * */
+    //注意：声明组件后，切记在根实例中注入components:{}
+    const home = {
+        template:'<h2>   {{$store.state.a}}<button @click="fn">按钮+</button><button @click="fn2">按钮-</button></h2>',
+        methods:{
+            fn(){
+                //第二步：
+                //使用vuex修改state有两种方式：
+                //1）可以直接使用 this.$store.state.变量名 = xxx;
+                // 2）this.$store.dispatch(actionType, payload)
+                //或者  this.$store.commit(commitType, payload) 执行mutations中的函数；第一个参数 是mutations中对应的函数名，第二个参数是传给对应函数的实参；
+                //通过commit执行，直接去找mutations
+                this.$store.commit('add',1);
+            },
+            fn2(){
+                this.$store.commit('desc',2);
+            }
+        }
+    };
+
+    //第一步：创建一个实例 store,切记一定要在根实例中注入store
+    const store = new Vuex.Store({
+       state:{
+           //state   储存初始化数据,后期就可以使用this.$store.state直接获取状态
+           a:0,
+       },
+        //2.当组件要更改state中的数据时，必须要用到mutation；
+        mutations:{
+            //第三步：
+            add(state,obj){
+                //只有两个参数；第一个参数是VUEX中的state,第二项是对应commit执行时传进来的参数；
+                //VUEX提倡通过这种方式修改咱们的state属性；
+                //obj一般是一个对象，但是也支持传值类型
+                console.log(arguments);//查看参数 state.a  state.b
+                state.a += obj;
+
+            },
+            desc(state,obj){
+                state.a -= obj;
+            }
+
+        }
+    });
+    console.log(store);//$store.state.属性名
+
+
+    const vm = new Vue({
+        el: '#app',
+        data: {},
+        store,  //注册上vuex的store: 所有组件对象都多一个属性$store
+        methods: {},
+        components:{
+            home
+        }
+    });
+</script>
+</html>

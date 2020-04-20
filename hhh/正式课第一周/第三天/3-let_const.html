@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script>
+    //let const 都属于es6的内容
+    // let :声明的变量 没有变量提升；而且它也不是window上的属性
+    //      不能重复声明，但是可以重新赋值；因为重复声明会报错；
+    // const: 和let基本一样，但是它不能重新赋值
+    //var a = 12;
+
+    let a = 12;
+    a = 13;
+    console.log(a); //13
+
+    const b = 14; // const 常量。是不能变得量
+    console.log('a' in window); //false
+
+    //let程序
+    /*   * 在函数里面形成的私有作用域中:
+     *   1.用‘var' 声明过的变量，会有变量提升，给一个默认值是undefiend
+     *   2.用'leit'和'const'声明过的变量，不会进行变量提升，但是他也会对里面的带let和const 的变量进行预览。这时，浏览器不会再往上级作用域查找相应的变量。  ----> 这种称为“暂时性死区”。
+     **/
+    let a = 12;
+
+    function f() {
+        console.log(a); //12
+    }
+
+    function f1() {
+        console.log(b); //undefined,
+        console.log(a); //a is not defined
+        let a = 15;
+        var b = 10;
+        console.log(b, a); //10,15
+    }
+    f();
+    f1();
+    console.log(a); //12
+
+    /*
+     *  全局作用域
+     *  私有作用域：函数执行的时候形成的
+     *
+     *  es6 块级作用域{}  for if while
+     *    块级作用域只和 let 或者 const 声明的变量起作用；对于 var 没有块级作用域的限制
+     * */
+
+    /*  var、let、const的区别
+
+    *1. var定义的变量，没有块的概念，可以跨块访问, 不能跨函数访问。
+    *2. let定义的变量，只能在块作用域里访问，不能跨块访问，也不能跨函数访问。
+    *3. const用来定义常量，使用时必须初始化(即必须赋值)，只能在块作用域里访问，而且不能修改
+    *
+    * */
+    // 1.
+    if (true) {
+        let aa = 12;
+    }
+    console.log(aa); // aa is not defined
+    if (true) {
+        var bb = 13;
+    }
+    console.log(bb); // 13
+
+    //一个变量 第一次出现可以赋值，但是不能调用
+    console.log(g); //报错
+    typeof g; //undefined
+
+    typeof f; //f id not defined
+    let f = 12;
+
+    // 2.块作用域
+    {
+        var a = 1;
+        let b = 2;
+        const c = 3;
+        // c = 4; // 报错
+        var aa;
+        let bb;
+        // const cc; // 报错
+        console.log(a); // 1
+        console.log(b); // 2
+        console.log(c); // 3
+        console.log(aa); // undefined
+        console.log(bb); // undefined
+    }
+    console.log(a); // 1
+    // console.log(b); // 报错
+    // console.log(c); // 报错
+
+    // 函数作用域
+    (function A() {
+        var d = 5;
+        let e = 6;
+        const f = 7;
+        console.log(d); // 5
+        console.log(e); // 6  (在同一个{ }中,也属于同一个块，可以正常访问到)
+        console.log(f); // 7  (在同一个{ }中,也属于同一个块，可以正常访问到)
+
+    })();
+    // console.log(d); // 报错
+    // console.log(e); // 报错
+    // console.log(f); // 报错
+</script>

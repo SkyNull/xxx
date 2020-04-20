@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        div{
+            border: 1px solid lightsalmon;
+            padding: 30px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="outer" @click="tan('outer')">outer
+<!--       <div class="center" @click.stop="tan('center')">center-->
+       <div class="center" @click.self="tan('center')">center
+           <div class="inner" @click="tan('inner')">inner</div>
+       </div>
+    </div>
+</div>
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {
+            tan(val){
+               alert(val);
+            }
+        }
+    })
+</script>
+</html>

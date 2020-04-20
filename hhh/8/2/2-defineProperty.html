@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+<script>
+    /*
+    * VUE 核心内容 get\set()的应用
+    * */
+    let obj = [];
+    let temp = {};
+
+    Object.defineProperty(obj,'name',{
+//        value:'珠峰培训', //对应的value值
+//        enumerable:true, //可枚举，默认是false
+//        writable:true, //是否可写
+//        configurable:false, //是否可删除
+
+        get(){ //当这个属性被获取的时候会触发这个get
+            console.log('get');
+            return temp['name'];
+            //return 123; //获取这个属性时，返回给外界的value值；
+        },
+        set(value){  //当我们给这个属性赋值的时候会触发这个get
+            /*console.log(value);*/
+            /*console.log('set');*/
+            div1.innerHTML = value;
+            temp['name'] = value;
+        }
+    });
+   /* console.log(obj);
+    delete obj.name;
+    for (let k in obj){
+        console.log(k);
+    }*/
+</script>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //原型模式
+    //利用构造函数
+    //原型：prototype
+    //三句必须背熟的话：
+    //每一个函数都有一个属性：prototype  这属性指向函数自己的 原型对象；
+    //每一个对象都有一个__proto__的属性，指向所属类的原型对象
+    //每一个默认的原型对象都有一个属性condtructor;指向所属函数的本身
+    function Person(name,age) {
+        this.name = name;
+        this.age = age;
+    }
+    var per1 = new Person('zfpx',9);
+    var per2 = new Person('xh',12);
+
+    //JS中的 内置类 对应的实例 有两种创造方式
+    //字面量（直接量） var ary = [1,2]; var obj = {};
+    //通过构造函数 var ary2 = new Array(1,2); var obj2 = new Object();
+    //JS中的自定义类 对应的实例 我们只能通过new 的方式创建
+
+//    构造函数模式：创建一个构造函数；
+//    所有的实例都是 一个对象
+//    所有的类都是 一个函数
+
+    //普通数组 都是 Array 这个类的实例
+    //普通对象 都是 Object 这个类的实例
+    //所有函数 都是 Function 这个类的实例
+    //[]首先是一个数组，然后才是一个对象
+
+    /*
+    * 函数的三种角色
+    * 首先是一个普通函数  跟作用域、变量提升有关系
+    * 其次是一个构造函数  跟this、原型 有关系
+    * 最后是一个普通对象  跟属性名、属性值 有关系
+    *
+    * */
+</script>
+</html>

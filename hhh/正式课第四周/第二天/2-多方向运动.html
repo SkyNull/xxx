@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1 {
+            width: 100px;
+            height: 100px;
+            background: mediumpurple;
+            position: relative;
+            left: 100px;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">zfpx</div>
+</body>
+<script src="js/utils.js"></script>
+<script>
+    var oDiv = document.getElementById('div1');
+    /*    function move(ele,duration,attr,tar) {
+     var beginL = utils.css(ele,attr);
+     var changL = tar - beginL;
+     var times = 0;
+     var speed = changL/duration;
+     var timer = setInterval(function () {
+     times += 20;
+     if (times >= duration){
+     clearInterval(timer);
+     times = duration;
+     }
+     //times*speed是运动距离
+     //当前位置 = 运动距离 + 初始值
+     //var curPos = times*speed + beginL;
+     var curPos = linear(times,changL,duration,beginL) ;
+     //ele.style[attr] = curPos + 'px';
+     utils.setCss(ele,attr,curPos);
+     },20);
+     }*/
+
+    function move(ele, duration, obj) {
+        var beginL = {};
+        var changeL = {};
+        for (var k in obj) {
+            if (obj.hasOwnProperty(k)) {
+                beginL[k] = utils.css(ele, k);
+                changeL[k] = obj[k] - beginL[k];
+            }
+        }
+        var times = 0;
+        var timer = window.setInterval(function () {
+            times += 20;
+            if (times > duration) {
+                clearInterval(timer);
+                times = duration;
+            }
+            for (var k in obj) {
+                if (obj.hasOwnProperty(k)) {
+                    var curPos = linear(times, changeL[k], duration, beginL[k]);//记录当前位置的
+                    utils.setCss(ele, k, curPos);
+                }
+            }
+        }, 20);
+    }
+    function linear(time, changL, duration, beginL) {
+        return changL / duration * time + beginL;
+
+    }
+    move(oDiv, 2000, {left: 300, top: 400, opacity: 0.5});
+
+
+</script>
+</html>

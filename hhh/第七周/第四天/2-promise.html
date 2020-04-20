@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script src="ajax.js"></script>
+<script>
+    /*
+    * Promise 是原生JS的一个类；为了解决JS中异步的问题；
+    * Promise 接收一个参数；这个参数是个回调函数；
+    * 这个回调函数接收两个参数：第一个参数是用来处理异步执行成功之后执行的回调函数；
+    *                       第二个参数是用来处理异步失败之后执行的回调函数；
+    * 两个回调函数执行只能执行其中一个；只要其中一个执行了，那么另一个就不再执行；
+    * (让成功或者失败函数执行 是由自己的代码逻辑决定的)；
+    * ===================================================================
+    * then 是promise原型上的函数；它接收两个函数作为参数；
+    *      第一个函数是一个成功的回调；
+    *      第二个函数是一个失败的回调；
+    * then 返回的是一个新的Promise实例；
+    *
+    * 后面的.then中的函数接收到的参数是上个then中函数执行完的返回结果；若没有返回值则是undefined;
+    * 后边的then执行成功函数或者失败函数，只跟上个then中函数执行的结果有关；若上个then中函数(不论是成功函数还是失败函数)执行成功；则走下一个then成功的函数；若执行失败，就走下一个then失败的函数
+    * ====================================================================
+    * Promise 的实例有三种状态：pending resolve rejected
+    * pending-->实例创建完成时就是个pending
+    * resolve执行后--> resolved
+    * reject执行后--> rejected
+    *
+    * */
+    var p = new Promise(function (resolve,reject) {
+   /*     setTimeout(function () {
+            resolve('success');
+        },3000);
+        setTimeout(function () {
+            reject('fail');
+        },2000);*/
+/*//        reject(123);
+//        resolve(123);
+        /!*当两个一起执行时，先执行第一个，第二个直接不执行*!/*/
+    ajax({
+        type :'get',
+        url:'1.json',
+        success:resolve,
+        error:reject
+    })
+    });
+    var p2 =  p.then((data)=>{
+        console.log(data);
+        throw new Error('失败了');
+       // console.log(this);//this是指向 window
+      /*  return data;*/
+    },(res)=>{
+        console.log(res);
+    });
+    p2.then(function (data) {
+        console.log('p2 success',data);
+        if (Math.random()>0.5){
+            throw  new Error('大于0.5失败');
+        }
+        return 'then3 success';
+    },function (res) {
+        console.log('p2 fail',res);
+    }).then(data=>{
+        console.log(data);//输出then3 success
+    },res=>{
+        console.log(res);
+    });
+    //console.log(p2);//p2结果是Promise的一个实例
+
+    /*
+    *
+    * */
+</script>
+</html>

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        h2{
+            position: absolute;
+            top:100px;
+            left: 50px;
+        }
+    </style>
+    <link rel="stylesheet" href="./node_modules/animate.css/animate.css">
+    <script src="node_modules/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="app">
+  <!--  <a href="#/home">首页</a>
+    <a href="#/list">列表页</a>-->
+
+    <router-link to="/home" tag="button">首页</router-link>
+    <router-link to="/list">列表</router-link>
+    <!--router-view将内容展示在页面上，它是一个全局组件-->
+
+        <!--mode - string，控制离开/进入的过渡时间序列。有效的模式有 "out-in" 和 "in-out"；默认同时生效-->
+        <transition enter-active-class="animated fadeIn" leave-active-class="animated fadeOut" mode="out-in">
+            <!--keep-alive直系-->
+            <keep-alive><router-view></router-view></keep-alive>
+        </transition>
+
+
+</div>
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="./node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    /*
+    * 步骤：1.先写对应的组件
+    *      2.根据写好的组件 编写路由映射表routes
+    *      3.创建一个router实例，把路由映射表注入到这个实例中
+    *      4.把router注入到根实例中(注入到根实例中全局都可以用)
+    * */
+    let home = {
+      template:'<h2>首页</h2>',
+        mounted(){
+          /*router会触发生命周期的钩子函数，那怎么可以不触发? 用<keep-alive>*/
+            console.log('home');
+        }
+    };
+    let list = {
+        template:'<h2>列表页</h2>',
+        mounted(){
+            console.log('list');
+        }
+    };
+    /*路由映射表 它是一个数组*/
+    let routes = [{
+        path:'/home',
+        component:home
+    },
+    {
+        path:'/list',
+        component:list
+    }
+    ];
+    const router = new VueRouter({
+       routes
+    });
+    let vm = new Vue({
+        el: '#app',
+        data: {},
+        //将router注入到根实例中
+        router,
+        methods: {
+        }
+    })
+</script>
+</html>

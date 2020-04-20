@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #div1{
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background: lightblue;
+            border: 1px dashed #ccc;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+<script src="utils.js"></script>
+<script>
+    var oDiv = document.getElementById('div1');
+    function timeMove(ele,attr,tar,duration) {
+        var beginL = utils.css(ele,attr);
+        var changL = tar - beginL;
+        var speed = changL/duration;
+        var times = 0;
+        var timer = window.setInterval(function () {
+            times += 20;
+            if (times>duration){
+                clearInterval(timer);
+                times = duration;
+            }
+            utils.css(ele,attr,speed*times+beginL);
+        },20)
+    }
+    timeMove(oDiv,'left',600,1000);
+</script>
+</html>

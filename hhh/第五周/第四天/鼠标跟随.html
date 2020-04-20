@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .litBox{
+            width: 100px;
+            height: 100px;
+        }
+        .litBox img{
+            width: 100%;
+            height: 100%;
+        }
+        .bigBox{
+            width: 200px;
+            height: 200px;
+            display: none;
+            position: absolute;
+        }
+        .bigBox img{
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="litBox">
+    <img src="girl.jpg" alt="">
+</div>
+<div class="bigBox">
+    <img src="girl.jpg" alt="">
+</div>
+</body>
+<script>
+    var litBox = document.getElementsByClassName('litBox')[0];
+    var bigBox = document.getElementsByClassName('bigBox')[0];
+    litBox.onmouseenter = function () {
+        bigBox.style.display = 'block';
+    }
+    litBox.onmousemove = function (e) {
+        e = e || window.event;
+        bigBox.style.left =  e.pageX + 10 + 'px';
+        bigBox.style.top =  e.pageY + 10+ 'px';
+    }
+    litBox.onmouseleave = function () {
+        bigBox.style.display = 'none';
+    }
+</script>
+</html>

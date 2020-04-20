@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+
+</head>
+<body>
+<div id="app">
+    <router-link :to="{path:'/home',query:{name:12,age:13}}">首页</router-link>
+    <router-link :to="{path:'/list2',query:{name:12,age:13}}">列表页2</router-link>
+    <router-link :to="{name:'myPath',params:{sex:12,age:13}}">列表页</router-link>
+    <router-view></router-view>
+</div>
+</body>
+<script src="./node_modules/axios/dist/axios.js"></script>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="./node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    /*同步就直接用to在上面写死；如果需要实现异步，则用下面的这种方式；比如我们需要先从后台获取数据，然后再根据数据进行选择跳转方式*/
+    /*
+    * 通过点击按钮 获取后台的数据；根据后台的数据决定去跳转哪一个路由；
+    * */
+    /*点击首页的跳转按钮2s后跳转到列表页2*/
+    const home = {
+        template:'<h2>首页<button @click="fn">跳转到列表页2</button></h2>',
+        methods:{
+            /*
+            * $route 中存的都是咱们需要的参数
+            * $router 中存的都是跳转的方法
+            * */
+            fn(){
+                setTimeout(()=>{
+                    console.log('跳转');
+                    //this.$router.go(-1); //go负几 就往回跳几次
+                    //this.$router.back(); //back 后退
+                    /*push是在路由历史中新增一次跳转，点回退按钮时直接跳转到首页；而replace是后退上一级地址*/
+                    this.$router.push({path:'/list2',query:{name:1234}});
+                    /*如果push的时候不传参的情况下，可以这么写*/
+                    //this.$router.push('/list2');
+                    /*当前路由在哪 replace只是把当前路由替换掉了，再点回退按钮时是从当前路由往回跳转*/
+                   this.$router.replace({path:'/list2',query:{name:1234}})
+                },2000);
+            }
+        }
+    };
+    const list = {
+        template:'<h2>列表页</h2>',
+    /*    created(){
+            let til = this.$route.meta.til;
+            document.title = til;
+        }*/
+    };
+    const list2 = {
+        template:'<h2>列表页2</h2>',
+    };
+    const routes = [
+        {
+          path:'/',
+            redirect:'/home1' //进入页面之后如果发现是个路由只是一个/;则直接重定向到/home1
+        },
+        {
+            path:'/home',
+            meta:{
+                til:'首页'
+            },
+            component:home
+        },
+        {
+            path:'/list/:sex/:age',
+            name:'myPath',
+            meta:{
+                til:'列表页'
+            },
+            component:list
+        },
+        {
+            path:'/list2',
+            meta:{
+                til:'列表页2'
+            },
+            component:list2
+        },
+ /*       {
+            path:'/!*',
+            redirect:'/home1' //路由匹配是从上到下 依次匹配；没有匹配成功时，才会走到这个匹配；
+        }*/
+    ];
+    const  router = new VueRouter({
+        routes
+    });
+    //导航守卫 beforeEach跳转前触发回调函数 afterEach跳转后触发回调函数
+    //想看arguments就不能写箭头函数，因为箭头函数没有arguments
+    router.beforeEach((to,from,next)=> {
+        //console.log(arguments); 查看参数
+        //to:是要跳到哪个路由
+        //form:从哪个路由跳转过来的
+        //next:接着执行跳转
+        //目标改title
+        let til = to.meta.til;
+        document.title = til || '珠峰培训';
+        next();
+    });
+/*    router.beforeEach(function() {
+        console.log(arguments);// 查看参数
+    });*/
+    let vm = new Vue({
+        el: '#app',
+        data: {},
+        router,
+        methods: {}
+    });
+    /*补充： meta 功能*/
+</script>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1{
+            width: 300px;
+            height: 300px;
+            margin: auto;
+            background: lightsalmon;
+            cursor: pointer;
+        }
+        #inp{
+            outline: none;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1">珠峰培训</div>
+    <input type="text" id="inp" placeholder="请输入内容">
+</body>
+<script>
+    /*
+    * 事件 ： 系统天生自带的，跟绑定与否没有关系；
+    * JS中的常用事件
+    * 鼠标事件 ：
+    *   onclick :
+    *   ondblclick: 大约300毫秒内连续点击两次
+    *   onmouseover : 鼠标滑过
+    *   onmouseout : 鼠标划出
+    *   onmouseenter : 鼠标进入
+    *   onmouseleave ： 鼠标离开
+    *   onmousemove : 鼠标滑动
+    *   onmousedown : 鼠标按下不撒手
+    *   onmouseup : 鼠标松开
+    *   onmousewheel : 鼠标滚轮事件(鼠标在绑定事件区域内实现滚轮事件)
+    * */
+  var oDiv = document.getElementById('div1');
+    /*    oDiv.onmouseover = function () {
+        console.log(2);
+    }
+    oDiv.onclick = function () {
+        console.log(1);
+    }
+    oDiv.onmousedown = function () {
+        console.log(2);
+    }
+    oDiv.onmouseup = function () {
+        console.log(3);
+    }
+    //输出顺序： down up click*/
+
+    /*
+    *  键盘的常用事件 ：
+    *  onkeydown : 键盘按下
+    *  onkeyup ：键盘松开
+    *  onkeypress ：键盘按下
+    * */
+/*    document.onkeydown = function () {
+        console.log('keydown');
+    };
+    document.onkeyup = function () {
+        console.log('keyup');
+    };*/
+var inp = document.getElementById('inp');
+    /*
+    * input框的常用事件
+    *  onfocus  获取焦点
+    *  onblur   失去焦点
+    *  onchange 监听内容变化(内容改变且失去焦点才能触发)
+    *  oninput  监听内容变化
+    * */
+    /*
+    * input 的值输入 是在keydown之后 keyup之前做的
+    * */
+    //只能输入数字
+    inp.onkeyup = function () {
+        this.value = this.value.replace(/\D+/g,'');
+    }
+/*    inp.onfocus = function () {
+        console.log('focus');
+    }
+    inp.onblur = function () {
+        console.log('onblur');
+    }
+    inp.onchange = function () {
+        console.log('onchange');
+    }
+    inp.oninput = function () {
+        console.log('oninput');
+    }*/
+    /*
+    * 系统事件
+    * window.onload //页面加载完毕（包含图片，不包含ajax）
+    * window.onscroll //滚动条滚动
+    * window.onresize //可视窗口欧大小发生改变
+    * $(document).ready ---> JQ的事件，DOM树加载完毕
+    * */
+    /*
+    * 移动端事件
+    * touchstart 触碰开始
+    * touchmove  按下后滑动
+    * touchend  触碰结束
+    * onclick  有个大概300毫秒的延迟
+    * */
+
+
+</script>
+</html>

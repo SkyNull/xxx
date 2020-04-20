@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    <grand></grand>
+</div>
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+
+    let son = {
+        template:'<h3>这是个儿子</h3>'
+    };
+    let parent = {
+        template:'<h2>这是个父亲 <son></son></h2>',
+        components:{
+            son
+        }
+    };
+    let grandP = {
+        template:'<h1>这是个爷爷 <parent></parent></h1>',
+        components:{
+            parent
+        }
+    };
+
+    /*
+    *  理论上，组件可以无限级调用；
+    * */
+    let vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        components:{
+            grand:grandP
+        }
+    })
+</script>
+</html>

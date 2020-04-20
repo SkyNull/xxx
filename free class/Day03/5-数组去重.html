@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //var ary = [12,12,5,5,5,45,3525,45,14,33,33,2,55,45];
+    var ary = [1, 2, 3, 2, 1, 2, 1, 2];
+    //数组去重
+    //思路1：
+    //先对其进行排序，然后进行相邻元素进行比较；
+    function removeRep(ary) {
+        ary.sort(function (a, b) {
+            return a - b;
+        });
+        for (var i = 0; i < ary.length; i++) {
+            if (ary[i] == ary[i + 1]) {
+                ary.splice(i + 1, 1);
+                i--;
+            }
+
+        }
+        return ary;
+    }
+    console.log(removeRep(ary));
+    //正确的思路
+    /*    function removeRep(ary) {
+     for(var i=0;i<ary.length;i++){
+     var cur=ary[i];//当前项
+     for(var n=i+1;n<ary.length;n++){
+     //                用当前项和后边的数组的每一项进行比较；如果相等就把后一项删掉
+
+     if(cur==ary[n]){
+     ary.splice(n,1);
+     n--;//解决数组塌陷问题；
+     }
+     }
+     }
+     return ary;
+     }
+     console.log(removeRep(ary));*/
+
+    //思路2：利用对象属性名不能重复的特性
+    //循环数组  把数组的每一项当做某个对象的属性名存储到这个对象中
+    /*    function  removeRep2(ary) {
+     var obj = {},arr=[];
+     for(var i = 0;i<ary.length;i++){
+     obj[ary[i]] = ary[i];
+     }
+     for(var k in obj){
+     arr.push(obj[k]);
+     }
+     return arr;
+     }
+     console.log(removeRep2(ary));*/
+
+</script>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script>
+    /*
+    * VUE 数据操纵
+    * 以前咱们都是操纵DOM
+    * JS数据类型
+    * 基本数据类型：NUMBER STRING BOOLEAN NULL UNDEFINED
+    * 引用数据类型：
+    *
+    * 数组常用方法：
+    * pop push shift unshift reverse sort splice (7个) ---> 改变原有数组的
+    * slice concat toString join indexOf(lastIndexOf) (5个)--->不改变原有数组
+    *
+    * 数组循环迭代方法:
+    * forEach  map  filter(过滤)  some  every  (find includes 这两个是es6的)
+    * some:只要 有一项 满足条件，那么some的返回结果就是true;只要return 的结果是true,那么后面的内容就不再循环了；
+    * every:只要有一项不满足条件，那么every的返回结果就是false;只要return 的结果是false,那么后面的内容就不再循环了；
+    *
+    * reduce((prev,next,index, arr)=>{],xxx);
+    * 接收1-2参数；若第二个参数不传，则默认是数组的第一项；再循环时，prev就是上一次的循环的返回值；
+    * reduce的返回值 是最后一次迭代的返回值
+    *
+    * find: 返回值是符合条件的第一项；若是没有符合条件的，则返回undefined;
+    * includes(数组中的某一项，index):是否包含数组中某一项； 返回值是Boolean
+    * */
+    let ary = [10,20,30,40,50];
+/*    //[forEach与map区别]
+    let arr = ary.forEach((item,index)=>{
+        item = item*2;
+        return 12;//对于forEach来说，不会存在返回值
+    });
+    console.log(arr, ary);//arr是undefined;ary还是[1,2,3,4,5]
+
+    let arr1 = ary.map((item,index)=>{
+        item = item*2;
+        return 12;//对于map来说，返回一个数组
+    });
+    console.log(arr, ary);//arr是[12,12,12,12,12];ary还是[1,2,3,4,5]*/
+/*    let arr2 = ary.filter((item,index)=>{
+        //return true; 新数组和原有数组内容一样
+        //return false; 新数组一项都没有
+      /!*  return item > 3;//
+        /!*如果是true将内容放在里面，若是false则什么都不放*!/!*!/
+
+     //循环到当前项时，若是return的值是一个true，则把当前项复制一份给返回的数组；若是return的值是false，则不给返回数组任何值；
+  /!*   let t = Math.random();
+        return t > 0.5;*!/
+    });
+    console.log(arr2, ary);//[4,5]  [1,2,3,4,5]*/
+/*let arr = ary.some((item,index)=>{
+    let t = Math.random();
+    return t > 0.5;
+});
+    console.log(arr,ary);*/
+ /*   let arr = ary.find((item,index)=>{
+        let t = Math.random();
+        return t > 0.5;
+    });
+    console.log(arr,ary);*/
+/* let bol = ary.includes(5);//是否包含5
+    console.log(bol, ary);//true,[1,2,3,4,5]*/
+/*
+let a = ary.reduce((prev,next,index,arr)=>{
+    console.log(prev,next,index,arr);
+});
+*/
+
+/*    //使用reduce实现数组的求和
+    let a = ary.reduce((prev,next,index,arr)=>{
+        return prev + next;
+    });
+    console.log(a);*/
+    /*
+    * 数组的循环迭代方法：
+    * for
+    * for in 数组、对象均可用
+    * forEach
+    * map
+    * for of 只能用于循环数组;
+    * */
+  /*  ary.a = 12;
+    for (let key in ary){
+        console.log(key); //key是属性名
+    }
+    for (let value of ary){
+        console.log(value); //value是索引值
+    }
+    let obj = {name:'zf',age:9};
+    for (let value of obj){
+        console.log(value); //报错：Caught TypeError: obj is not iterable(可重复；可迭代的)
+    }*/
+//=====================================================================================
+  /*  for (let i = 0; i < ary.length; i++) {//编程式
+
+    }
+    ary.forEach(()=>{});//声明式*/
+
+/*    function a(n) {//高阶函数
+        return function (m) {
+            return n+m;
+        }
+    }
+    let fn2 = n => m => n+m;
+    console.log(fn2(1)(2));//3
+    console.log(fn2(1));//返回一个函数体*/
+    //箭头函数没有this和arguments
+/*//    let fn0 = (a)=>{return 12};
+    let fn1 = a=>a;
+    console.log(fn1(123));*/
+</script>
+</html>

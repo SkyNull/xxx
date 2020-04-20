@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<ul id="oul">
+    <li>
+        <span>一级菜单1</span>
+
+        <ul>
+            <li>
+                <span>二级菜单21</span>
+                <ul>
+                    <li>
+                        <span>三级菜单31</span>
+                    </li>
+                    <li>
+                        <span>三级菜单32</span>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span>二级菜单22</span>
+                <ul>
+                    <li>
+                        <span>三级菜单312</span>
+                    </li>
+                    <li>
+                        <span>三级菜单323</span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+
+    <li>
+        <span>一级菜单2</span>
+
+        <ul>
+            <li>
+                <span>二级菜单21</span>
+            </li>
+            <li>
+                <span>二级菜单22</span>
+                <ul>
+                    <li>
+                        <span>三级菜单312</span>
+                    </li>
+                    <li>
+                        <span>三级菜单323</span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+
+    <li>
+        <span>一级菜单3</span>
+
+        <ul>
+            <li>
+                <span>二级菜单31</span>
+            </li>
+            <li>
+                <span>二级菜单22</span>
+                <ul>
+                    <li>
+                        <span>三级菜单312</span>
+                    </li>
+                    <li>
+                        <span>三级菜单323</span>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+</body>
+<script>
+    /*
+    * 思路：首先，将除了一级菜单都遮住；然后给最外层的盒子绑定事件，看该事件源的弟弟节点的状态是none还是Block,若是none，则将其设置成block;然后当再次展开的时候。。。。。
+    * */
+    let oSpans = document.getElementsByTagName('span'),
+        oUl = document.getElementsByTagName('ul')[0];
+    [...oSpans].forEach((item,index)=>{
+        let nextEle = item.nextElementSibling;
+        if (nextEle && nextEle.nodeName.toLocaleLowerCase() == 'ul'){
+            nextEle.style.display = 'none';
+        }
+    });
+    oUl.onclick = function (e) {
+        e = e || window.event;
+        let tar = e.target || e.srcElement;
+        if (tar.nodeName.toLocaleLowerCase() == 'span'){
+            let ele = tar.nextElementSibling;
+            if (ele && ele.nodeName.toLocaleLowerCase() == 'ul'){
+                if (ele.style.display == 'none'){
+                    ele.style.display = 'block';
+                }else{
+                    ele.style.display = 'none';
+                }
+                let attr = ele.querySelectorAll('ul');
+                [...attr].forEach((item,index)=>{
+                    item.style.display = 'none';
+                })
+            }
+
+        }
+
+    }
+
+</script>
+</html>

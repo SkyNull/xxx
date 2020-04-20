@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    <click-fn></click-fn>
+    <click-fn></click-fn>
+    <click-fn></click-fn>
+</div>
+</body>
+<template id="clickFn">
+    <div>
+        <button @click="fn">点击我</button>
+        我被点击了{{n}}次
+    </div>
+</template>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let clickFn = {
+      template:'#clickFn',
+        data(){
+          return{
+              n:0
+          }
+        },
+        methods:{
+            fn(){
+               this.n++;
+            }
+        }
+    };
+    let vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        components:{
+            clickFn
+        }
+    })
+</script>
+</html>

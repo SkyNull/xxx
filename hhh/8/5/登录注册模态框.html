@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            background: rgba(0,0,0,0.1);
+        }
+        .mask{
+            position: fixed;
+            width: 100%;
+            height: 600px;
+            background: rgba(0,0,0,0.3);
+        }
+        .content{
+            position: absolute;
+            width: 500px;
+            height: 560px;
+            top:0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            background: #fff;
+            border-radius: 5px;
+          /*  transition: all 1s ease;*/
+        }
+        header{
+            text-align: center;
+            font-size: 40px;
+            padding-top: 56px;
+        }
+        main{
+            width: 100%;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+        main .group{
+            position: relative;
+            width: 100%;
+            height: 70px;
+            left: 20px;
+            margin-top: 12px;
+        }
+        main .group input{
+            position: absolute;
+            width: 460px;
+            height: 38px;
+            padding-left: 8px;
+            box-sizing: border-box;
+            border: 1px solid #c1c1c1;
+            border-radius: 2px;
+            margin-top: 10px;
+        }
+        footer{
+            text-align: right;
+            position: absolute;
+            bottom: 60px;
+            width: 100%;
+            right: 20px;
+        }
+        footer button{
+            width: 58px;
+            height: 38px;
+            background: dodgerblue;
+            border: none;
+            border-radius: 2px;
+            font-size: 16px;
+            color: #fff;
+        }
+        footer button:nth-child(2){
+            background: lightcoral;
+        }
+        .click{
+            position: absolute;
+            left: 20px;
+            bottom: 30px;
+        }
+        .click a{
+            text-decoration: none;
+            color: #1eabf6;
+        }
+        .loginUp{
+            height:400px;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <button @click="flag1 = !flag1">注册</button>
+    <button @click="flag2 = !flag2">登录</button>
+    <model1 v-show="flag1" @my-show1="flag1 = !flag1"></model1>
+    <model2 v-show="flag2" @my-show2="flag2 = !flag2"></model2>
+</div>
+</body>
+<template id="register">
+    <div class="mask">
+        <div class="content">
+            <header>注册</header>
+            <main>
+                <div class="group">
+                    用户名<br/><input type="text" placeholder="6-15位字母或数字">
+                </div>
+                <div class="group">
+                    密码<br/><input type="text" placeholder="至少6位字母或数字">
+                </div>
+                <div class="group">
+                    再次输入密码<br/><input type="text" placeholder="至少6位字母或数字">
+                </div>
+                <div class="group">
+                    邮箱<br/><input type="text" placeholder="例如：123@123.com">
+                </div>
+            </main>
+            <footer>
+                <button  @click="submit1">提交</button>
+                <button @click="cancel1">取消</button>
+            </footer>
+            <div class="click"><a href="#">已有账号？点击登录</a></div>
+        </div>
+    </div>
+</template>
+<template id="login">
+    <div class="mask">
+        <div class="content loginUp">
+            <header>登录</header>
+            <main>
+                <div class="group">
+                    用户名<br/><input type="text">
+                </div>
+                <div class="group">
+                    密码<br/><input type="text">
+                </div>
+
+            </main>
+            <footer>
+                <button @click="submit2" >提交</button>
+                <button  @click="cancel2" >取消</button>
+            </footer>
+            <div class="click"><a href="#">已有账号？点击登录</a></div>
+        </div>
+    </div>
+
+</template>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+    * 首先，需要写两个组件，分别实现注册和登录功能；
+    * 其次，自己写结构和样式
+    * */
+    let model1 = {
+      template:'#register',
+        data(){
+          return {}
+        },
+        methods:{
+            cancel1(){
+                this.$emit('my-show1',false);
+            },
+            submit1(){
+                alert('提交成功！');
+                this.cancel1();
+            }
+        }
+
+    };
+    let model2 = {
+        template:'#login',
+        data(){
+            return {}
+        },
+        methods:{
+            cancel2(){
+                this.$emit('my-show2',false);
+            },
+            submit2(){
+                alert('登录成功！');
+                this.cancel2();
+            }
+        }
+    };
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            flag1:false,
+            flag2:false
+        },
+        methods: {},
+        components:{
+            model1,
+            model2
+        }
+    })
+</script>
+</html>

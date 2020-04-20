@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script src="ajax.js"></script>
+<script>
+    /*
+    *
+    * */
+/*    ajax({
+        type:'get',
+        url:'./1.json',
+        success: function (d) {
+            let p = d[0].name;
+            console.log(p);
+            ajax({
+                type:'post',
+                data:{name:p},
+                url:'./1.json',
+                success:function (dat) {
+                    let p2 = dat[1].age;
+                    console.log(p2);
+                    ajax({
+                        type: 'post',
+                        data:{age:p2},
+                        url: './1.json',
+                        success:function (data) {
+                            console.log('成功结束');
+                        }
+                    })
+                }
+            })
+        }
+    });*/
+    // 将ajax改为promise形式 ===========================
+    let p = new Promise(function (resolve,reject) {
+        ajax({
+            type:'get',
+            url:'1.json',
+            success:resolve,
+            error:reject
+        })
+    });
+    p.then((data)=>{
+        let p1 = data[0].name;
+        console.log(p1);
+        return new Promise(function (resolve,reject) {
+            ajax({
+                type:'post',
+                url:'1.json',
+                data:{name:p1},
+                success:resolve,
+                error:reject
+            })
+        })
+    },()=>{}).then((data)=>{
+        let p2 = data[1].age;
+        console.log(p2);
+        ajax({
+            type:'post',
+            url:'1.json',
+            data:{age:p2},
+            success:function () {
+                console.log('成功结束');
+            }
+        })
+    },()=>{})
+
+</script>
+</html>

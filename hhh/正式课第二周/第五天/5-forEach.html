@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+//    /*
+//     用forEach 求数组中的每一项*2在求和；
+//     * */
+//    var ary =[1,2,3,45,6,7,];
+//    var total=0;
+//    ary.forEach(function (item,index) {
+//        total+=item*2;
+//        console.log(item);
+//    });
+//    console.log(total);
+//    console.log(ary);
+
+    /*
+     map
+     有返回值；返回值是由回调函数内的return确定的，没有return，默认返回undefined；
+     * */
+    var ary = [1,2,3,4,5,6];
+    var c=ary.map((item,index)=>{
+        console.log(item,index);
+        //箭头函数没有arguments
+    });
+    console.log(c);
+    var c=ary.map(function(item,index){
+        console.log(item,index);
+        console.log(arguments);
+        return 12;
+        //箭头函数没有arguments
+    });
+    console.log(c,ary);
+
+    var count =0;
+    var  arr2= ary.map((item)=>{
+        count++;
+        return item*2
+    })
+    console.log(arr2,ary);
+</script>
+</html>

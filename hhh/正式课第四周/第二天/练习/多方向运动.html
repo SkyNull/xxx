@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1{
+            width: 100px;
+            height: 100px;
+            background: purple;
+            position: relative;
+            left: 100px;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+<script src="../js/utils.js"></script>
+<script>
+    /*
+    * 实现多方向运动
+    * 思路：多方向运动
+    * */
+    var oDiv = document.getElementById('div1');
+    function linear(time,changL,duration,beginL) {
+        return changL/duration*time + beginL;
+    }
+    function moveAll(ele,duration,obj) {
+        var beginL = {};
+        var changeL = {};
+        for(var k in obj){
+            if (obj.hasOwnProperty(k)){
+                beginL[k] = utils.css(ele,k);
+                changeL[k] = obj[k] - beginL[k];
+            }
+        }
+        var times = 0;
+        var timer = window.setInterval(function () {
+            times += 20;
+            if (times > duration){
+                clearInterval(timer);
+                times = duration;
+            }
+            for(var k in obj){
+                if (obj.hasOwnProperty(k)){
+                    var curL = linear(times,changeL[k],duration,beginL[k]);
+                    utils.setCss(ele, k, curL);
+                }
+            }
+        },20)
+    }
+    moveAll(oDiv,3000,{'left':600,'top':800});
+
+</script>
+</html>

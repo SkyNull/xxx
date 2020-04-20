@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script>
+    //匿名函数：就是没有名字
+    sum();
+   //sum2();//在上面调用会报错
+    function sum() {
+        //函数体
+        //这种声明方式是 在上下文都可以调用
+        console.log('function')
+    }
+    //第一种匿名函数
+    var sum2 = function () {
+        console.log('var')
+    }
+    sum2();//正确
+    //第二种匿名函数
+    (function () {
+        console.log('这是一个自执行函数1');
+    })();
+    !function () {
+        console.log('这是一个自执行函数2');
+    }();
+    ~function () {
+        console.log('这是一个自执行函数3');
+    }();
+    //第三种匿名函数：DOM的事件绑定
+    div1.onclick=function () {
+
+    }
+</script>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    <router-link  to="/home" tag="button">首页</router-link>
+    <router-link  to="/list"  tag="button">列表页</router-link>
+    <router-view></router-view>
+</div>
+</body>
+<template id="list">
+    <div>
+        <h2>列表</h2>
+        <router-link to="/home/detail">去详情页</router-link>
+        <router-view></router-view>
+    </div>
+</template>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="./node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    const home = {
+        template:'<h2>首页</h2>'
+    };
+    const list = {
+        template:'#list'
+    };
+    const detail = {
+        template:'<h2>详情页</h2>'
+    };
+    const  routes = [
+        {
+            path:'/home',
+            component:home
+        },
+        {
+            path:'/list',
+            component:list,
+            children:[
+                {
+                    path:'/list/detail',
+                    component:detail
+                }
+            ]
+        },
+    ];
+    const router = new VueRouter({
+        routes,
+        /*vue-router中you两种模式：分别是hash和history  hash是由前端来控制的；而history是直接请求后台数据的*/
+        mode:'hash'
+    });
+    const vm = new Vue({
+        el: '#app',
+        data: {},
+        router,
+        methods: {}
+    })
+
+</script>
+</html>

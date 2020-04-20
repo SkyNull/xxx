@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /*
+    * 工厂模式 就是一个普通函数
+    * 批量生产 单例模式
+    * */
+    var obj = {
+        name:'abc',
+        set:function () {
+
+
+        },
+        get:function () {
+
+        }
+    };
+    var obj2 = {
+        name:'abc2',
+        set:function () {
+
+
+        },
+        get:function () {
+
+        }
+    };
+    var obj3 = {
+        name:'abc3',
+        set:function () {
+
+
+        },
+        get:function () {
+
+        }
+    };
+    //代码的冗余：
+    //工厂模式有助于实现代码的  高内聚、低耦合，降低代码的冗余度；
+    /*
+    * 单例模式的缺点： 就是每次都要手动的新创建一个对象，当我们需要创建很多个单例时，每次都要var一个新对象；比较麻烦，还会造成一定的代码冗余；这时，我们可以利用函数去创建我们需要的单例
+    * 我们把这种模式  称为 ‘工厂模式’.
+    * */
+    function factory(name) {
+        var obj = {
+            name:'abc',
+            set:function () {
+
+
+            },
+            get:function () {
+
+            }
+        };
+        return obj;
+    }
+    var obj1 = factory('xiaoming');
+    var obj2 = factory('xiaobai');
+
+</script>

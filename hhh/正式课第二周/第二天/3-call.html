@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+/*
+* call 改变this关键字用的
+*
+* f1.call(obj): 先把f1中到的this 指向改成 obj;再让 f1执行
+* */
+    "use strict"//写到某个JS文件中，只对当前这个JS文件起作用；写到某个函数里面，只对当前函数起作用；（严格模式）
+    function f1() {
+        console.log(this);
+    }
+    var obj = {
+        name: 'zf'
+    };
+    //f1.call(obj);//Object
+    //f1.call();//严格模式-->undefined   非严格模式--->window
+    //f1.call(null);//严格模式-->null   非严格模式--->window
+    //f1.call(undefined);//严格模式-->undefined   非严格模式--->window
+
+    f1();//严格模式-->undefined   非严格模式--->window
+    window.f1();//严格模式-->window   非严格模式--->window
+    f1.call(window);//严格模式-->window   非严格模式--->window
+
+    //严格模式下 属性名不能重复； 非严格模式 属性名可以重复
+    var obj = {
+        name:'zf',
+        name1:'zf',
+    }
+
+    //严格模式下 不存在arguments 映射
+    function f2(n,m) {
+        arguments[0] = 10;
+        console.log(n, m);
+    }
+    //f2(1,2); //1,2
+
+    function f2(n,m) {
+        console.log(this);
+        console.log(arguments);
+        console.log(n + m);
+    }
+    f2.call(obj,1,2,3);//obj,arguments(1,2,3),3 第一个参数 是改变this指向；后边的参数是传给f2的实参
+
+    /*
+    * 怎么去利用数组中的slice把类数组转化成 数组
+    * */
+    var oLis = document.getElementsByTagName('li');
+    function toArray(arg) {
+        return [].slice.call(arg);
+        return Array.prototype.slice.call(arg,0);
+    }
+    var arr = toArray(oLis);
+    console.log(arr);
+
+</script>

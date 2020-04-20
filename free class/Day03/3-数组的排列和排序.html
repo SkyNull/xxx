@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 1. reverse :反转（数组的反转）；
+    *             参数：无；
+    *             返回值：反转后的数组；
+    * */
+    var ary = [1,2,3,4];
+   /* var res =   ary.reverse();
+    console.log(res,ary);
+
+    res[0] = 6;
+    console.log(ary);*/
+/*    function  myReverse(ary) {
+        for(var i = 0;i<ary.length/2;i++){
+            var temp = ary[i];
+            ary[i] = ary[ary.length-1-i];
+            ary[ary.length-1-i] = temp;
+        }
+        return ary;
+    }
+    var res = myReverse(ary);
+    console.log(res, ary);*/
+    function  myReverse2(ary) {
+        var arr=[];
+        /*for(var i = 0;i<ary.length;i++){
+            arr.unshift(ary[i]);
+        }*/
+
+        for(var i = ary.length-1;i>=0;i--){
+            arr.push(ary[i]);
+        }
+       return arr;
+    }
+   /* var res = myReverse2(ary);
+    console.log(res, ary);*/
+    console.log(myReverse2(ary));
+
+    /*
+    * 数组的排序
+    * sort:  参数可以没有（没有参数时，它只是实现10以内的排序）；
+    *        有参数时，参数是一个回调函数；
+    *        返回值是排好序的 数组，跟原数组是一个地址；
+    * */
+  /*  var ary2=[1,2,4,2,1,5,3,7,5,9,6]
+    var res2 = ary2.sort();
+    console.log(res2, ary2);*/
+    //有回调函数时
+    var ary3 = [11,22,33,556,455,122];
+    ary3.sort(function (a,b) {
+        return a-b;//升序；当返回值是正数时，对应的两项要调换位置
+        /*return b-a;//降序*/
+
+    })
+    console.log(ary3);
+
+    var ary4 = ['a','s','d','f']; //localeCompare
+</script>
+</html>

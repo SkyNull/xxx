@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    {{this.$store.state.count}}
+    <button @click="addBtn">增加</button>
+</div>
+</body>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vuex/dist/vuex.js"></script>
+<script>
+    const state = {
+      count:0,
+    };
+    const mutations = {
+        add(state,obj){
+           state.count += obj;
+        }
+
+    };
+    const store = new Vuex.Store({
+        state,
+        mutations,
+    });
+    const vm = new Vue({
+        el: '#app',
+        store,
+        data: {},
+        methods: {
+            addBtn(){
+                //也可以直接在这输入 this.$store.state.count += 2; 这样的话不用Mutations也可以实现自增；
+                this.$store.commit('add',3);
+            }
+        }
+    })
+</script>
+</html>

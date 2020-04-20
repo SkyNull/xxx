@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    <model>
+        <template slot="default">
+            <div>template</div>
+        </template>
+        <template slot="qqq">
+            <div>template</div>
+        </template>
+        <div slot="default">用户自己的结构</div>
+        <!--用这个代替模板中的结构-->
+        <div slot="www"></div>
+    </model>
+</div>
+</body>
+<template id="model">
+    <div>
+        <h2>title</h2>
+        <div class="content">
+        </div>
+        <footer>
+            <!--slot是上面的内容,是写组件的人规定的  插槽-->
+            <!--这里确定上面结构的先后顺序-->
+            <slot name="default"></slot>
+            <slot name="qqq"></slot>
+            <slot name="www">
+                <div>默认的slot</div>
+            </slot>
+        </footer>
+    </div>
+</template>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let model = {
+      template:'#model'
+    };
+    let vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        components:{
+            model
+        }
+    })
+</script>
+</html>

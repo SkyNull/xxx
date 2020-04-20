@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    <div>
+        <!--若某个值是undefined，则在页面上展示的时候是一个空，不会出现undefined-->
+        {{obj}}
+        {{obj.school}};   什么都不显示
+       <!-- {{a}}&lt;!&ndash;报错： a is not define&ndash;&gt;-->
+        {{obj.a}}
+        {{obj.b}}
+    </div>
+    <div style="display: none">{{obj.t}}</div>
+</div>
+</body>
+<script src="node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        data:{
+            //VUE在初始化数据时，或把所有的数据都循环一遍；加上get\set;(数据劫持)
+            obj:{
+//                school:''
+            },//改变数据不起作用，是由于初始化没有给school加上get\set
+            a:undefined
+        }
+    });
+    vm.obj.school = '珠峰';
+    vm.obj.a = 12;
+    vm.obj.b = 12;
+    //第一种方案： 正常在data里面写上需要的变量或属性
+    //第二种方案： 把obj重新赋值；因为obj是有get和set的；
+
+    //第三种方案 使用vue提供的$set方法，第一个参数是要改变属性的所在对象，第二个参数是属性名，第三个参数是属性值
+    //vm.$set(vm.obj,'school','珠峰');
+
+    //第四种方案：使用其他无关变量重新渲染页面；
+    vm.t = Math.random();
+
+</script>
+</html>

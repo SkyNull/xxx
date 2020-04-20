@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>变量提升</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 变量提升
+    *    变量提升是不看条件是否成立，这个是针对var 来说的；
+    *    针对function来说，在条件语句中的function声明:标准浏览器是只声明，不定义的；在IE低版本 是既声明又定义的。
+    *    在JD代码执行之前，浏览器要先过一遍代码，把其中带var和 function  关键字内容进行提前的声明
+    *    带var的 只是声明(给默认值是undefined) 不定义
+    *    带 functin 是声明加定义
+    *
+    *    因为用function关键字声明的函数 ；在变量提升阶段已经赋好值了，所以我们可以在JS文件中的任意位置调用这个函数。
+    *    变量提升只会提升等号左边的部分；不会提升右边的部分。
+    *    自执行函数是不会进行变量提升的，还有匿名函数
+    *    var 一个变量 相当于给Window 添加一个属性
+    * */
+
+    /*    * 变量提升的特殊情况
+     *  1.等号右边的不会进行变量提升
+     *  2.在条件语句的变量提升
+     *     对于var来说，是没有影响的；也就是不管条件是否成立，都会进行变量提升
+     *     对于function来说，在标准浏览器中，只声明不定义；在IE低版本声明+定义
+     *  3.return 后边的内容是不会进行变量提升的；但是return下边的代码是可以进行变量提升的。
+     *  4.所有的自执行函数都不会进行变量提升
+     * */
+
+    //带var 和不带var的区别
+        //带var会进行变量提升，不带var的没有变量提升
+        //var a = 12;
+       // let a = 12; //不能重复声明（也就是说只能声明一次）；但是可以重复定义（赋值）
+                      //它是咩有变量提升的
+       //const a = 12; 声明常量用的； 不能重复声明，也不能重复定义（赋值）
+                       //它也没有变量提升
+    let c = 13;
+    c = 14;
+    //console.log(c);
+
+    /* var c;//声明
+    c = 14;//定义（赋值的过程）*/
+    //console.log(a,b);//undefined,undefined
+    var a = 12;
+    var b = 13;
+    //console.log(a,b);//12,13
+    function sum() {
+       // console.log(1);
+    }
+
+    var sum2 = function sum() {
+        //console.log(2);
+    }
+
+    //思考题
+    var a = {
+        x:1
+    };
+    var b = a;
+    b.c = a = {y:1};//点 的 优先级 高于 = 的优先级
+    console.log(a, b);
+
+    //优先级的网站 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Operators/Operator_Precedence
+</script>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #div1{
+            width: 100px;
+            height: 100px;
+            background: lightblue;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script src="utils.js"></script>
+<script>
+    var oDiv = document.getElementById('div1');
+    document.onkeydown = function (e) {
+        e = e || window.event;
+        console.log(e.keyCode);//记录的是键盘对应的键盘值
+        switch (e.keyCode){
+            case 37:
+                oDiv.style.left = utils.css(oDiv,'left')-10 + 'px';
+                break;
+            case 38:
+                oDiv.style.top = utils.css(oDiv,'top')-10 + 'px';
+                break;
+            case 39:
+                oDiv.style.left = utils.css(oDiv,'left')+10 + 'px';
+                break;
+            case 40:
+                oDiv.style.top = utils.css(oDiv,'top')+10 + 'px';
+                break;
+        }
+    }
+</script>
+</html>

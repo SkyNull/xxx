@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //申明一个A类-----》class 声明类用的 只能通过new执行
+   class A{
+       constructor(){
+           //constructor包含的是私有属性
+           this.a = 12;
+           this.b = 13;
+       }
+       //公有属性
+       getName(){
+           console.log(12);
+       }
+       getAge(){
+           console.log(13);
+       }
+       static getAge2(){
+           console.log('getAge2');
+       }
+   }
+   var a = new A();
+    a.getName();//12
+    //a.getAge2();//报错 //class的静态属性只有自己类可以调用的到
+    //，而new出来的实例是无法调用的
+    A.getAge2();//getAge2
+   class B extends  A{
+       constructor(){
+          super();//把父类的属性继承过来(私有属性)
+           this.c = 12;
+           this.d = 13;
+       }
+
+       //公有属性
+       getSex(){
+           console.log('sex');
+       }
+       //把B当做对象添加属性
+       static getName2(){ //class的静态属性只有自己类可以调用的到，而new出来的实例是无法调用的
+           console.log('getName2');
+       }
+   }
+   var b = new B();
+    console.log(b);
+   // console.log(b.getAge2());//报错  getAge2 is not a function
+   console.log(b.getName(),'sss');//undefined
+
+    //采用extends表明： B.___proto---->指向A的原型的
+    console.log(B.__proto__)
+    console.log(B.__proto__ === A);//true
+    console.log(B.__proto__ === A.prototype);//false
+    console.log(B.prototype);//A  A {constructor: ƒ, getSex: ƒ}
+    console.log(B.prototype == A);//false
+    console.log(B.prototype == A.prototype);//false
+    console.log(A.prototype);//{constructor: ƒ, getName: ƒ, getAge: ƒ}
+    
+
+      //之前咱们是这么写的
+    function  Person() {
+        this.a = 12;
+        this.b = 13;
+    }
+    var per = new Person();
+    Person.prototype.getName = function () {
+        console.log(12);
+    }
+
+</script>
+</html>

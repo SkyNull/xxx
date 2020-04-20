@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div2{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+<input type="text" id="inp">
+<div id="div2">这是一个提示框</div>
+</body>
+<script>
+    var inp = document.getElementById('inp');
+//    inp.onmousedown = function () {
+//        console.log('down');
+//    };
+//    inp.onmousepress = function () {
+//        console.log('press');
+//    };
+    /*两者区别*/
+//    onmousedown所有的键都可以监听到，而onmousedown监听不到系统键
+//    在输入框中输入内容会同时触发down、press;
+//    在document上绑定两个事件，也和输入框内输入内容是一样的
+    /*提示框*/
+//    inp.onfocus = function () {
+//        div2.style.display = 'block';
+//    }
+//    inp.onblur = function () {
+//        div2.style.display = 'none';
+//    }//两者同时出现
+
+   /* 三者触发的顺序*/
+//    inp.onkeydown = function () {
+//        //先于 input 触发，这时value 是输入之前的值
+//        console.log(this.value,'down');
+//    }
+//    inp.oninput = function () {
+//        //先于keyup触发，这时的value值是输入之后的值
+//        console.log(this.value,'input');
+//    this.value = this.value.replace(/\D/g,'');//出现键盘失效的效果
+//    }
+    inp.onkeyup = function () {
+       //最后触发
+        console.log(this.value,'up');
+      //若想限制输入内容则加上
+    if (/\D/.test(this.value)){
+        alert('只要数字');
+    }
+        this.value = this.value.replace(/\D/g,'');
+    };
+
+  //  [实例]：兼容IE的去实现键盘只能输入数字的效果(看老师代码整理出来)
+    /*
+    * 思路：用if/else去判断inp.oninput是否存在，若存在则走inp.oninput;若不存在，则走inp.onpropertychange
+    * 如果没有给绑定事件则输出null;所以要用严格模式(三个等于号去判断)
+    * */
+
+</script>
+</html>

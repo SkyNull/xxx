@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作用域</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //数组引用类型的思考题
+    var ary = [1.,2,3];
+    function sum(arr) {
+        arr[0] = 10;
+        console.log(arr);//10,2,3
+        arr=[2,2,3];//arr指向一个新的地址[2,2,3];
+        return arr;
+    }
+    console.log(sum(ary));//2,2,3
+    console.log(ary);//10,2,3
+
+    /*
+    * 堆内存：用来存储引用数据类型的值
+    * 栈内存：提供一个供JS代码执行的环境
+    *
+    *1.  作用域：  函数执行开辟栈内存（作用域）
+    *              分为 私有作用域 和全局作用域
+    * 私有作用域--->函数执行都会形成一个私有作用域
+    *              私有变量--> 在私有作用域下形成的变量（通过var声明；形参）
+    * 全局作用域--->页面一打开就会形成一个全局的作用域
+    *              全局变量--> 在全局作用域下形成的变量
+    * 2.作用域链
+    *   每一个私有作用域都会有它的上级作用域，它的上级作用域跟它在哪定义有关系
+    * */
+
+    //函数执行的一个过程
+//      函数执行，先开辟一个私有作用域；然后在进行变量提升（带var 和 function 提前声明、先形参赋值，再变量提升），然后代码自上而下 依次执行。
+//    当函数运行，查找一个变量时，先查看是否是自己的私有变量（形参 var,function）,若是没有查到，则去上级作用域查找；这里的上一级作用域是指的是函数在哪里定义的，在哪定义，它的上级作用域就是谁；若是这种查找一直查找到window，若window下没有这个变量，（若是赋值，则是在window下添加一个属性；若是直接使用则直接报错）；
+//    我们把这种从私有作用域向上级作用域查找的机制称为 作用域链。
+
+
+
+    console.log(a);
+    a=12;
+    function fn(){
+        console.log(a);
+        var a = 13;
+    }
+    fn();
+    console.log(a);
+
+    console.log(a);//undefined
+    var a=12;
+    function fn(a){
+        //注意a是一个形参
+        console.log(a);//12
+        a=13;
+    }
+    fn(a);
+    console.log(a);//12
+
+    console.log(a);
+    var a=12;
+    function fn(){
+        console.log(a);
+        var a=13;
+        return a = 13;
+    }
+    // a = fn();
+    console.log(fn());
+    console.log(a);
+
+    //思考题
+    var foo=1;
+    function bar() {
+        //不管条件是否成立，都会进行变量提升
+        if(!foo){
+            //foo是undefined;取反后是true;
+            var foo=10;
+        }
+        console.log(foo);//10
+    }
+    bar();
+
+    //思考题(well)
+    a();//f
+    var a = 10;
+    var a = 20;
+    console.log(a);//20
+    a();//error:  a is not function;
+    function a(){
+        console.log(a);
+    }
+    a();
+
+
+</script>

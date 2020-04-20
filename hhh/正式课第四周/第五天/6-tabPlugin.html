@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+            list-style: none;
+        }
+        #box{
+            width: 600px;
+            margin: auto;
+        }
+        .til{
+            width: 600px;
+            height: 50px;
+            display: flex;
+        }
+        .til li{
+            flex: 1;
+            text-align: center;
+            line-height: 50px;
+            border:1px dashed #ccc;
+            cursor: pointer;
+        }
+        .til li.current{
+            background: lightsalmon;
+        }
+        .content{
+            border: 1px solid lightsalmon;
+            width: 600px;
+            height: 400px;
+            line-height: 400px;
+            text-align: center;
+            font-size: 25px;
+            display: none;
+        }
+        .content.current{
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul class="til">
+        <li class="current">CSS</li>
+        <li>JS</li>
+        <li>VUE</li>
+    </ul>
+    <div class="contentBox">
+        <div class="content current">css</div>
+        <div class="content">js</div>
+        <div class="content">vue</div>
+    </div>
+
+</div>
+
+</body>
+<script src="js/jquery-3.3.1.js"></script>
+<script>
+/*    var $lis = $('#box .til>li');
+    var $contents = $('#box .content');
+    $lis.on('click',function () {
+        console.log(this);
+        var $this = $(this);
+        $this.addClass('current').siblings().removeClass('current');
+        var n = $this.index();
+        $contents.eq(n).show().siblings().hide();
+    });*/
+(function () {
+    function tabPlugin() {
+        //console.log(this);
+        options = options || {};
+        for(var )
+        var _defaultOption = {
+            eventType:'click'
+        }
+        var $box = this;
+        var $lis = $box.find('ul .til>li');
+         var $contents = $box.find('.content');
+         $lis.on('_defaultOption.eventType',function () {
+         console.log(this);
+         var $this = $(this);
+         $this.addClass('current').siblings().removeClass('current');
+         var n = $this.index();
+         $contents.eq(n).show().siblings().hide();
+         });
+    }
+    $.fn.extend({
+        tab:tabPlugin()
+    })
+})();
+    $('#box').tab({
+        eventType: 'mouseenter'
+    });
+    $('#box2').tab();
+    $('#box3').tab();
+
+</script>
+</html>

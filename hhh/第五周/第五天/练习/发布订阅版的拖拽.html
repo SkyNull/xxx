@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #div1{
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            position: absolute;
+            background: lightskyblue;
+            border-radius: 50%;
+            cursor: move;
+            user-select: none;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script src="js/event.js"></script>
+<script src="js/drag.js"></script>
+<script>
+    let oDiv = document.getElementById('div1');
+    on(oDiv,'mousedown',dragStart);
+    //考虑函数执行
+</script>
+</html>

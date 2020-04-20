@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    /*
+    *  数组的排序：
+    *  ary.sort();
+    *  localeCompare
+    * */
+    //思路1 ：冒泡排序
+      //两两比较，如果前边大于后边，我就让它俩交换位置；否则不动；
+    ary= [1,6,5,9];
+    function bubble(ary) {
+        for(var i = 0;i<ary.length-1;i++){
+            //轮数:ary.length-1
+            for(var j = 0;j<ary.length-1-i;j++){
+                //两两比较,每一轮比较的次数： ary.length-1-i;
+                var temp = ary[j];
+                if(ary[j]>ary[j+1]){
+                    ary[j] = ary[j+1];
+                    ary[j+1] = temp;
+                }
+            }
+        }
+        return ary;
+    }
+    console.log(bubble(ary));
+
+    //快速排序
+    /*  //函数的递归思想（自己调用自己）
+      function sum(n) {
+          if(n<=0){
+              return 0;
+          }
+          return n + sum(n-1);
+      }
+      var t = sum(10);
+    console.log(t);*/
+
+   /* //需求：0-100以内奇数之和；
+    function sum1(n) {
+        if(n<=0){
+            return 0;
+        }
+        if(n%2==1){
+            return n + sum(n-2);
+        }
+        return sum(n-1);
+    }
+    var t = sum1(100);
+    console.log(t);*/
+    //需求：0-100以内Bei3整除的数之和
+    function sum2(n) {
+        if(n<=0){
+            return 0;
+        }
+        if(n%3==0){
+            return n + sum2(n-3);
+        }
+        return sum2(n-1);
+    }
+    var t = sum2(100);
+    console.log(t);
+
+    //先去找数组中间一项，把这一项拿出来，用拿出来之后的数组中的每一项跟拿出的这一项进行比较，把这项大的放到一个数组，小的放在另一数组中；然后进行拼接起来。
+    function quickSort(ary) {
+        if(ary.length<=1){
+            return ary;
+        }
+       var n = Math.floor(ary.length/2);
+        var cur = ary.splice(n,1)[0];
+        var left = [];
+        var right = [];
+        for (var i = 0; i < ary.length; i++) {
+            if(ary[i]<cur){
+                left.push(ary[i]);
+            }else{
+                right.push(ary[i]);
+            }
+
+        }
+        return quickSort(left).concat(cur,quickSort(right));
+    }
+    var ary = [2,4,8,5,6,9,10];
+    console.log(quickSort(ary));
+
+
+</script>
+</body>
+</html>

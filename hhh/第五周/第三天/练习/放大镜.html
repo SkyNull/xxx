@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .litBox {
+            width: 200px;
+            height: 200px;
+            position: relative;
+            float: left;
+            cursor: move;
+            border: 2px dashed sandybrown;
+            margin-right: 50px;
+        }
+
+        .litBox .mask {
+            width: 150px;
+            height: 150px;
+            background: rgba(0, 0, 0, 0.5);
+            position: absolute;
+            top: 0;
+            left: 0;
+            display: none;
+        }
+
+        .bigBox {
+            width: 300px;
+            height: 300px;
+            overflow: hidden;
+            float: left;
+            position: relative;
+            border: 2px dashed sandybrown;
+            display: none;
+        }
+
+        .bigBox img {
+            width: 400px;
+            height: 400px;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+<div class="litBox">
+    <img src="girl.jpg" alt="">
+    <div class="mask"></div>
+</div>
+<div class="bigBox">
+    <img src="girl.jpg" alt="">
+</div>
+</body>
+<script>
+    let litBox = document.getElementsByClassName('litBox')[0],
+            mask = litBox.getElementsByClassName('mask')[0],
+            bigBox = document.getElementsByClassName('bigBox')[0],
+            bigImg = bigBox.getElementsByTagName('img')[0];
+    litBox.onmouseenter = function () {
+        bigBox.style.display = 'block';
+        mask.style.display = 'block';
+        this.maxL = this.clientWidth - mask.offsetWidth;
+         this.maxT = this.clientHeight - mask.offsetHeight;
+        this.n = mask.offsetWidth/bigBox.clientWidth;
+    };
+    litBox.onmousemove = function (e) {
+        e = e || window.event;
+        var tar = e.target || e.srcElement;
+        var l = e.pageX - this.offsetLeft - mask.clientWidth / 2,
+             t = e.pageY - this.offsetTop- mask.clientHeight / 2 ;
+        l = l > this.maxL ? this.maxL : (l < 0 ? 0 : l);
+        t = t > this.maxT ? this.maxT : (t < 0 ? 0 : t);
+        mask.style.left = l  + 'px';
+        mask.style.top = t + 'px';
+
+        bigImg.style.left = -l/this.n + 'px';
+        bigImg.style.top = -t/this.n + 'px';
+
+
+    };
+    litBox.onmouseleave = function () {
+        bigBox.style.display = 'none';
+        mask.style.display = 'none';
+    }
+
+</script>
+</html>

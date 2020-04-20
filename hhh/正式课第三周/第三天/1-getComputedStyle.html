@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        #div1{
+            width: 200px;
+            height: 200px;
+            margin: auto;
+            padding: 10px;
+           /*box-sizing是往内部添加padding*/
+         /*   box-sizing: border-box;*/
+        }
+    </style>
+</head>
+<body>
+<div id="div1" style="background: #24ccc8">珠峰培训</div>
+</body>
+<script>
+    //这种方式只能获取行内设置的样式
+    var oDiv = document.getElementById('div1');
+    console.log(oDiv.style);
+    //怎么获取oDiv的宽高
+    console.log(oDiv.clientWidth);
+    console.log(window.getComputedStyle(oDiv, null));
+    //通过 window.getComputedStyle(ele,null);  获取到的是个对象，里面包含了该元素当前所有的样式
+    //IE6-8 不支持getComputedStyle 这个方法；-->currentStyle-->ele.currentStyle(IE自己的方法)
+    // ele 是要获取样式的元素； 第二个参数这个元素对应的伪类，可以省略
+    // 对象中存储的是ele 当前所有的样式
+    //通过这个函数获取到的对象，是不能修改元素对应的样式
+    var styleObj = window.getComputedStyle(oDiv);
+    console.log(styleObj.height);
+    console.log(styleObj.width);
+    console.log(styleObj.padding);
+    /*
+    * 函数功能：实现获取某个元素对应的样式的样式值
+    * */
+    function  getCss(ele,attr) {
+        return window.getComputedStyle(ele)[attr];
+    }
+    console.log(getCss(oDiv, 'height'));//--->200px
+</script>
+</html>
+<!--通过JS来获取CSS中的样式，拥有两套(IE独有一套)-->
+<!--用来获取css样式值 window.getComputedStyle-->
+<script>
+//    var oDiv = document.getElementById('div1');
+//    function getCss(ele,attr) {
+//        var temp = null;
+//        try{
+//            temp = window.getComputedStyle(ele)[attr];
+//        }catch(e){
+//            temp = ele.currentStyle[attr];
+//        }
+//        return temp;
+//    }
+//    console.log(getCss(oDiv, 'width'));
+    /*
+    * typeof undefined ---> 结果是 'undefined'
+    * 'undefined' == undefined --> false
+    *
+    * navigator.userAgent 检测浏览器版本的
+    * */
+
+    /*
+    * 使用 浏览器版本判断 是否是IE浏览器？？？
+    * "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 10.0; WOW64; Trident/7.0; .NET4.0C; .NET4.0E; .NET CLR 2.0.50727; .NET CLR 3.0.30729; .NET CLR 3.5.30729; McAfee)"
+//    * */
+//    function getCss(ele,attr) {
+//        var res = null;
+//        var reg = /MSIE *[6-8]/;
+//        if(!reg.test(navigator.userAgent)){
+//            res = window.getComputedStyle(ele)[attr];
+//        }else {
+//            res = ele.currentStyle[attr];
+//        }
+//        return  res;
+//    }
+    /*
+    * 提高函数的适用率
+    * 把返回值是数字加单位的 直接处理层数字返回
+    * 不是数字加单位的 直接返回返回值
+    * */
+function getCss(ele, attr) {
+    var res = null;
+    try {
+        res = window.getComputedStyle(ele)[attr];
+    } catch (e) {
+        res = ele.currentStyle[attr];
+    }
+    /*   //判断res是否是数字加单位的类型；
+     var reg = /^[+-]?(\d|[1-9]\d+)(\.\d+)?(px|rem|em|pt)?$/;
+     if(reg.test(res)){
+     res = parseFloat(res);
+     }*/
+    //parseFloat(res)
+    if (!isNaN(parseFloat(res))) {//都是数字+单位 或者直接是纯数字
+        res = parseFloat(res);
+    }
+    return res;
+}
+
+
+console.log(getCss(oDiv, 'padding'));
+</script>

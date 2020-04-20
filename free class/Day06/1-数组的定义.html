@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //数组的定义
+    var sum = function () {
+        console.log(222);
+       // return;//结果还是undefined;因为return 返回后面没有值；
+    }
+    var ary = [sum,sum()];
+    //ary[1] 这个位置放的是 sum执行之后的返回结果;由于sum函数没有renturn返回结果，所以是undefined;
+   // console.log(ary[1]);//输出结果是 undefined;
+   // sum(); //sum执行 控制台输出222
+    ary[0](); //sum执行
+    //当数组没有对应的项时，咱们去获取的时候会返回一个undefined;(就算数组中会有empty一项)
+    //遍历数组(for 循环用的比较多)
+    ary.zhufeng = '1345';//通过对象添加属性的方法在数组中是不生效的
+    //for in 循环 可以输出1345,但是数组的长度是不会改变的
+    for(var k in ary){
+        console.log(ary[k]);
+    }
+    //for循环 得不到1345;
+    for (var i = 0; i < ary.length; i++) {
+        console.log(ary[i]);
+    }
+</script>
+</html>

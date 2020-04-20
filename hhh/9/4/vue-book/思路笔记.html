@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app"></div>
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    //思路：通过各种组件做一个项目
+    /*
+    * 1. vue init webpack 项目名称;   npm run dev 起服务  npm run build 打包命令
+    * 注意：清除默认样式 在AApp.vue中实现
+    * 2. 首先观察项目，共有四个切换页卡(首要考虑利用“路由”实现)=>在components下分别创建四个组件；每个组件下分别再创建一个index.vue组件来实现每个页卡的内容；
+    * 3.查看main.js中是否通过es6方式(import)导入router
+    * 4.在router文件夹下的index.js中将各个组件分别导入进去；然后创建映射表(映射表是一个数组，里面存放各个对象)；其次，注意在router中写上 mode:'hash';请求方式，将映射表注入到router中；  linkActiveClass:'current',给全局选中的元素增加一个类名；
+    * 5.我们发现切换页卡和标题是属于公共样式的，所以在src新建一个文件夹common,在common文件夹下创建tabs和title两个组件；
+    * 在tabs.vue中实现页卡样式；然后将tabs.vue导入到HelloWorld.vue中；切记导入后记得注册该组件
+    * 在title.vue中实现标题样式；因为标题随着页卡切换会不断变化内容，所以用到父传子的方法props:['变量名']；
+    * title.vue写完之后，将title.vue分别导入到四个页卡组件中；导入记得注册；
+    * 因为轮播图我们经常用，所以也写成一个组件；
+    *
+    * */
+    //=================================================================================
+    //子父组件之间的传递 我们拿 banner.vue   myswiper.vue 来解析
+    /*
+    * 首先，banner.vue是myswiper.vue的父组件; banner组件调用myswiper.vue组件并实现以下功能；
+    * */
+    /*1.在myswiper.vue组件中
+     <div class="swiper-container">
+     <div class="swiper-wrapper">
+     <div class="swiper-slide">slider1</div>
+     </div>
+     </div>
+     ...........待续
+     *
+     * 2.在banner.vue中导入myswiper组件，切记导入后注册该组件；
+     *   下一步：在created(){}中   this.$store.dispatch('getBannerData');  接口请求我们一般放在actions中； dispatch直接去找actions()中的方法getBannerData；这个方法是用来获取banner数据的；
+     *   下一步：在actions.js中声明该方法，并且用axios方法请求数据；将数据赋值给   this.arr ;通过commit('函数名',data.data)去触发mutations.js中的方法
+     *   下一步：在mutations.js中，修改banner数据，将传过来的data.data数据赋值给state.bannerData；那么，这个时候。我们需要在state.js中声明一下属性bannerData
+     *   下一步：在state.js中声明该属性
+     *   下一步：在banner.vue中动态绑定数据通过 <mySwiper :ary="arr"></mySwiper> 如何将父组件中的数据传给子组件；通过给子组件props:['ary']注意arr是通过computed:{arr(){} 依赖关系得来的；
+     *   下一步：在子组件myswiper.vue中，v-for="(slide, index) in ary"
+    * */
+
+
+</script>
+</html>

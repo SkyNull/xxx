@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    <h2>{{name}}</h2>
+    <!-- v-model 自动给子组件传递了一个value属性,还绑定了一个自定义事件input-->
+
+   <!-- <son :value="name" @input="原生事件"></son>-->
+    <son v-model="name"></son><!--自定义组件上支持v-model-->
+</div>
+</body>
+<template id="son">
+    <div>
+        <input type="text" :value="value" @input="$emit('input',$event.target.value)">
+    </div>
+</template>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let son = {
+      template:'#son',
+        data(){
+          return {}
+        },
+        props:['value']
+    };
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name:''
+        },
+        methods: {},
+        components:{
+            son
+        }
+    })
+</script>
+</html>

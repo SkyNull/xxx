@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        ul{
+            margin:0 auto;
+            padding: 0;
+            list-style: none;
+        }
+        ul{
+            width: 500px;
+            height: 600px;
+        }
+        ul li{
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+        }
+        #div1{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">开关灯</div>
+<ul class="box">
+    <li>1</li>
+    <li>2</li>
+    <li>3</li>
+    <li>4</li>
+    <li>5</li>
+    <li>6</li>
+    <li>7</li>
+    <li>8</li>
+</ul>
+</body>
+</html>
+<script>
+    var oDiv = document.getElementById('div1');
+    var oLis = document.getElementsByTagName('li');
+    function changeCol() {
+        for(var i = 0;i<oLis.length;i++){
+            switch (i%3){
+                case 0:
+                    oLis[i].style.backgroundColor='lightpink';
+                    break;
+                case 1:
+                    oLis[i].style.backgroundColor='lightblue';
+                    break;
+                default:
+                    oLis[i].style.backgroundColor='lightyellow';
+            }
+            //增加一个点击事件
+            oLis[i].myIndex = i;
+            oLis[i].onclick = function () {
+                alert(`我是第${this.myIndex+1}个li`);
+            }
+        }
+    }
+    changeCol();
+
+    function change(lis) {
+        for (var i = 0; i < lis.length; i++) {
+            lis[i].bgColor = lis[i].style.backgroundColor;
+            lis[i].onmouseover = function () {
+              //  this.bgColor = this.style.backgroundColor;
+                this.style.backgroundColor = '#ccc';
+            }
+            lis[i].onmouseout = function () {
+                this.style.backgroundColor = this.bgColor;
+            }
+        }
+    }
+    change(oLis);
+
+    oDiv.onclick = function () {
+        var obj = document.getElementsByTagName('body')[0].style.backgroundColor;
+        if(obj=='white'){
+            document.getElementsByTagName('body')[0].style.backgroundColor = 'black';
+            obj='black';
+        }else{
+        document.getElementsByTagName('body')[0].style.backgroundColor = 'white';
+        obj='white';
+        }
+    }
+
+</script>

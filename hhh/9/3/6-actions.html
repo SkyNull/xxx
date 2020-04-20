@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    <button @click="add">增加</button>
+    {{evenCount}}
+    <!--    {{count}}-->
+    {{ this.$store.state.count }}
+</div>
+</body>
+<script src="./node_modules/axios/dist/axios.js"></script>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/vuex/dist/vuex.js"></script>
+<script>
+    const store = new Vuex.Store({
+        state:{
+            count:0
+        },
+        getters:{
+            evenCount(state){
+                const n = state.count%2 == 0 ? state.count : '奇数';
+                return n;
+            }
+        },
+        mutations:{
+            addCount(state,obj){
+                state.count += obj;
+            }
+        },
+        actions:{
+            addCountFn(context,obj){
+                context.commit('addCount',obj);
+                //console.log(arguments);
+            }
+        }
+    });
+    let vm = new Vue({
+        el: '#app',
+        store,
+        data: {},
+        methods: {
+            add(){
+                const n = Math.round(Math.random()*10);//[0-10]
+               // this.$store.commit('addCount',n);
+                this.$store.dispatch('addCountFn',1,2,3);
+                //使用dispatch 去触发actions中对应的函数
+            }
+        },
+        computed:{
+            //  ...Vuex.mapState(['count']),
+            mycount(){
+                //当不想跟store里的数据重名时，可以用全称
+                return this.$store.state.count
+            },
+            ...Vuex.mapGetters(['evenCount'])
+        }
+    })
+</script>
+</html>

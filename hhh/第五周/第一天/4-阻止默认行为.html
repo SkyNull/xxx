@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+<a href="http://www.baidu.com" id="btn">百度一下</a>
+<!--<a href="javascript:;" id="btn">百度一下</a>-->
+<input type="text" id="inp">
+</body>
+<script>
+    /*
+    * 1.阻止默认行为
+    * */
+    var oA = document.getElementById('btn');
+    var inp = document.getElementById('inp');
+    /*
+    * 默认先执行click事件,然后再执行自己的默认行为
+    * 跳转或者刷新 都属于a标签的默认行为
+    * 阻止这种的默认行为
+    * 1.在结构上阻止 javascript:;   javascript:void(0);   javascript:null;  javascript:undefined;
+    * 2. JS中阻止默认行为 执行的时候 return false; 或者   e.preventDefault();
+    *    在IE浏览器中   e.returnValue = false; 用来阻止
+    *    e.preventDefault()? e.preventDefault(): e.returnValue = false;
+    * */
+    oA.onclick = function (e) {
+        e = e || window.event;
+        alert(12);
+        //return false;
+        e.preventDefault()? e.preventDefault(): e.returnValue = false;
+    }
+ /*   inp.onkeydown = function (e) {
+        e = e || window.event;
+        e.preventDefault()? e.preventDefault(): e.returnValue = false;
+        //console.log(this.value);
+        var n = e.keyCode;//通过此操作将字符拼接到输入框里
+        if((n>=48 && n<= 57) || (n>=96&&n<=105)){
+            this.value += e.key;
+        }
+        console.log(this.value);
+    }*/
+       inp.onkeydown = function (e) {
+     e = e || window.event;
+     var n = e.keyCode;
+     if((n>=48 && n<= 57) || (n>=96&&n<=105) || n==8){
+
+     }else{
+         e.preventDefault()? e.preventDefault(): e.returnValue = false;
+     }
+     console.log(this.value);
+     }
+
+
+</script>
+</html>

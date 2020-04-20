@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+
+</head>
+<body>
+<div id="app">
+    <!-- router-view是 vue-router 提供的一个组件-->
+  <!--  <a href="#/home">首页</a>
+    <a href="#/list">列表页</a>-->
+    <!-- 不加tag默认是A标签 加上里面自定义标签即可-->
+    <router-link to="/home" tag="button" qq="123">首页</router-link>
+    <router-link to="/list" tag="button">列表页</router-link>
+    <keep-alive>
+        <router-view></router-view>
+    </keep-alive>
+
+</div>
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="./node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    /*
+    * 单页面应用 spa --> single page web application
+    * vue-router
+    * */
+    /*
+    * let routes = []
+    * */
+    let home = {
+      template:'<h2>首页</h2>',
+    };
+    let list = {
+        template:'<h2>列表页</h2>'
+    };
+    let routes = [ //路由映射表
+        {
+            path:'/home', //对应的是路由
+            component:home //该路由对应的组件
+        },
+        {
+            path:'/list',
+            component:list
+        }
+    ];
+    let router = new VueRouter({
+        routes
+    });
+    let vm = new Vue({
+        el: '#app',
+        data: {},
+        router,
+        methods: {}
+    })
+</script>
+</html>

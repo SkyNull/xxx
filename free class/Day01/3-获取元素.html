@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="div1">珠峰培训1</div>
+<div class="div2">珠峰培训2</div>
+<div class="div2">珠峰培训02</div>
+<div class="div3">珠峰培训3</div>
+<div class="div4">
+    <span class="span1"></span>
+</div>
+<div class="span1"></div>
+<script>
+    //获取指定元素
+    //1.通过元素的ID去拿元素
+    //若一个页面上有一个或者多个对应的ID，则只获取第一个ID对应的元素
+    //若页面上没有对应的ID，则得到的是null
+    console.log(div1);//只有在标准浏览下支持
+    console.log(document.getElementById('div1'));//全浏览器都支持
+    //document 在这里是 上下文 的意思，就是我在哪个范围里边去找元素
+    //2.通过元素的类名（class名） 获取元素（获取的是一组元素集合）
+    //若页面上没有对应的类名，那么我们得到的就是一个空集合
+    //若页面上有一个或者多个对应的类名，那么我们得到的就是一个或者多个元素组成的集合
+    console.log(document.getElementsByClassName('div2')[0]);
+    console.log(document.getElementsByClassName('div2')[1]);
+    console.log(document.getElementsByClassName('div3')[0]);
+    //3.通过元素的标签名 获取（tagName）;获取元素跟类名获取的一样；都是一组元素集合
+    console.log(document.getElementsByTagName('div')[3]);
+
+    //方法三：
+    document.getElementsByClassName('div4')[0].getElementsByClassName('span1')[0]
+    document.getElementsByClassName('div4')[0].getElementsByTagName('span')[0]
+    //通过ID获取，若没有这个ID，则得到是null
+    //通过类名或者标签名获取，若没有对应的元素，则拿到的是一个空集合；
+    document.getElementsByClassName('div4');//null
+    document.getElementById('div4');//null
+</script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #div1{
+            position: relative;
+            width: 100px;
+            height: 100px;
+            background: lightblue;
+            border: 1px dashed #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1"></div>
+</body>
+<script src="utils.js"></script>
+<script>
+    /*固定步长的运功*/
+    var oDiv = document.getElementById('div1');
+
+    function move(ele,attr,tar) {
+        var  l = utils.css(ele,attr);
+        var timer = window.setInterval(function () {
+            if (l >= tar){
+                clearInterval(timer);
+                return;
+            }
+            l += 10;
+            ele.style[attr] = l + 'px';
+        },20)
+    }
+    move(oDiv,'left',400);
+
+</script>
+</html>

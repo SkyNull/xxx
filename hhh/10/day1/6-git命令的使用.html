@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app"></div>
+</body>
+<script>
+  //1. git init :初始化一个git仓库；是本地的仓库；
+  //2. git config --list 查看本地仓库的信息
+  //如果第一次使用git命令；
+  //通过gitHub进行注册：
+  // git config --global user.name "";配置全局的用户名
+  // git config --global user.email "";配置全局的邮箱
+  //3. clear ：清屏;
+
+    //git分为3个区： 工作区、暂存区、历史区（本地仓库）
+    //工作区：当前电脑的磁盘中；
+
+    // git status :查看当前仓库的状态；查看当前文件在哪个区；红色字体说明只存在工作区，若把文件提交到暂存区文字将变成绿色的；
+    //三个区工作：git只能从工作区提交到暂存区，再从暂存区提交到历史区；
+    // git add . : 把工作区中的代码提交到暂存区
+    //git rm --cached + 文件名：删除在暂存区中的文件；
+    // git checkout + 文件名 ：将暂存区代码覆盖到本地；
+
+    //git diff : 工作区和暂存区进行对比；
+    // git diff --cached : 暂存区和历史区进行对比；
+    // git diff master : 工作区和历史区的对比；
+
+    /*暂存区和历史区*/
+    // git commit -m'注释描述' ：注释一定要有；将暂存区代码提交到历史区（每提交一次就会给一个版本号）
+    // git log :查看当前仓库所有的版本号； 日志的信息；提交的时间；作者；注释；
+
+    /*工作区和历史区*/
+    //git reset --hard + 版本号 ：把当前的三区代码切换到对应的版本号那个版本；
+    //git commit -a -m"注释"  ： 工作区=>暂存区=>历史区；当文件提交过一次再去使用这个命令；(直接从工作区提交到历史区)
+    // git reflog 查看所有的版本号；这个版本号只有前七位；
+
+    // 分支
+//     git branch  + 分支名称
+//     git checkout + 分支名称
+//     git  branch  : 查看所有的分支
+//     git merge + 分支名称；合并分支到主干；
+
+
+</script>
+</html>

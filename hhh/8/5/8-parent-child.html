@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    <son money="800"></son>
+</div>
+</body>
+<template id="son">
+    <div>
+        {{money}}
+        <button>按钮</button>
+    </div>
+</template>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let son = {
+      template:'#son',
+        props:{
+          money:{
+              type:[String,Number], //规定传过来的数据类型
+            /*  default:function () {
+                return [100,200];
+              },*/
+              default:'', //若不传，会给一个默认值;若没有这个default设置，则拿到的值是个undefined；若默认值是一个数组或者对象则需要用函数包起来，把数组或对象作为返回值return出去；
+              required:true, //这个属性是必须传
+              validator(val){ //判断条件；判断是否满足需求的
+                  //val 就是通过父组件传进来的数据
+                  //这个函数是让开发者验证 使用组件的人传进来的数据是否符合这个组件的要求
+                  console.log(val);
+                  return val;//有这个验证的话，这个函数必须有返回值；返回值是一个布尔类型的；若布尔类型是true，那么证明自己的验证条件；否则报错；
+                  //自定义判断 验证传进来的值是否满足自己的需求
+              }
+          }
+        }
+    };
+    let vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        components:{
+            son
+        }
+    })
+</script>
+</html>

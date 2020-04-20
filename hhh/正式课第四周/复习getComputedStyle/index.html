@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin:0;
+            padding: 0;
+        }
+        #div1{
+            width: 200px;
+            height: 200px;
+            margin: auto;
+            padding: 10px;
+            /*box-sizing是往内部添加padding*/
+            /*   box-sizing: border-box;*/
+        }
+    </style>
+</head>
+<body>
+<div id="div1" style="background: #24ccc8">珠峰培训</div>
+</body>
+<script src="./js/utils.js"></script>
+<script>
+    var oDiv = document.getElementById('div1');
+/*    function  getCss(ele,attr) {
+        var str = navigator.userAgent;
+        var res = null;
+        if(/MSIE *[6-8]/.test(str)){
+            res = ele.currentStyle[attr];
+        }else{
+            res = getComputedStyle(ele)[attr];
+        }
+        return res;
+    }*/
+    //===================================================
+/*    function  getCss(ele,attr) {
+        var res = null;
+        try{
+            res = window.getComputedStyle(ele)[attr];
+        }catch(e){
+            res = ele.currentStyle[attr];
+        }
+      if(!isNaN(parseFloat(res))){
+          res = parseFloat(res);
+      }
+        return res;
+    }
+    console.log(getCss(oDiv, 'padding'));
+
+    function setCss(ele,attr,value) {
+        var reg = /width|height|margin|padding|bottom|top|left|rgiht|font-size/i;
+        if(reg.test(attr)){
+            value = parseFloat(value) + 'px';
+        }
+       ele.style[attr] = value;
+    }
+    setCss(oDiv,'backgroundColor','pink');
+
+    function setGroup(ele,obj) {
+        if(Object.prototype.toString.call(obj) !== "[object Object]"){return;}
+        for(var k in obj){
+            if (obj.hasOwnProperty(k)){
+                setCss(ele,k,obj[k]);
+            }
+        }
+    }
+    setGroup(oDiv, {width: 400, height: 500, color: 'red'});
+    /!*
+    * 综合方法
+    * *!/
+    function css(...arg) {
+        if(arg.length == 2){
+            if(typeof arg[1] == 'string'){
+                return getCss(arg[0],arg[1]);
+            }
+            setGroup(arg[0],arg[1]);
+        }else{
+            setCss(arg[0],arg[1],arg[2]);
+        }
+    }*/
+    console.log(utils.getcss(oDiv, 'width'));
+    utils.setCss(oDiv,'height',800);
+    utils.setGroup(oDiv,{'width':400,'color':'white','padding':10})
+
+
+</script>
+</html>

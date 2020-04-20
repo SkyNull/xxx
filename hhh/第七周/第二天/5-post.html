@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script>
+    /*
+    * 0 UNSENT 未初始化）还没有调用send()方法
+    * 1 OPENED （载入）已调用send()方法，正在发送请求
+    * 2 HEADER-RECEIVED （载入完成）send()方法执行完成，已经接收到全部响应内容
+    * 3 LOADING （交互）正在解析响应内容
+    * 4 DONE  （完成）响应内容解析完成，可以在客户端调用了
+    *
+    * 2xx 代表成功
+    * 301 永久重定向
+    * 302 临时重定向 服务器分担压力的一种措施
+    * 304 从缓存去获取数据
+    *
+    * 400 参数错误
+    * 404 路径错误
+    * 405 请求方式(跟后台要求的不一样)
+    *
+    * 5xx 都是后台的问题
+    * */
+    var xhr = new XMLHttpRequest();
+    xhr.open('post','./1.xml',true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState == 4 && /^2\d{2}|^304/.test(xhr.status)){
+
+        }
+    };
+    xhr.send('name=1&age=2');
+</script>
+</html>

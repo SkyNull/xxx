@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*循环数组的两个方法
+     forEach  必须以函数作为参数,没有返回值，不改变原有数组
+     map
+     */
+    let ary = [12,32,14,24,23];
+    var a = ary.forEach(function (item,index) {
+        console.log(item, index);
+        //item 是数组中的项，index是对应的索引
+        //index是对应的索引
+        //forEach 没有返回值
+        //不改变原有数组
+        //item = 0，
+        //ary[index] = 0;
+        console.log(arguments);
+    });
+    var arr = [];
+    var b = ary.forEach((item,index)=>{
+        arr.push(item*2)
+    })// b是ary.forEach执行后的返回值：undefined
+    console.log(a);//undefined
+    console.log(ary);
+    console.log(arr);
+
+
+</script>
+</html>

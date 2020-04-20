@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    function Fn(){
+        var a =1;
+        this.a = a
+    }
+    Fn.prototype.say = function(){
+        this.a = 2
+    };
+    Fn.prototype = new Fn;
+    var f1 = new Fn;
+
+    f1.__proto__.b = function (){
+        this.a = 3
+    };
+    console.log(f1.a);//1
+    console.log(f1.prototype);//undefined
+    console.log(f1.b);//f{this.a = 3}
+    console.log(f1.hasOwnProperty('b'));//false
+    console.log('b' in f1);//true
+    console.log(f1.constructor == Fn);//true
+    console.log(Fn.prototype);//Fn {a: 1, b: ƒ}
+    console.log('say' in f1);//true
+
+    //constructor的知识点（重新整理）===========================================================
+    function Person() {
+        this.name = 'zf';
+        this.age = 9;
+    };
+    Person.prototype.getName = function () {
+
+    };
+    var obj = {
+        name:'zfpx',
+        constructor: Person,
+        getName: function () {
+
+        },
+        getName2:function () {
+
+        }
+    };
+    var per1 = new Person;// 在修改 Person.prototype之前 new 的实例的__proto__ 都是指向 默认的 原型对象的
+    // 咱们把 Person 默认的原型对象 成为 A
+    // per1.__proto__ === A;
+    Person.prototype = obj;
+    var per2 = new Person; // 在修改 prototype指向之后； new 出来的实例的__proto__ 都是指向 新的 原型对象；
+    // per2.__proto__ === obj;
+    console.log(per1.constructor);// f  Person
+    // console.log(per2.constructor);// f  Object
+    console.log(per2.constructor);// f  Person
+
+    //============================================================================
+
+    function Foo() {
+        getName = function () {
+            console.log(1);
+        };
+        return this;
+    }
+    Foo.getName = function () {//当做对象
+        console.log(2);
+    };
+    Foo.prototype.getName = function () {
+        console.log(3);
+    };
+    var getName = function () {
+        console.log(4);
+    };
+    function getName() {
+        console.log(5);
+    }
+    Foo.getName();//2  ;函数是个对象，当做普通函数执行
+    getName();//4
+    Foo().getName();//1
+    getName();//1
+    var a = new Foo.getName();//2
+    //a是把Foo当做对象时，调取到他身上的getName;把这个getName当做构造函数执行，返回的实例赋给 a
+   var b= new Foo().getName();//3； new Foo() 返回的Foo的实例 3   b=undefined
+    //先执行 new Foo;返回Foo的一个实例，再通过实例.getName 去找getName这个属性，然后把它执行
+    var c = new new Foo().getName();//3
+    //先执行new Foo;返回Foo的一个实例，再通过实例.getName去找 getName这个属性；然后把它当做 构造函数执行
+    // new Foo()返回的 Foo的实例
+    //new Foo实例.getName()
+    console.log(getName());//undefined
+    console.log(a, b, c);//{} undefined {}
+    //===================================================================================
+//    function Person(name,age) {
+//        this.name = name;
+//        this.age = age;
+//    }
+//    Person.prototype.getName = function () {
+//        console.log(this.name)
+//    };
+//    Person.prototype.name = '珠峰培训';
+//    var per1 = new Person('小明',18);
+//    per1.__proto__.getName = function () {
+//        console.log(12);
+//    }
+//    per1.getName();//12
+//    var per2 = new Person('小红',20);
+//    per2.getName();//12
+//
+//    Person.prototype = {
+//        name:'珠峰',
+//        getName: function () {
+//            console.log('www.zhufengpeixun.com')
+//        }
+//    }
+//    var per3 = new Person();
+//    per3.getName();//www.zhufengpeixun.com
+//    //per2.getName2();//报错per2.getName2 is not a function
+//    per2.getName();//12
+//    per1.getName();//12
+//    console.log(per1.constructor == Person);//true
+//    console.log(per3.constructor == Object);//true
+//    console.log(per2.constructor == per3.constructor);//false
+//    console.log(per1.constructor == per2.constructor);//true
+    /*
+     *
+     * 当我们手动的把 自定义类 的原型指向更换之后，要注意constructor的指向问题；
+     * 内置类的默认原型指向 是不能修改的
+     * */
+    //diffcult===============================================================================
+    var name = '中国',age = 5000;
+    function Person() {
+        getName = function () {
+            console.log(this.name)
+        };
+        this.name = 'zfpx';
+        this.age = 9;
+
+    }
+    Person.name = '珠峰';//修改函数名不会生效的
+    Person.getName = function () {
+        console.log(this.name);
+    };
+    Person.prototype.getName = function () {
+        console.log(this.name);
+    };
+    var obj = {name:'培训',f:Person};
+    var per = new Person();
+    per.getName = function(){
+        console.log(12)
+    };
+    var per2 = new Person();
+    obj.f();
+    Person();
+    per.getName();//12
+    per2.getName();//zfpx
+    getName();//zfpx
+    Person.getName();//Person
+    //这个练习 体现了函数的三种角色
+    /*
+    * 1.作为普通函数---->156  157
+    * 2.构造函数----->151  155
+    * 3.普通对象----->143  144
+    * */
+</script>
+</html>

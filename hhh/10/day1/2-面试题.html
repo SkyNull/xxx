@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app"></div>
+</body>
+<script>
+   // 1.数组的去重；
+    let arr = [12,3,4,12,67,88,3];
+    //1.indexOf
+    //2.对象的属性名不能重复
+    //3.排序，根据相邻的两项是否相等
+    /*方法2*/
+/*    const removeAry = function (ary) {
+        const obj = {};
+        for (const k in ary){
+            obj[k] = ary[ary[k]];
+        }
+    }*/
+//直接操控原有数组的方法：
+    let obj = {};
+   for (let i = 0; i < arr.length; i++) {
+       let cur = arr[i];
+       if (obj[cur] === cur){
+           //如果这个条件成立，说明重复
+           //之前的容易造成数组塌陷
+           arr[i] = arr[arr.length-1];//让最后一项覆盖当前项
+           arr.length--;
+           i--;
+           continue;//终止本轮循环
+       }
+       obj[cur] = cur;
+   }
+   console.log(arr);
+
+   //课后练习题:如何去重? 通过JSON.parse JSON.stringify
+    let ary = [{a:1,b:2},{a:1,b:3},{a:2,b:1},{a:1,b:2}];
+
+    //========================类、原型的链式调用、异步同步问题
+/*  // 实现一个LazyMan，可以按照以下方式调用:
+    1) LazyMan(“Hank”)输出:
+    Hi! This is Hank!
+
+    2) LazyMan(“Hank”).sleep(10).eat(“dinner”)输出
+    Hi! This is Hank!
+    //等待10秒..
+    Wake up after 10
+    Eat dinner~
+
+    3) LazyMan(“Hank”).eat(“dinner”).eat(“supper”)输出
+    Hi This is Hank!
+    Eat dinner~
+    Eat supper~
+
+    4) LazyMan(“Hank”).sleepFirst(5).eat(“supper”)输出
+    //等待5秒
+    Wake up after 5
+    Hi This is Hank!
+    Eat supper
+*/
+/*    const LazyMan = function (val) {
+        console.log(` Hi! This is ${val}!`);
+        return this;
+    };
+    LazyMan.prototype.sleep = function () {
+        const  timer = setTimeout(()=>{
+            console.log(' Wake up after 10');
+        },1000)
+    };
+    LazyMan.prototype.eat =  (per)=> {
+        console.log(`   Eat ${per}~`);
+    };
+   LazyMan.prototype.sleepFirst =  (perFir)=> {
+       const timer1 = setTimeout(()=>{
+           console.log('Wake up after 5');
+       },500)
+   };
+   LazyMan('lily');
+   console.log(LazyMan.prototype);*/
+//   LazyMan('lily').sleep(10).eat('dinner');
+    function LazyMan(name) {
+        function Man() {
+            setTimeout(function () {
+                console.log(` Hi! This is ${name}!`);
+            },0);
+        }
+        Man.prototype.sleep = function (time) {
+
+         /*   const timer = setTimeout(function (time) {
+
+            },time*1000);*/
+         let curTime = new Date();
+            //while是同步的；可以阻塞当前的线程；
+            //JS是单线程；一个时间点只能做一件事情；
+            while (new Date()-curTime<time*1000){}
+            console.log(`Wake up after ${time}`);
+
+            return this;//this指向Man的实例；
+        };
+        Man.prototype.eat = function (food) {
+            setTimeout(function () {
+                console.log(`eat ${food}`);
+            },0);
+            return this;
+        };
+        Man.prototype.sleepFirst = function (t) {
+            //while循环进行共同线程的阻塞
+            let curTime = new Date();
+            while(new Date()-curTime<t*1000){}
+            console.log(` Wake up after ${t}`);
+            return this;
+        };
+        return new Man;
+    }
+    // LazyMan('lily');
+   //LazyMan('Hank').sleep(10).eat('dinner');
+    //LazyMan('Hank').eat('dinner').eat('supper')
+   LazyMan('Hank').sleepFirst(5).eat('supper')
+</script>
+</html>

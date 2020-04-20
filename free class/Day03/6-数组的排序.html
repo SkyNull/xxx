@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    *  数组的排序 sort
+    * 1. 冒泡排序
+    *
+    * */
+    var ary = [2,4,8,5,6,9];
+    //两项两项的比较，如果后一项比前一项大则不交换顺序，否则交换顺序；
+
+    function bubble(ary) {
+        for(var i = 0;i<ary.length-1;i++){
+            //轮数
+            for(var j = 0;j<ary.length-1-i;j++){
+                //两两比较
+                var temp = ary[j];
+                if(ary[j]>ary[j+1]){
+                    ary[j] = ary[j+1];
+                    ary[j+1] = temp;
+                }
+            }
+        }
+        return ary;
+    }
+    console.log(bubble(ary));
+
+    //快速排序
+
+    //递归 --》 在咱们这里就是让函数自己调用自己
+    function sum(n) {
+        if(n>0){
+            return n + sum(n-1);
+        }
+            return 0;
+    }
+    var t  = sum(2);
+    console.log(t);
+
+    function sum2(n) {
+        //0-n 中 只取能被2或3整除的数字进行相加
+        if(n<=0){
+            return 0;
+        }
+        if (n%2==0 || n%3==0){
+            return n +sum2(n-1);
+        }
+        return sum2(n-1);
+    }
+    var res = sum2(100);
+    console.log(res);
+
+    /*
+    * 用递归实现  快速排序
+    * */
+    //思路： 从数组的中间部分取出一个值，然后用 取出数值后的数组每一项跟取出的这个数进行比较，把比他大的放到另一个数组中，比他小的放到另一个数组中；
+    //然后再把新的这两个数组重复刚才的步骤，把结果拼成一个新的数组。
+
+    function speed(ary){
+        //边界问题
+        if(ary.length <=1){
+            return ary;
+        }
+        var n = parseInt(ary.length/2);//中间索引
+        var temp = ary.splice(n,1)[0];//中间项
+        var left=[],right=[];//必须声明在for循环外面
+        for(var i =0;i<ary.length;i++){
+           if(temp>=ary[i]){
+               left.push(ary[i]);
+           }else{
+               right.push(ary[i]);
+           }
+        }
+        return speed(left).concat(temp,speed(right));
+    }
+ var ary = [2,4,8,5,6,9,10];
+    console.log(speed(ary));
+</script>
+</html>

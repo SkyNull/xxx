@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style type="text/css">
+        #div1{
+            background-color: antiquewhite;
+        }
+    </style>
+    <!--外链式-->
+    <link rel="stylesheet" href="./01.css">
+</head>
+<body>
+<div id="div1" style="font-size: 30px" onclick="alert(1)"> 珠峰培训</div>
+</body>
+<script>
+    //注释键 CTRL+/: 一行的注释快捷键
+    //       CRTL+shift+/:一个块状的注释
+    //js的引入方式： 行内式 内嵌式 外链式
+      //行内式：直接把js代码写到元素标签的行内
+      //内嵌式：是在页面上写一个script标签 包起来
+      //外链式：在该文档的外部写一个JS文件，通过SCRIPT标签的 src属性引入即可。在这里我们需要注意的是 当script有src属性时，script标签内部包含的代码是没有任何作用的。
+
+    //css的引入方式：行内式 > 内嵌式  外链式
+</script>
+<script>
+    alert(123456789)
+</script>
+<script src="01.js">
+    //9999是 不执行的
+    alert(9999)
+</script>
+</html>

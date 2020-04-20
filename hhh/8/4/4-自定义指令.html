@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div id="app">
+        <button @click="fn">按钮</button>
+        <input type="text" v-focus1="flag">
+        <div v-color="col">珠峰培训</div>
+        <!--实现拖拽-->
+        <div v-drag="true">珠峰</div>
+     <!--   <div type="text" v-focus="flag">ddd</div>-->
+    </div>
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            flag:true,
+            col:'red'
+        },
+        directives:{
+            focus1(el,obj){
+                //console.log(arguments);
+                if (obj.value){
+                    setTimeout(()=>{
+
+                    },10);
+                    el.focus();
+                }
+            },
+            color(el,obj){
+                //改变字体颜色
+                console.log(this);//this是指向window的；
+                el.style.color = obj.value;
+            }
+        },
+        methods: {
+            fn(){
+                this.flag = !this.flag;
+
+            }
+        }
+    });
+    /*
+    * 自定义指令(directives)和过滤器(filters)中函数的this是指向window的；
+    * */
+</script>
+</html>

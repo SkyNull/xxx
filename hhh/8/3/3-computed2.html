@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+    </style>
+</head>
+<body>
+<div id="app">
+<!--    <input type="text" v-model="name">
+    <h3>{{name+'自己拼接'}}</h3>
+    <h3>{{msg}}</h3>
+    <h3>{{fn()}}</h3>
+    <h3>{{name | myFilter}}</h3>-->
+    <!--根据输入的内容决定显示的提示信息-->
+    <input type="text" v-model="name2">
+    <h3>{{msg2}}</h3>
+</div>
+</body>
+<script src="./node_modules/axios/dist/axios.js"></script>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name:'',
+            name2:'',
+            msg2:''
+        },
+        methods: {
+            fn(){
+                return this.name + 'fn()';
+            }
+        },
+        computed:{
+            msg:{
+                get(){
+                    return  this.name+'computed';
+                },
+                set(val){}
+            },
+    /*        msg2:{
+                //computed不支持异步；
+                get(){
+                    setTimeout(()=> {
+                        let n = this.name2.length;
+                        if (n <= 2) {
+                            return '名字不能少于两位';
+                        } else if (n >= 4) {
+                            return '名字不能超过三位';
+                        } else {
+                            return '正确';
+                        }
+                    },200);
+                },
+                set(val){
+                }
+            }*/
+        },
+        filters:{
+            myFilter(val){
+                return val+'过滤器';
+            }
+        },
+        watch:{
+            //只能监听data中存在的；这个可以支持异步
+            name2(cur,prev){
+                //两个形参，当前值和上一个值
+                console.log(arguments);
+            setTimeout(()=>{
+                if (cur.length >=4){
+                    this.msg2 = '名字过于长';
+                }
+            },2000)
+            }
+        }
+    })
+</script>
+</html>

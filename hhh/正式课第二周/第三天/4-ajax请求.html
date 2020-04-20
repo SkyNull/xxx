@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>111</title>
+</head>
+<body>
+<ul>
+    <div class="btn">排序</div>
+    <li>姓名：小明1</li>
+    <li>姓名：小红2</li>
+    <li>姓名：小李3</li>
+</ul>
+</body>
+</html>
+<script>
+
+    /*
+    * JSON
+    * 它是一种数据格式；引用数据类型里面只包含数组和对象
+    * 字符串出现时，需要用双引号（必须）包住；
+    * 字符串属性名都要用双引号（必须）包住
+    * 最后一项后边不能有逗号;用bejson来验证JSON是否书写正确
+    * */
+    var json = {
+        "name":"qqq",
+        "age":1,
+        "ary":[1,2,3,"www"]
+    };
+    var json2 = [{
+        "name":"zhufeng",
+    },{
+        "name":"zf"
+    },{
+        "name":"zfpx"
+    }];
+    //把json字符串转化成json数据
+    //JSON.parse 把json字符串转换成json数据
+    //JSON.stringify 把json数据转换成json字符串
+    var a = JSON.stringify(json);
+    var b = JSON.parse(a);
+    console.log(b,a);
+
+    /*
+    * ajax 是一门技术；用来实现局部数据请求
+    * */
+    var data = null;
+    var xhr = new XMLHttpRequest();
+    //创建一个ajax的实例
+    xhr.open('get','./huawei/data.json',false);
+    //第一个参数 是获取数据的请求类型 get post put delete
+    //第二个参数 是获取数据的路径(平时说的接口)
+    //第三个参数  是控制同步异步；true是异步，false是同步
+
+    //监听请求状态
+    xhr.onreadystatechange = function () {
+       // xhr.readyState 请求状态码
+        // 0 未发送请求
+        // 1发送请求
+        // 2 接收响应头
+        // 3接收响应体
+        // 4 请求成功
+        xhr.status;// 网络状态码
+        // 2 开头的一般代表成功
+        // 3 开头的代表重定向
+        // 4 开头的代表路径错误
+        // 5 开头的一般都是服务器错误
+        if(xhr.readyState == 4 && xhr.status == 200){
+            //xhr.responseText是一个JSON字符串
+            // 需要我们用JSON.parse()转换成JSON对象
+            //console.log(JSON.parse(xhr.responseText));
+            data = JSON.parse(xhr.responseText);
+        }
+    };
+    //请求发送出去
+    xhr.send();
+    console.log(data);
+    //接下来是把数据放到页面上展示
+    var oLis = document.getElementsByTagName('li');
+    for (let i = 0; i < oLis.length; i++) {
+        oLis[i].innerHTML = '姓名:'+ data.data[i].name;
+    }
+    var flag = 0;//0代表未排序的
+    var btn = document.getElementsByClassName('btn')[0];
+
+    btn.onclick = function () {
+        if(flag==0){
+            data.data.sort(function (a,b) {
+                return a.name.localeCompare(b.name,'zh');
+            });
+            flag = 1;
+        }else{
+            data.data.sort(function (a,b) {
+                return b.name.localeCompare(a.name,'zh');
+            });
+            flag = 0;
+        }
+          for (let i = 0; i < oLis.length; i++) {
+            oLis[i].innerHTML = '姓名:'+ data.data[i].name;
+        }
+    };
+    /*
+    * 再次点击按钮 让排序翻转过来；
+    * */
+
+
+    //笔记===================================================
+    /*
+    * 1.获取数据和实现数据绑定
+    * 真实项目当中，页面中大部分数据都不是写死的，而是动态绑定的
+    * A：从服务器端获取到数据（基于AJAX/JSONP等技术，通过服务器端提供的数据API接口地址，把数据请求回来）
+    * B：把获取的数据进行解析
+    * C：把数据绑定在HTML页面中（数据绑定）：ES6中的模板字符串
+    *
+    * */
+    let data = null;
+    let  xhr = new XMLHttpRequest(); //创建一个ajax实例
+    xhr.open('get','',false);//以某种方式打开一个请求的地址（一般地址都是服务器提供好的，会给我们一个API接口文档），最后一个参数是设置同步还是异步（FALSE:同步；TRUE;异步），真实项目中最常用的是异步===默认是同步
+
+    xhr.onreadystatechange = ()=>{
+      if(xhr.readyState===4 && xhr.status===200){
+          data = xhr.responseText;
+      }
+    };
+    xhr.send(null);
+    console.log(data);//获取到的结果是一个字符串：“JSON格式的字符串”,此时我们需要将字符串转换为对象
+    /*
+    * JSON格式：JSON不是一种数据类型，而是一种数据格式，只要把对象的属性名用双引号包起来，此时的对象就不再称之为普通对象，而是叫做JSON格式的对象
+    * 从服务器端获取的数据格式一般都是JSON格式(大部分都是JSON格式字符串)
+    * Window.JSON
+    *  1.parse  把json字符串转换成json数据
+    *  2.stringfy  把json数据转换成json字符串
+    *  let  obj = {"name":"xxx"};//obj是JSON的格式对象
+    *  let str = '{"name":"xxx"}';//JSONg格式的字符串
+    * */
+    data = JSON.parse(data);
+
+   //所谓数据绑定（DOM数据绑定）：依托获取的数据，把页面中需要展示的数据和结构都搞出来，然后把创建好的数据和结构放到页面的指定容器中
+    /*
+    * 1. 字符串拼接
+    *    ->传统字符串拼接
+    *    ->ES6模板字符串拼接(代码展示)
+    *    ->模板引擎：原理也是字符串拼接
+    * 2.动态创建DOM
+    *    ->creatElement
+    *    ->appendChild
+    *    弊端：操作起来太麻烦，而且性能消耗会更大（DOM回流）
+    * */
+    let  list = document.getElementById('list');
+    let str = ``;//这是反引号
+    for (let i = 0; i < data.length; i++) {
+        let {title,img,price} = data[i];
+        //看截图
+        //解决兼容问题：打开网页 babelJs.lo
+        
+    }
+
+</script>

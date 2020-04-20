@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    /*
+    * 继承：
+    * 子类继承父类的方法或属性;
+    * */
+
+    /*
+bbhhh
+    * */
+    function F1() {
+        this.name = 'zf';
+        this.age = 'px';
+    }
+    F1.prototype.getName = function () {
+        console.log(this.name);
+    };
+    function  F2() {
+        this.name = 'zg';
+        this.age = '5000';
+    }
+    F2.prototype.getAge = function () {
+        console.log(this.age);
+    };
+    F2.prototype = new F1();
+    var f2 = new F2;
+    f2.getName();// zg
+    f2.getAge();//报错
+
+
+</script>
+</html>

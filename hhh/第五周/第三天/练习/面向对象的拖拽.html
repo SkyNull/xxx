@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>多个球球的拖拽</title>
+    <style>
+        #div1,#div2{
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            background: lightsalmon;
+            border-radius: 50%;
+            position: absolute;
+            font-size: 14px;
+            font-family: Algerian;
+            user-select: none;
+            cursor: pointer;
+        }
+        #div2{
+            background: lightskyblue;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">I LOVE YOU</div>
+<div id="div2">Oh~~~~</div>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script>
+    /*使用JQ*/
+    var oDiv1 = document.getElementById('div1');
+    var oDiv2 = document.getElementById('div2');
+    //为了可以实现拖拽多个小球球，每次可以通过new，则考虑想到class类
+    class Drag{
+        //这里面的this是指实例，this.ele才是要操作元素
+        constructor(ele){
+
+            $(ele).on('mousedown',this.dragStart.bind(this));
+            this.ele = ele;
+            this.$start = $.Callbacks();
+            this.$move = $.Callbacks();
+            this.$end = $.Callbacks();//添加事件池
+        }
+        dragStart(e){
+            this.startX = $(this.ele).offset().left;
+            this.startY = $(this.ele).offset().top;
+
+            this.mx = e.pageX;
+            this.my = e.pageY;
+            $(document).on('mousemove',this.dragMove.bind(this));
+            $(document).on('mouseup',this.dragEnd.bind(this));
+            this.$start.fire();
+        }
+        dragMove(e){
+            var x = e.pageX - this.mx + this.startX,
+                y = e.pageY - this.my + this.startY;
+            $(this.ele).css({
+                left : x ,
+                top : y
+            })
+            this.$move.fire();
+        }
+        dragEnd (){
+            $(document).off('mousemove');
+            $(document).off('mouseup');
+            this.$end.fire();
+        }
+
+    }
+    var a = new Drag(oDiv1);
+    var b = new Drag(oDiv2);
+
+    //解决Index问题
+    var n = 1;
+    function addIndex() {
+        this.ele.style.zIndex = n++;
+    }
+    a.$start.add(addIndex.bind(a));
+    b.$start.add(addIndex.bind(b));
+
+</script>
+</html>

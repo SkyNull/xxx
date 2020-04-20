@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    /*    .current{
+            color: #cc080b;
+        }*/
+    .router-link-active{
+        color: #fa9752;
+    }
+        .current2{
+            color: #4cd864;
+        }
+
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--默认是router-link-active-->
+    <router-link to="/home" tag="button">首页</router-link>
+    <router-link to="/list" tag="button">列表页</router-link>
+    <router-view></router-view>
+</div>
+</body>
+
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="./node_modules/vue-router/dist/vue-router.js"></script>
+<script>
+    const home = {
+      template:'<h2>首页</h2>'
+    };
+    const list = {
+        template:'<h2>列表页</h2>'
+    };
+    const routes = [
+        {
+            path:'/home',
+            component:home
+        },
+        {
+            path:'/list',
+            component:list
+        }
+    ];
+    const  router = new VueRouter({
+       routes,
+        linkActiveClass:'current2',//加上这个会给全局的选中状态下的router-link修改类名；
+    });
+    let vm = new Vue({
+        el: '#app',
+        data: {},
+        router,
+        methods: {}
+    })
+</script>
+</html>

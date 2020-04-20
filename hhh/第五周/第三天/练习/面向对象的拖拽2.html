@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #div1,#div2,#div3{
+            width: 100px;
+            height: 100px;
+            line-height: 100px;
+            text-align: center;
+            background: lightskyblue;
+            border-radius: 50%;
+            position: absolute;
+            cursor: pointer;
+            user-select: none;
+        }
+        #div2{
+            background: lightsalmon;
+        }
+        #div3{
+            background: lawngreen;
+        }
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+<div id="div2">珠峰培训</div>
+<div id="div3">珠峰培训</div>
+</body>
+<script src="jquery-3.3.1.js"></script>
+<script>
+    //思路：首先，拖拽三部曲： 三个函数 dragStart、dragMove、dragEnd; 在dragStart中首先记录鼠标位置和盒子最初始的位置，在dragMove中计算鼠标前后移动的距离，来控制盒子的位置；给dragStart绑定mousedown事件(注意this的指向问题)，将dragMove、dragEnd分别绑定事件放在dragStart函数体中，然后在End函数体中将绑定的事件进行移除；   如果想实现多个球球拖拽，则通过new来实现，此时就要用到class类来实现，建立事件池，每一次函数后面都要fire一下 ；  还要解决zIndex问题，
+    var oDivs = document.getElementsByTagName('div');
+    class Drag{
+        constructor(ele){
+            $(ele).on('mousedown',this.dragStart.bind(this));
+            this.ele = ele;
+
+            this.$start = $.Callbacks();
+            this.$move = $.Callbacks();
+            this.$end = $.Callbacks();
+
+        }
+        dragStart(e){
+            this.startX = $(this.ele).offset().left;
+            this.startY = $(this.ele).offset().top;
+
+            this.mx = e.pageX;
+            this.my = e.pageY;
+            $(document).on('mousemove',this.dragMove.bind(this));
+            $(document).on('mouseup',this.dragEnd.bind(this));
+            this.$start.fire();
+
+    }
+        dragMove(e){
+            var x = e.pageX - this.mx + this.startX,
+                    y = e.pageY - this.my + this.startY;
+            $(this.ele).css({
+                left : x,
+                top: y
+            });
+            this.$move.fire();
+        }
+        dragEnd(){
+            $(document).off('mousemove');
+            $(document).off('mouseup');
+            this.$end.fire();
+        }
+    }
+        var n = 1;
+        function addIndex() {
+        this.ele.style.zIndex = n++;
+    }
+
+        [...oDivs].forEach((item,index)=>{
+            var d = new Drag(item);
+            d.$start.add(addIndex.bind(d));
+
+        });
+
+
+</script>
+</html>

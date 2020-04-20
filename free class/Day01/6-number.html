@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    //number:整数 小数 NaN（not a number)
+    //NaN出现的情况
+    //1、强制转化成数字数据类型失败的时候
+    //2、四则运算失败的时候
+
+    //强制转化成数字类型 Number parseInt parseFloat
+    //Number：把其他数据类型转化成数字类型
+    //Number(XXXX) xxx是字符串的时候 里面不能有非数字，只要有非数字，结果就是NaN
+
+    //强制转化
+
+    //特殊需要记住
+    Number('');//0
+    Number('    ');//0
+    Number();//0
+    Number([]);//0
+    Number('[]');//0
+    Number(true);//1
+    Number(false);//0
+    Number('{}');//NaN
+    Number(null);//0
+    Number(undefined);//NaN
+    Number('.5');//0.5
+    parseFloat('.5');//0.5
+    parseInt('.5');//NaN
+    parseInt(.5);//0
+    parseInt('');parseFloat('');//NaN
+    ({}).toString(); '[object object]'
+    [12].toString();
+    var a = 1>2? console.log(1):console.log(2);//结果是undefined;
+    var a = 1>2? 'ok':'false';//结果是false;
+
+    //2-parseInt() //过滤出整数
+     //从左到右查看，只要遇到非数字或者小数点就停止，把之前获取的整数返回;若第一个字符就是非数字，则返回NaN;---->针对字符串
+     parseInt(0.23);//0
+    parseInt(12.23);//12
+    parseInt('12q');//12
+    parseInt('q12');//NaN
+    parseInt('');//NaN
+    parseInt(.5);//0
+
+    //3-parseFloat() -》过滤出数字部分
+    //从左到右查看，只要遇到非数字就停止，把之前获取的整数返回;若第一个字符就是非数字，则返回NaN;---->针对字符串
+    parseFloat('.5');//0.5
+    parseFloat('12.5');//12.5
+    parseFloat('a12.5');//NaN
+    parseInt('.5')==parseFloat('a12.5')
+    NaN == NaN  //false
+
+    //如何判断一个数是否是NaN ? isNaN(num) num是NaN则返回true;否则返回false
+    //先把num用Number转换...
+
+
+
+
+    //四则运算失败 +（特殊） - * / %
+    //1.先把运算符两边的元素 用number转化一下 然后在进行计算(1加减乘除NaN都是NaN)
+    1-'a' // 1-NaN--->NaN
+    1*'a'// -->NaN
+
+    //  + 比较特殊，涉及到字符串拼接
+    //  + 两边只要有一边是字符串，那么它就是字符串拼接。
+    '1'+NaN //--->  '1NaN'
+</script>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    <grand></grand>
+</div>
+</body>
+<template id="grand">
+    <div>
+        <h4>这是个爷爷</h4>
+        <parent></parent>
+    </div>
+</template>
+<template id="parent">
+    <div>
+        <h3>这是个父亲</h3>
+        <son></son>
+    </div>
+</template>
+<template id="son">
+    <h2>这是个儿子</h2>
+</template>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let son = {
+      template:'#son'
+    };
+    let parent = {
+      template:'#parent',
+        components:{
+          son
+        }
+    };
+    let grand = {
+        template:'#grand',
+        data(){
+            return{}
+        },
+        components:{
+          parent
+        }
+    };
+    let vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        components:{
+            grand
+        }
+    })
+</script>
+</html>

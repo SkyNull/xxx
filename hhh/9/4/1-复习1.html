@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    <h2>{{myGetCount}}</h2>
+    {{this.$store.state.count}}
+    <h2>{{mycount}}</h2>
+    <h3>{{evenCount}}</h3>
+    <button @click="add">增加</button>
+</div>
+</body>
+<script src="../node_modules/axios/dist/axios.js"></script>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script src="../node_modules/vuex/dist/vuex.js"></script>
+<script>
+    const state = {
+        count:0
+    };
+    const getters = {
+        //过滤 类似于计算属性computed;可以认为是store 的计算属性；getter的返回值会根据它的依赖被缓存起来
+        evenCount(state,obj){
+            return state.count%2==0?state.count:'奇数';
+        }
+    };
+    const mutations = {
+        add(state,obj){
+            state.count += obj;
+        }
+
+    };
+    const actions = {
+        //里面是一些函数方法
+//        addFn(context,obj){
+//            context.commit('add',obj);//add对应Mutation中的函数方法
+//        },
+        //简写方式 用的是对象的的结构赋值
+        addFn({commit},obj){
+            commit('add',obj);//add对应Mutation中的函数方法
+        }
+    };
+    const store = new Vuex.Store({
+        state,//用来存放数据
+        getters,//一般用来过滤state中的数据
+        mutations,//是一些方法；用来修改state的数据   用this.$store.commit('函数名',2)
+        actions //可以写一些异步的操作，比如ajax请求
+    });
+    const vm = new Vue({
+        el: '#app',
+        store,
+        data: {},
+        methods: {
+            add(){
+                //方式1
+                //this.$store.state.count += 2;
+                //方式2
+               // this.$store.commit('add',3);
+                //方式3
+                this.$store.dispatch('addFn',Math.round(Math.random()*10));
+            }
+        },
+        computed:{
+            //第一种方法 依赖state
+            mycount(){
+                const n = this.$store.state.count;
+                return n%2==0?n:'奇数';
+                //return this.$store.state.count;
+            },
+            //第二种方法 依赖getters
+            myGetCount(){
+                return this.$store.getters.evenCount;
+            },
+          //第二种可以简便写
+                ...Vuex.mapGetters(['evenCount']),
+           /* //它又类似于
+            evenCount(){
+                return this.$store.getters.evenCount;
+            }*/
+        }
+    })
+</script>
+</html>

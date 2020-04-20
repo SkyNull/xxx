@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+<!--  1  <my-name></my-name>-->
+<!--  2 <my-name1></my-name1>-->
+        <my-name1></my-name1>
+</div>
+</body>
+<template id="myName1">
+    <div>
+        <h2>{{name}}</h2>
+        <input type="text" v-model="name">
+        <name2></name2>
+    </div>
+</template>
+<template id="myName2">
+    <div>
+        <h2>{{name}}</h2>
+        <input type="text" v-model="name">
+    </div>
+</template>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+/*   1 Vue.component('my-name',{
+       template:'<h2>全局组件的命名</h2>' ,
+        data(){
+           return{
+
+           }
+        }
+    });*/
+/*局部组件的声明*/
+ /* 2  let myName1 = {
+        template:'<h2>局部组件的声明1</h2>',
+        data(){
+            return{}
+        }
+    } ;*/
+ let myName2 = {
+   template:'#myName2',
+     data(){
+       return{
+           name:'被调用的组件'
+       }
+     }
+ };
+ let myName1 = {
+     template:'#myName1',
+     data(){
+         return{
+             name:'data中的return'
+         }
+     },
+     components:{
+         name2:myName2
+     }
+ };
+    let vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        components:{
+            myName1
+        }
+    })
+</script>
+</html>

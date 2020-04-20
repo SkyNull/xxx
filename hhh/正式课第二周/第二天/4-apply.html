@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+/*     f1.apply(obj,xxx)----> xxx 是个数组或者类数组
+      类数组：arguments 元素集合
+      虽然后边的参数是个数组或者类数组，但是传给前边的f1时，它也是分开一项一项传过去的。*/
+    function f1(n,m) {
+        console.log(this);
+        console.log(arguments);
+    }
+    var obj = {name:'zfpx'};
+    f1.apply(obj,[1,2,3,4,5]);
+    f1.call(obj,1,2,3,4,5);
+
+    function f2() {
+        console.log(this);//f3
+    }
+    function f3() {
+        console.log(3);
+    }
+    f2.call(f3);
+    //让f2中的this指向 f3；让f2执行
+
+    //怎么通过call的执行；让f2执行
+
+    //call执行时 里面的this指向 f2
+    //让this()--->也就是让f2执行
+    //以上说的this 都是call中的this
+    //把call中的this(f2) 指向f3;然后让call(f2)中的this(f2)执行
+
+    f2.call.call(f3);
+    //FN.call(f3) // FN中的this 换成f3;让FN执行
+    //FN f2.call --->把f2.call中的this换成了f3;让f2.call执行
+    //f2.call执行 就是让里面的this 执行  结果是3
+    //
+
+</script>

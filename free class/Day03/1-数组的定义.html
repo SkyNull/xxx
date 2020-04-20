@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    //var ary = [];定义数组
+    var sum = function (a,b) {
+        return a+b;
+    }
+    console.log(sum);//输出函数
+    console.log(sum());//输出函数的结果
+    //数组的每一项都有一个属性名（数组本身就是一个对象，它只是对象的一个细分）和它对应；这里的属性名称为做索引（依次递增的数字）。
+    //数组的每一项数据类型可以为 任意数据类型。
+    var ary = [1,true,'qqq',null,undefined,{q:1},[12],function () {},sum,sum()];
+  //  console.log(sum());//NaN
+   // console.log(ary[8]);
+/*
+    var ary2=[sum,sum()];//[sum,NaN]
+    var t = sum();
+    var sum3 = [sum,t,'t'];[sum,NaN,'t']*/
+    //数组里的变量，我们是把对应的变量值放到相应的位置
+
+    //对象中的查看 ：打点 {‘’}
+    //数组本身也因该有打点和{‘’}两种方式，但是对象中 数字的属性名，我们只是用[''][]的方式，苏搜易数组中的查看我们只能用[''][]
+   // console.log(ary['8'],ary[8]);
+
+    //for in 循环数组
+    for(var  k in ary){
+        //k  每一个属性名
+        console.log(ary[k]);
+    }
+    //for 循环数组
+    for(var i=0;i<ary.length;i++){
+        console.log(ary[i]);
+    }
+    var n =0;
+    while(n<ary.length){
+        console.log(ary[n]);
+        n++;
+    }
+
+    var ary4 =[1,2,3,'www']
+    ary4.aa='qq';
+    console.log(Object.prototype.toString.call(ary4));//查看数据类型（区分数组和对象）
+    console.log(ary4.length);
+
+    var ary5 = [];
+/*    ary5.aa='aa';
+    ary5.bb='bb';*/
+    ary5[3]='33';
+    console.log(Object.prototype.toString.call(ary5));
+    console.log(ary5.length);
+
+
+</script>
+</html>

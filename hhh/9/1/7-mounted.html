@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    <son ref="son"></son>
+</div>
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+    *  子父组件之间：子组件先渲染完毕,父组件最后才能渲染完毕;
+    * */
+    let son = {
+        template:'<div>子组件{{name}}</div>',
+        data(){
+            return{
+                name:''
+            }
+        },
+        mounted(){
+            //alert('son');
+        }
+    };
+    let vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        mounted(){
+            //alert('parent');
+            //console.log(this.$refs.son);//可以拿到son子组件
+            this.$refs.son.name = '珠峰';//修改子组件的name值
+            console.log(this.$refs.son.$el.innerHTML);//拿到son子组件的内容"子组件"因为DOM渲染是异步的，所以不会加上后来加上的值
+            this.$nextTick(()=>{
+                console.log(this.$refs.son.$el.innerHTML);//子组件珠峰
+            })
+        },
+        components:{
+            son
+        }
+    })
+</script>
+</html>

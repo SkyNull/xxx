@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="app">
+    <my-name></my-name>
+    <my-name></my-name>
+    <my-name></my-name>
+
+</div>
+</body>
+<template id="myName">
+    <div>
+        <button @click="fn">点击我
+        </button>    我被点击了{{n}}次
+    </div>
+</template>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    let obj = {n:0};
+    Vue.component('my-name',{
+       /*template:`<div><button @click="fn">点击我</button>我被点击了{{n}}次</div>`,*/
+        template:'#myName',
+        data(){
+        /*   return obj;*/ //一点击全部变
+        return {
+            n:0 //点击谁 谁变
+        }
+        },
+        methods:{
+            fn(){
+                console.log(this);//this是指向 这个组件本身的
+                this.n++;
+            }
+        }
+    });
+    let vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {}
+    })
+</script>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .lt{
+            float: left;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    name:<input type="text" v-model="name" placeholder="请输入姓名：">
+    age:<input type="text" v-model="age" placeholder="请输入年龄">
+    <button @click="add">添加</button>
+    <list1></list1>
+    <list2></list2>
+</div>
+</body>
+<template id="list1">
+    <ul class="lt">
+        <h2>成年</h2>
+        <li v-for="v in arr">name:{{v.name}}===age:{{v.age}};</li>
+    </ul>
+</template>
+<template id="list2">
+    <ul class="lt">
+        <h2>未成年</h2>
+        <!--{{$store.getters.list2Ary}}-->
+        {{list2Ary}}
+        <li v-for="v in arr">name:{{v.name}}===age:{{v.age}};</li>
+    </ul>
+</template>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/vuex/dist/vuex.js"></script>
+<script>
+    /*
+     * 两个列表组件 一个组件显示成年的 另一个组件未成年的
+     * 父组件中有2个input框是添加人物的
+     * */
+    /*
+     * 步骤：1.先创建两个组件
+     *      2.获取输入的内容组成的对象，然后添加到vuex中的数组中;使用vuex的mutations提交
+     * */
+    const list1 = {
+        template:`#list1`,
+        data(){
+            return{
+                /*    ary:this.$store.state.ary.filter((item)=>{
+                 return item.age >= 18;
+                 })*/
+            }
+        },
+        computed:{
+            arr(){
+                return this.$store.state.ary.filter((item)=>{
+                    return item.age >= 18;
+                })
+            }
+        }
+    };
+    const list2 = {
+        template:`#list2`,
+        data(){
+            return{
+                /* ary:this.$store.state.ary.filter((item)=>{
+                 return item.age < 18;
+                 })*/
+            }
+        },
+        computed:{
+            arr(){
+                //大前提 是这个arr必须用到视图上
+                return this.$store.state.ary.filter((item)=>{
+                    return item.age < 18;
+                })
+            },
+                ...Vuex.mapGetters(['list2Ary'])
+            //
+        }
+    };
+    const obj = {
+        state:{
+            qqq:0,
+            ary:[
+                {name:'Tom',age:30},
+                {name:'Jerry',age:18},
+                {name:'Rose',age:10}]
+        },
+        getters:{ //传进来的参数 就是咱们vuex中的state
+            //本身就是一个computed计算属性
+            list2Ary(state){
+                console.log(state);
+                return state.ary.filter((item)=>{
+                    return item.age <18;
+                })
+            }
+        },
+        mutations:{
+            changeAry(state,obj){
+                obj = obj || {};
+                state.ary.push(obj);
+            }
+        }
+    };
+    const store = new Vuex.Store(obj);
+    let vm = new Vue({
+        el: '#app',
+        data: {
+            name:'',
+            age:''
+        },
+        store,
+        methods: {
+            add(){
+                //用name 和age组成对象，然后添加到vuex中的ary里
+                let obj = {};
+                obj.name = this.name;
+                obj.age = this.age;
+                this.$store.commit('changeAry',obj);
+                this.name='';
+                this.age ='';
+            }
+        },
+        components:{
+            list1,
+            list2
+        }
+    });
+    /*
+     * 补充: 语法糖 mapState 用法
+     * */
+</script>
+</html>

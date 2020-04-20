@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #div1{
+            width: 100px;
+            height: 100px;
+            background: purple;
+            position: relative;
+            left: 100px;
+        }
+    </style>
+</head>
+<body>
+<div id="div1"></div>
+</body>
+<script src="../js/utils.js"></script>
+<script>
+    /*
+    * 实现单方向限时运动:必须有定位才可以运动
+    * 思路：首先获取元素；考虑move()需要哪几个参数：1.操作的元素 2.运动固定时长 3.属性 4.目标值
+    *       其次，获取该元素初始位置，需要计算该元素需要运动的总共距离changL,计算该元素运功速度，
+    *       还要获取该元素在运动过程中的当前位置，可以用一个函数来实现，然后return返回，直接调用
+    * */
+    var oDiv =document.getElementById('div1');
+    function linear(time,changL,duration,beginL) {
+        return changL/duration*time + beginL;
+    }
+    function move(ele,duration,attr,tarL) {
+        var beginL = utils.css(ele,attr);
+        var changL = tarL - beginL;
+        var times = 0;
+        var timer = window.setInterval(function () {
+            times += 20;
+            if(times>=duration){
+                clearInterval(timer);
+                times = duration;
+            }
+            var curL = linear(times,changL,duration,beginL);
+            utils.setCss(ele,attr,curL);
+        },20);
+
+    }
+    move(oDiv,3000,'left',600);
+
+
+
+</script>
+</html>

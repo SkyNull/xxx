@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+</html>
+<script>
+    /*
+    *  类      实例
+    * 人类     张三
+    * 狮子类   辛巴
+    * Function(函数类)  每一个函数都是它的一个实例
+    * Object（对象类）  每一个普通对象都是它的一个实例
+    * ....
+    * JS中的内置类
+    * */
+   /*
+   * JS 的类
+   * 类 ：Object  String  Number  Boolean      Function       Array     Date....
+   * 实例：{}    ‘aaa’   123    true    function sum(){}   [1,2,3]
+   * */
+   /*
+   * 函数包括 普通函数 和 类
+   * 对象包括 普通对象 和 函数（‘万物皆对象’）
+   * */
+
+   //Array  []
+    //每个类都是一个函数
+    //原型 prototype:每个函数都有一个原型属性prototype,指向它的一个原型对象
+    //prototype :
+    //每个实例都可以通过 __proto__ 找到它的所属类的原型对象
+
+    /*
+    * 构造函数模式： 创建一个构造函数；通过 new 去创建这个构造函数(自定义类)的一个实例
+    * 这个实例的__proto__属性指向 这个构造函数（自定义类）的原型对象
+    * 这个原型对象上有一个constructor属性 指向 构造函数本身
+    * 构造函数 就是一个普通函数
+    * */
+    function Person(name,age) {
+        this.name = name;
+        this.age = age;
+        this.set = function () {
+            console.log(12);
+        }
+    };
+    //Person('lily',15);
+    //console.log(name, age);
+    var tom = new Person('tom',18);//Person是tom的所属类；而tom是Person类的实例
+    //通过new 执行的函数，我们把这个函数称为一个自定义类，把new执行的返回的结果称为自定义类的一个实例
+    //构造函数执行
+    /*
+    * 1.开辟一个私有作用域
+    * 2.形参赋值 变量提升
+    * 3.在代码自上而下 执行之前，会首先开辟一个堆内存；然后把this指向这个开辟的堆内存
+    * 4.然后代码自上而下执行
+    * 5.若没有return 则默认的把刚才创建的堆内存地址返回来；若有，如果返回的是一个值类型，则依然返回这个创建的堆内存的地址；若手动return一个引用数据类型，则会把return 默认的改为手动的那个引用地址
+    *
+    * */
+    //var tom1 = Person('tom',18);//undefined; 原因：
+    //普通函数执行：
+    /*
+    * 1.开辟一个私有作用域
+    * 2.形参赋值 变量提升
+    * 3.代码自上而下 依次执行
+    * 4.若有return，则返回return后面的内容；若是没有return，则返回undefined
+    * */
+    console.log(tom.name,tom.age);//tom,18
+    console.log(tom.__proto__);//Person.prototype
+    console.log(tom.__proto__.constructor == Person);//true
+
+//==========================================================
+    function Person(name,age) {
+        this.name = name;
+        this.age = age;
+        this.set = function () {
+            console.log(12);
+        }
+    }
+    var lilu = new Person('lily',20);
+    /*
+    * 构造函数的函数名 一般首字母 要大写；
+    * new 一个 就是他的 实例，返回的是一个 对象
+    * 当这个函数通过new执行时，那么他就是一个构造函数（自定义类）；也就是把它当做一个类去执行
+    *
+    * 构造函数和咱们的高级单例模式相似
+    * */
+    /*
+    * new 执行函数跟普通函数执行的q区别
+    * new 执行会在函数内部自动创建一个对象（this）；函数执行完成之后，会把this 默认返回
+    * 如果手动修改 return 值； 若return的是一个值类型，那么默认return的还是this；若return 的是个引用数据类型；那么返回的就是这个引用数据类型
+    *
+    * */
+</script>

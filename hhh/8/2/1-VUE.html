@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+    </style>
+</head>
+<body>
+<!--<div id="div1">珠峰培训</div>-->
+<div id="app">
+    <!--
+       两个大括号 小胡子语法(胡子不能分开)
+       能写变量，也能写表达式；不能写JS语句
+    -->
+<!--    {{name}}
+    &lt;!&ndash;{{3>2?name="小胡子":null}}&ndash;&gt;
+    <h1 v-text="name"></h1>&lt;!&ndash;//将内容放在页面上&ndash;&gt;
+    &lt;!&ndash; v-text === {{}}&ndash;&gt;-->
+
+    <!--视图驱动数据,我们用表单元素 input textarea-->
+    <input type="text" v-model="name">
+ <!--    <h1>{{name}}</h1>
+     <h2>{{age}}</h2>-->
+
+    <textarea name="" id="" cols="30" rows="10" v-model="age"></textarea>
+    <h1>{{name+'的年龄是：'}}{{age}}</h1>
+    <h2>{{name+'的年龄是：'+age}}</h2>
+    <h3 v-text="name"></h3>
+
+</div>
+</body>
+<script src="./node_modules/vue/dist/vue.js"></script>
+<script>
+    /*
+    * VUE 渐进式框架
+    * 库 JQ zepto animate.css---> 我们直接可以调用库
+    * 框架 vue  react  bootstrap  angular 有自己的一套独立解决方案
+    * 每一个框架都有自己的一个核心库；  框架调用 我们写的代码；
+    *
+    * 渐进增强 优雅降级;
+    *
+    * 渐进式框架
+    * 本身有自己的一套核心代码；
+    * VUE全家桶 VUE  vue-router  axios vueX(状态管理器)
+    * Object.defineProperty
+    *
+    * MVC 数据单向绑定
+    * 全称 model view controller
+    *
+    * MVVM 数据双向绑定(根据数据改变视图，通过视图也可以改变数据)
+    * 全称 model view view-model(视图层)
+    *
+    * */
+    //console.log(Vue);
+    //el 是指的对哪个元素实行VUE；这个元素不能是html或者body；
+    //指令 行内的VUE自定义的属性  vue的指令都是 v- 开头的;
+    let a = 2018;
+    let vm = new Vue({
+        el: '#app', //css选择器
+        data:{
+            name:`珠峰培训${a}`,//最终会把数据放在vm上；vm会代理data中的数据；
+            age:12
+        }
+
+
+    });
+</script>
+
+</html>

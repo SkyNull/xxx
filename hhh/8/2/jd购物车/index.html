@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        [v-cloak]{
+            display: none;
+        }
+    </style>
+    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.css">
+</head>
+<body>
+    <div id="app"  v-cloak>
+        <table class="table table-bordered text-center">
+            <thead>
+                <tr>
+                    <th><input type="checkbox">全选</th>
+                    <th>商品</th>
+                    <th></th>
+                    <th></th>
+                    <th>单价</th>
+                    <th>数量</th>
+                    <th>小计</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr  v-for="item in list">
+                    <td><input type="checkbox"></td>
+                    <!-- v-bind:src='' -->
+                    <td><img :src="item.pic" alt=""></td>
+                    <td>{{item.title}}</td>
+                    <td>{{item.desc}}</td>
+                 <!--   <td>{{(item.price/100).toFixed(2)}}</td>-->
+                    <td>{{item.price | toFixed()}}</td>
+                    <td><input type="text" v-model="item.count"  min="1" @input="change(item)" ></td>
+                    <td>{{item.price*item.count | | toFixed()}}</td>
+                    <td><button class="btn btn-dark" @click="remove(item)">删除</button></td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</body>
+<script src="../node_modules/axios/dist/axios.js"></script>
+<script src="../node_modules/vue/dist/vue.js"></script>
+<script>
+    let vm = new Vue({
+        el:'#app',
+        created(){
+            //生命周期 一进来就执行的东西
+            this.getData();
+        },
+        data:{
+            list:[]
+        },
+        methods:{
+            getData(){
+                axios.post('./data.json').then((data)=>{
+                    console.log(data);
+                    this.list = data.data;
+                }).catch((res)=>{
+                    console.log(res);
+                })
+            },
+            change(item){
+                let n = item.count;
+                n = n.replace(/\D/g,'');
+                n = n<0?1:n;
+                item.count = n;
+            },
+            remove(item2){
+                this.list = this.list.filter((item,index)=>{
+                    return item2 != item;
+                })
+            }
+        },
+        filters:{
+            toFixed(val,n=2){
+                return '￥' + (val/100).toFixed(n);
+            }
+        }
+    })
+
+</script>
+</html>

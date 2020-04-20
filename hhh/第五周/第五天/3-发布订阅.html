@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>每一分每一秒都是你追赶的黄金时间</title>
+    <style>
+    </style>
+</head>
+<body>
+<div id="div1">珠峰培训</div>
+</body>
+<script>
+    /*
+    * 订阅  发布   取消订阅
+    * */
+    var ary = [];
+    /*
+    报社订阅人的名单
+    */
+    function on(f) {
+       ary.push(f);
+    }
+    //发布
+    function fire() {
+        ary.forEach((item,index)=>{
+            item && item();
+        })
+    }
+    //取消订阅
+    function off(f) {
+        var n = ary.indexOf(f);
+        if (n != -1){
+            ary.splice(n,1);
+        }
+    }
+    function f1() {
+        console.log(1);
+    }
+    function f2() {
+        console.log(2);
+    }
+    on(f1);
+    on(f2);
+    fire();
+    off(f2);
+    fire();
+</script>
+</html>
